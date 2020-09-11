@@ -1,0 +1,47 @@
+% TODO Customise this part
+\title{Your title}
+\subtitle{Your subtitle} % This is optional
+\newcommand\NewAuthor{Your name}
+% You don't have to distribute your derivative work under this license.
+% Change it if you want.
+\setlicense{This work is licensed under \href{https://creativecommons.org/licenses/by/4.0}{CC BY 4.0}. \ccby}
+\dedication{To truth, reason, purity and perfection.}
+%%%%%
+
+\hypersetup{pdfauthor=\NewAuthor}
+\author{\normalsize
+{\Large \NewAuthor} \\[3em]
+{\normalfont Adapted from\\ \textit{Leaving the cave: an introduction to mathematical thinking},\\ written by} \\[0.8em]
+{\large Samuel González-Castillo}}
+\date{\today}
+
+\usepackage{ccicons}
+
+\setcopyright{Adapted from \textit{Leaving the cave: an introduction to mathematical thinking}.\\
+Copyright \copyright \ 2019--\the\year, Samuel González-Castillo.\\
+Licensed under \href{https://creativecommons.org/licenses/by/4.0}{CC BY 4.0}. \ccby \par
+
+Copyright \copyright \ \the\year, \NewAuthor.
+}
+
+\bibliographystyle{siam}
+
+\begin{document}
+
+\maketitle
+
+\unchapter{Preface}
+% TODO Write your own preface.
+
+\mainmatter
+
+\load{ch0}
+\load{ch1}
+\load{app}
+
+
+\nocite{*}
+\bibliography{ltc}
+
+
+\end{document}

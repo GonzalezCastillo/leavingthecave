@@ -1,0 +1,219 @@
+%begin-include
+
+\section{Propositions}
+
+\begin{para}[Propositions]
+The central concept in propositional logic is (you guessed it!) that of a proposition.
+A \emph{proposition} is a statement that can be either true or false.
+If a proposition is true, we say that its \emph{truth value} is $1$; if it is false, we say that its truth value is $0$.
+
+Propositions can be modified and joined through the use of \emph{connectives}.
+A connective is said to be $n$-ary if it takes $n$ propositions as input to return a new one.
+The most basic example of a connective is the unary (1-ary) \emph{negation} connective. As its name suggests, it takes a proposition $P$ and transforms it into a proposition $(\lnot P)$ that is true if and only if $P$ is false.
+For instance, let us consider the proposition ``I am human''. Since that proposition is true, the proposition $(\lnot(\tx{I am human}))$, which stands for ``I am not human'', is false. 
+
+Let $*$ be an arbitrary binary connective that, when acting on two propositions $P$ and $Q$, yields a proposition $P* Q$. If $P * Q$ has the same truth value as $Q * P$ for any propositions $P$ and $Q$, we say that $*$ is \emph{symmetric}.
+Moreover, if, for any propositions $P$, $Q$ and $R$, the truth value of $P * (Q * R)$ is the same as that of $(P* Q) * R$, we say that $*$ is \emph{associative}.
+\end{para}
+
+\begin{para}[Propositional variables and forms]
+Our attention should not be focused on particular propositions, but on the way connectives act on them in an abstract way.
+For that purpose, we shall use \emph{propositional variables}, which are nothing more than symbols representing arbitrary propositions.
+Keep in mind, however, that propositional variables are not propositions by themselves: they only ``become'' propositions when they have been assigned a particular proposition, this is, a particular truth value.
+A statement involving only propositional variables and connectives (such as $(\lnot p)$) is said to be a \emph{propositional form}.
+Notice that propositional variables may well be used to represent arbitrary propositional forms.
+
+It should be clear that there is no point in talking about the truth value of a propositional form in an absolute manner: we can only talk about it under a particular assignment of truth values to its propositional variables.
+Nevertheless, there are two special cases that deserve some attention.
+If a propositional form is true for any possible assignment of truth values to its variables, it is said to be a \emph{tautology}; if it is false for every possible assignment, it is said to be a \emph{contradiction}.
+
+In order to better distinguish propositions from propositional variables, we will consistently use lower-case letters to represent propositional variables and upper-case letters for propositions.
+\end{para}
+
+\begin{para}[Conjunction and disjunction]
+Moving on to more sophisticated connectives, the \emph{conjunction} connective ``and'' is a binary (2-ary) connective: if we consider the propositions ``I am human'' and ``I like cheese'', we can construct the proposition ``I am human \und{and} I like cheese''.
+As was to be expected, if $p$ and $q$ are propositional variables, the propositional form ``$p$ and $q$'' (written $(p\land q)$) is true if and only if $p$ and $q$ are both true. This can be represented using what is known as a \emph{truth table}.
+\begin{center}
+\begin{tabular}[]{|c|c||c|}
+\hline $p$ & $q$ & $p\land q$ \\
+\hline\hline 0 & 0 & 0 \\
+\hline 0 & 1 & 0 \\
+\hline 1 & 0 & 0 \\
+\hline 1 & 1 & 1 \\
+\hline
+\end{tabular}
+\end{center}
+As you can see, a truth table is just a convenient way of writing down the truth value of a propositional form for each and every possible assignment of truth values to the propositional variables it consists of.
+
+With the two connectives that we already have, we can now formulate our first contradiction! The propositional form $(p\land (\lnot p))$ is false for any possible truth value of $p$.
+
+Another example of a binary connective is the \emph{disjunction} connective ``or'', which, when applied on two propositional variables $p$ and $q$, transforms them into a propositional form $(p\lor q)$ that is true if and only if at least one of $p$ and $q$ is true. Its corresponding truth table is the following.
+\begin{center}
+\begin{tabular}[]{|c|c||c|}
+\hline $p$ & $q$ & $p\lor q$ \\
+\hline\hline 0 & 0 & 0 \\
+\hline 0 & 1 & 1 \\
+\hline 1 & 0 & 1 \\
+\hline 1 & 1 & 1 \\
+\hline
+\end{tabular}
+\end{center}
+Using the disjunction connective, we can now write down our first tautology: $(p\lor \lnot p)$. To be or not to be? That's the tautology!
+\end{para}
+
+\begin{para}
+
+\label{hierarchy}
+When combining a group of propositions or propositional forms with connectives, it is important to use parentheses to define the order in which the connectives have to be applied.
+For instance, given three propositional variables $p_1$, $p_2$ and $p_3$, we can construct the propositional form $(p_1 \land (p_2 \lor p_3))$. Notice how failing to use parentheses would lead to an ambiguous expression, for $p_1 \land (p_2\lor p_3)$ is not the same as $(p_1 \land p_2) \lor p_3$.
+
+There are, nevertheless, a few exceptions where parentheses are unnecessary.
+The first of them is result of convention (such as the order of operations that we all learn in elementary school):  whenever a unitary connective is acting on a propositional variable, there is no need to write a parentheses.
+In this way, $\lnot p \land q$ is the same as $(\lnot p)\land q$ and should not be mistaken with $\lnot(p\land q)$.
+The second exception is more natural: whenever we have a sequence of propositional variables joined by an associative binary connective, parentheses are not necessary within that sequence because, regardless of how we wrote them, the resulting proposition would always yield the same truth values.
+Thus, for example, we can safely write $p_1\land p_2 \land p_3$ instead of $p_1\land (p_2 \land p_3)$ or $(p_1\land p_2) \land p_3$.
+Lastly, there is an obvious exception: the parentheses that surround a full symbolic expression are completely dispensable in propositional logic, so $(p\land q)$ can perfectly be written as $p\land q$.
+
+As a rule of thumb --- not just for propositions, but for everything in mathematics --- you can omit parentheses whenever doing so leads to no ambiguity, whenever the parentheses add no meaning or whenever a convention removes any possible ambiguity. 
+
+\end{para}
+
+\begin{para}[Conditional connective]
+Let us now introduce one of the most important binary connectives --- and, unfortunately, one of the most problematic for newcomers, --- the conditional connective.
+This connective takes two propositions (a \emph{condition} $P$ and a \emph{consequence} $Q$) and produces a new proposition $P\limplies Q$, which is read ``if $P$, then $Q$''.
+The truth table associated to the propositional form $p\limplies q$  is the following:
+\begin{center}
+\begin{tabular}[]{|c|c||c|}
+\hline $p$ & $q$ & $p\limplies q$ \\
+\hline\hline 0 & 0 & 1 \\
+\hline 0 & 1 & 1 \\
+\hline 1 & 0 & 0 \\
+\hline 1 & 1 & 1 \\
+\hline
+\end{tabular}
+\end{center}
+Please, take your time to digest what this means. What we are saying is that $p\limplies q$ is true if and only if ``if the condition $p$ is true, so is the consequence $q$''.
+
+If the condition is false, we do not care about the consequence: $p\limplies q$ is automatically true.
+But if the condition is true, we need the consequence to be true in order for $p\limplies q$ to be true.
+\end{para}
+
+
+\begin{example}
+In a attempt to make things a little bit clearer, let us consider a simple example.
+Both of us, at some point in our lives, have heard the phrase ``if you study hard, you will pass the exam''. According to the way in which we have defined the conditional operator, the truth table corresponding to all the possible scenarios is the following:
+\begin{center}
+\begin{tabular}[]{|c|c||c|}
+\hline Study hard & Pass the exam & Study hard $\limplies$ Pass the exam \\
+\hline\hline 0 & 0 & 1 \\
+\hline 0 & 1 & 1 \\
+\hline 1 & 0 & 0 \\
+\hline 1 & 1 & 1 \\
+\hline
+\end{tabular}
+\end{center}
+Let us then examine each case in detail. The first case should be easy: if I do not study hard and I do not pass the exam, is the phrase still true? Of course it is! I did not study hard for the exam, so there was no reason to believe I should have passed it.
+
+Now, what about the second case? If I do not study for the exam but I manage to pass it, is it true that if I study, I will pass the exam? Yes! It is still true. What the statement ``if you study, you will pass the exam'' tells us is that, provided I have studied, I will pass the exam, but if I did not study, the statement says nothing about what will happen. Nevertheless, the situation would have been different had the phrase been ``only if you study, will you pass the exam''. Can you spot the difference? How would you express this last statement in an ``if\ldots then\ldots'' form?
+
+The third case is easy: if I studied but I did not pass the exam, the phrase is, obviously, false. The last statement is equally trivial: if I study hard and I pass the exam, the statement ``if you study hard, you will pass the exam'' is, clearly, true. 
+\end{example}
+
+\begin{remark}
+There is something very significant that, at this point, should be highlighted.
+The fact that, for any particular propositions $P$ and $Q$, the statement ``if $P$, then $Q$'' is true does not imply in any way the existence of a cause-effect relation between $P$ and $Q$.
+Connectives, such as the conditional connective, combine statements to create new statements.
+Thus, the real meaning of a sentence is meaningless (no pun intended); this is all about whether things are true or false.
+For instance, the statement ``if zero equals one, the Earth is flat'' is perfectly valid and true (in fact, it is true regardless of your ``beliefs'' concerning the roundness of our planet!).
+
+Nonetheless, it is true that conditional connectives have something to do with deductions.
+If we know the propositions $P$ and $P\limplies Q$ to be true, we can indeed deduce $Q$ to be true, but, as I mentioned earlier, this does not imply the existence of any cause-effect relation between $P$ and $Q$.
+Let us, for example, take $P$ to be the statement ``humans need water'' and $Q$ to be ``the sun is a star''.
+Is the statement $P\limplies Q$ true? Sure it is!
+Both $P$ and $Q$ are true, hence so must be $P\limplies Q$.
+Then, from a purely formal point of view, we can deduce that ``the sun is a star'' from the fact that ``humans need water'' and ``if humans need water, then the sun is a star''.
+Everything we have done is completely meaningless, but, from the perspective of formal logic, it is correct.
+Notice, by the way, how logic did not allow us to do anything suspicious: if we were able to deduce that ``the sun is a star'' from ``humans need water'' it was because, in order to show that ``if humans need water, then the sun is a star'', we had to assume that ``the sun is a star'' in the first place.
+
+\end{remark}
+
+\begin{para}
+Some people like to extend the conventions in \ref{hierarchy} to give the disjunction connective precedence over the conjunction connective, and the conjunction connective precedence over the conditional one.
+In this way, $p\limplies q \land r \lor s$ would be interpreted as $p\limplies ((q \land r) \lor s)$.
+Although this conventions are widespread, we shall not use them in this book.
+\end{para}
+
+\begin{para}[Biconditional connective]
+By this point, you should have noticed a crucial fact: the conditional connective, unlike the other ones we have studied, is not symmetric, which is to say that he truth value of $p\limplies q$ says nothing about that of its \emph{converse} $q\limplies p$.
+Trust me, this is a crucial bit.
+
+This very asymmetry leads to the definition of the symmetric \emph{biconditional} connective, which, when applied on some variables $p$ and $q$, yields a propositional form $p\liff q$ that is defined to take the same truth value as $(p\limplies q)\land(q\limplies p)$ for the same assignments on the propositional variables $p$ and $q$.
+\end{para}
+
+\begin{para}[Implication and equivalence]
+If, for any propositional forms $p$ and $q$, $p\limplies q$ is a tautology, it is said that $p$ \emph{implies} $q$; if, in addition, so is $q\limplies p$ (and, therefore, $p\liff q$), then $p$ and $q$ are said \emph{equivalent}.
+The important thing here is that, if $p$ implies $q$, $q$ is true whenever $p$ is. Consequently, if $p$ and $q$ are equivalent, $p$ is true if $q$ is true and $q$ is true if $p$ is true.
+It is then needless to say that, when two propositional forms are equivalent, their truth tables are identical.
+
+Just to have some examples, the propositional form $p\land (p\limplies q)$ implies $q$, and the propositional form $\lnot(p\land q)$ is equivalent to $\lnot p \lor \lnot q$.
+\end{para}
+
+\begin{para}
+At this point, our language has gotten a little bit confusing, so let us introduce some new expressions to make it simpler. We already know that ``if $p$ then $q$'' stands for $p\limplies q$. Nevertheless, based on what we know, $p\limplies q$ could also be read ``$p$ only if $q$''. Take some time to think about this.
+Then, if we want to say ``if $p$ then $q$ \und{and} if $q$ then $p$'', we could say ``only if $q$ then $p$ \und{and} if $q$ then $p$'' or, in other words, ``$p$ if and only if $q$''. There you have it! Saying that $p\liff q$ is the same as saying ``$p$ if and only if $q$''.
+
+Just to finish with all this language overload, let me give you one more definition. If $p\limplies q$ is true, then $q$ is said to be a necessary condition for $p$ because, according to what we know, for $p\limplies q$ to hold, $p$ cannot be true if $q$ is false. Analogously, $p$ is said to be a sufficient condition for $q$ because if $p$ is true, taking into account that $p\limplies q$ is true, we know, for sure, that $q$ is true too.
+Thus, another fancy way of saying that $p\liff q$ is stating that ``$p$ is a necessary and sufficient condition for $q$'' or vice-versa. 
+\end{para}
+
+\begin{para}
+Truth tables are not only used to describe the behaviour of logical connectives in propositional logic; they can also be used to define them. So much so that --- as you probably had concluded on your own by now --- there exists a perfect correspondence between truth tables and connectives.
+The reasons for this are obvious: every connective has its own truth table, every truth table can be used to define a connective, and any two connectives with the same truth table are equivalent.
+
+Another way of introducing new connectives is defining them to be equivalent to some combination of known connectives.
+The way in which we defined the biconditional connective is a good example.
+The problem with this method is that, unlike with truth tables, we do not have a ``correspondence'' guaranteeing us that any connective can be expressed as a combination of others. Well, we did not have one\ldots until now.
+\end{para}
+
+\begin{theorem}
+\label{ads1}
+Any propositional form $p$ involving $n$ propositional variables $p_1,\ldots,p_n$ is equivalent to a propositional form $q$ involving only those variables and the connectives $\land$, $\lor$ and $\lnot$.
+
+In particular, this shows that, given any $n$-ary connective $*$, the propositional form $p$ resulting from its application on $n$ distinct propositional variables can be written, equivalently, as a propositional form involving only the connectives $\lor$, $\land$ and $\lnot$, which is to say that $*$ can be defined in terms of $\land$, $\lor$ and $\lnot$.
+\end{theorem}
+
+\begin{proof}
+The way we will prove this is by providing an effective algorithm for constructing the equivalent propositional form $q$ from the truth table of the propositional form $p$.
+If $p$ is a contradiction, it suffices to take $q$ to be any contradiction such as $(p_1\land \lnot p_1) \lor \cdots \lor (p_n \land \lnot p_n)$.
+If, on the other hand, there exists at least a particular assignment of truth values to $p_1,\ldots,p_n$ which makes $p$ true, we list all such assignments (mark them), and proceed as follows:
+\begin{enumerate}
+\item Set $q$ to be an empty propositional form.
+\item \label{stepcontinuepropalg} Find one marked assignment of truth values. Let $p_{i_1},\ldots,p_{i_r}$ with $\{i_1,\ldots,i_r\}\subseteq \{1,\ldots,n\}$ be all the elements that should be set to $1$ in this particular assignment and, analogously, let $p_{j_1},\ldots,p_{j_s}$ with $\{j_1,\ldots,j_s\}\subseteq \{1,\ldots,n\}$ be all the elements that, in this assignment, need to be set to $0$.
+\item If $q$ is not the empty propositional form, set it to
+\[(q) \lor (p_{i_1} \land \cdots \land  p_{i_r} \land \lnot p_{j_1} \land \cdots \land \lnot p_{j_s}).\]
+Otherwise, if $q$ is empty, set it to\
+\[p_{i_1} \land \cdots \land  p_{i_r} \land \lnot p_{j_1} \land \cdots \land \lnot p_{j_s}.\]
+\item Unmark the assignment we have been considering. If there are no marked assignments left, $p$ is already equivalent to $q$, so we have finished. Otherwise, go back to step \ref{stepcontinuepropalg}.
+\end{enumerate}
+
+The reasoning we have followed is by all means valid and, with some thought on your part, should have already convinced you that what the result is true. Nevertheless, as we dive deeper into the world of mathematics, you will see that this same argument can be written in a much more elegant and clear manner. 
+\end{proof}
+
+\begin{definition}
+An \emph{adequate set of connectives} is a collection of connectives such that, for any propositional form involving a certain number of propositional variables, there exists an equivalent propositional form involving only those variables and the connectives in that set.
+
+For example, $\{\land,\lor,\lnot\}$ is an adequate set of connectives.
+\label{<+label+>}
+\end{definition}
+
+\begin{corollary}
+The set $\{\lnot,\limplies\}$ is an adequate set of connectives.
+\label{adequateni}
+\end{corollary}
+
+\begin{proof}
+Since, according to \ref{ads1}, $\{\land,\lor,\lnot\}$ is an adequate set of connectives, it suffices to show that, given any propositional variables $p$ and $q$, each of $p\land q$ and $p\lor q$ is equivalent to a propositional form that only uses the negation and implication connectives.
+
+It is easy to see that $p\land q$ is equivalent to $\lnot(A\limplies(\lnot B))$ and that $p\lor q$ is equivalent to $(\lnot A)\limplies B$.
+\end{proof}
+

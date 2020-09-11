@@ -1,0 +1,41 @@
+%begin-include
+
+\unsection{Exercises}
+
+\begin{exercises}
+
+\item The inverse image of functions has some truly nice and lovely properties: when working with functions and set operations, the inverse image is the mathematical equivalent of the love of your life. To see what I mean, let $f:X\longrightarrow Y$ and let $A,B\subseteq X$. Prove that
+\begin{gather*}
+f^{-1}[A\cup B] = f^{-1}[A] \cup f^{-1}[B],\\
+f^{-1}[A\cap B] = f^{-1}[A] \cap f^{-1}[B],\\
+f^{-1}[Y\setminus A] = X\setminus f^{-1}[A].
+\end{gather*}
+Can you deduce similar properties for the image of $f$?\footnote{That was a rhetorical question; of course you can. Please, do it.}
+
+
+\item Find a counter-example for the converses of the statements in \ref{compinjsur}.
+
+\item Let us regard $\iff$ as a relation between formulas of a first-order formal system: the relation $\iff$ holds between two formulas $A$ and $B$ if and only if $A\iff B$.
+Prove that this relation is reflexive, symmetric and transitive.
+
+Analogously, show that the relation induced by $\implies $ is transitive and reflexive but not necessarily symmetric.
+
+
+\item Let $P$ be a formula in a first-order language.
+Prove that, if $(\exists x) P$ is true in an interpretation, there exists an assignment of values $\alpha$ in that interpretation such that $v_\alpha(P) = 1$.
+
+\item Let $A_1,\ldots,A_m$ and $B_1,\ldots,B_n$ be propositional forms for $m,n\in\mathbb{N}$. Prove that
+\[ \vdash (A_1\land \cdots \land A_m) \limplies (B_1\land \ldots \land B_m)\]
+if and only if, for every $i\in \{1,\ldots,n\}$, $A_1,\ldots,A_m\vdash B_i$.
+
+\item The following statement is an alternative formulation of the axiom of choice: for every collection of sets $X$, there exists a \emph{choice function}
+\[f: X\longrightarrow \bigcup X\]
+assigning, to every $x\in X$, an element $a\in x$. Prove that this formulation is equivalent to the one we have used.
+
+\item Show that the equality relation in any formal system using logic with equality verifies reflexivity, symmetry and transitivity.
+
+\item Show that the axiom schema \ref{axp3} is independent in the formal system of propositional logic.
+
+\item This exercise is a constructivist's nightmare.
+Use the axiom of choice to prove the existence of a sequence of natural numbers \emph{without constructing a sequence}.
+\end{exercises}

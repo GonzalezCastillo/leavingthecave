@@ -1,0 +1,277 @@
+%begin-include
+
+\section{Propositional logic. General definitions}
+
+\begin{para}[A note on circularity]
+From now on, we will be working with propositional logic and predicate logic as object theories.
+This unavoidably leads one to wonder what kind of reasoning they should be able to use in their metatheory.
+I mean, it does not seem legit to use propositional logic in order to study propositional logic, right?
+
+Turns out we can safely do it.
+What we will be studying is not propositional logic itself, but a formalisation of propositional logic.
+It should be out of question to any rational being that propositional logic is perfectly valid (and, thus, that there is no harm in using it).
+What will not be obvious, however, is that the formalisation of propositional logic that we are about to present is correct and faithfully represents it.
+\end{para}
+
+\begin{definition}
+The formal system $\mathsf{P}$ of propositional logic is defined by the tuple $(L_P,\Xi_P,R_P)$ where $L_P$ is the language defined in \ref{lp}, the set of axioms $\Xi_P$ consists of all the formulas of the form
+\begin{axioms}[P]
+\item \label{axp1} $A\limplies (B \limplies A)$,
+\item \label{axp2} $(A\limplies(B\limplies C))\limplies ((A\limplies B)\limplies (A\limplies C))$,
+\item \label{axp3} $(\lnot A \limplies \lnot B) \limplies (B\limplies A)$,
+\end{axioms}
+for $A,B,C\in F_P$, and $R_P$ has a single rule of inference:
+\[ \{A,(A\limplies B)\} \vdash_{\mathsf{P}} B\]
+for all $A,B\in F_P$. This rule is known as \emph{modus ponens}, MP for short.
+\end{definition}
+
+\begin{para}
+As you may have already noticed, axioms such as \ref{axp1}, \ref{axp2} and \ref{axp3} are not axioms per se. Instead, they are ``rules'' for constructing the axioms; that is why they are called \emph{axiom schemata} instead of axioms. The axioms that are constructed using a particular axiom schema are said to be \emph{instances} of the schema. For example, the axiom $(p_1\limplies p_2)\limplies p_1$ is an instance of the axiom schema \ref{axp1}.
+\end{para}
+
+\begin{definition}
+An interpretation of $L_P$ based on the semantics of propositional logic is a function $i : T_P \longrightarrow \{0,1\}$. Each interpretation $i$ induces a \emph{valuation} function $v_i: F_P \longrightarrow \{0,1\}$  verifying the following semantic rules:
+\begin{enumerate}
+\item The function $v_i$ takes the same values as $i$ on the set of propositional variables $T_P \subseteq F_P$.
+\item If $A\in F_P$, then $v_i(A) \neq v_i(\lnot A)$.
+\item If $A,B\in F_P$, then $v_i(A\limplies B) = 0$ if and only if $v_i(A) = 1$ and $v_i(B) = 0$.
+\end{enumerate}
+Given any propositional form $A$, we say that $A$ is true in $i$ if $v_i(A) = 1$. If, instead, $v_i(A) = 0$, we say that $A$ is false.
+
+Valid propositional forms --- that is, valid formulas in the context of propositional logic --- are referred to as \emph{tautologies}.
+Propositional forms that are false under any interpretation of propositional logic are said to be \emph{contradictions}.
+\end{definition}
+
+\begin{para}
+It should be obvious that an interpretation is nothing more than an assignment of truth values. The interpretation function $i$ defined for the propositional symbols represents the assignment and then the ``truth value'' of the remaining formulas, given by their image under $v_i$, is obtained inductively by applying the semantic rules that define the connectives $\lnot$ and $\limplies$.
+
+It should be obvious, according to the semantic rules that we have used, that getting the value of $v_i(A)$ for a propositional form $A$ and an interpretation $i$ is the same as getting the truth value of $A$ under the assignment of truth values induced by $i$. Thus, all the informal methods that can used to decide the truth or falsity of a propositional forms can be safely used to compute valuations.
+
+Notice, by the way, how we have redefined tautologies. The underlying meaning, however, is the same.
+\end{para}
+
+\begin{definition}
+Let $L = (\Sigma,T,F, \Lambda)$ be a language and $\mathsf{FS} = (L,\Xi,R)$ be a formal system containing all instances of axiom schemata \ref{axp1}, \ref{axp2} and \ref{axp3} among its axioms.
+\begin{itemize}
+\item If there exists no formula $A \in F$ such that $\vdash_\mathsf{FS} A $ and $\vdash_\mathsf{FS} \lnot A$, the system $\mathsf{FS}$ is said to be \emph{consistent}.
+\item If, for every sentence $A\in \Lambda$, we have $\vdash_\mathsf{FS} A$ or $\vdash \lnot A$, we say that $\mathsf{FS}$ is \emph{syntactically complete} or, for short, \emph{complete}.
+\item The system $\mathsf{FS}$ is said to be \emph{semantically complete} if every valid formula is a theorem in $\mathsf{FS}$. Conversely, if every theorem is a valid formula, $\mathsf{FS}$ is said to be \emph{sound}.
+\end{itemize}
+Let $A$ be an axiom and let $\mathsf{FS}^*$ be the formal system obtained by removing the axiom $A$ from $\mathsf{FS}$. If neither $A$ nor $\lnot A$ are theorems of $\mathsf{FS}^*$, $A$ is said to be an \emph{independent axiom}. Ideally, we want all axioms to be independent in order to avoid redundancy.
+\end{definition}
+
+
+\begin{example} \label{dedaa}
+We will prove that $\vdash A \limplies A$ for any formula $A$. We will write down all the steps of the deduction together with their justification.
+
+\begin{deduction}{dtp}
+\dstep[a1]{\ref{axp1}}{A\limplies([A\limplies A]\limplies A),}
+\dstep[a2]{\ref{axp2}}{(A\limplies([A\limplies A]\limplies A))\limplies( (A\limplies[A\limplies A])\limplies(A\limplies A)),}
+\dstep[a3]{MP on \dref{a1}, \dref{a2}}{( (A\limplies[A\limplies A])\limplies(A\limplies A)),}
+\dstep[a4]{\ref{axp1}}{A\limplies(A\limplies A),}
+\dstep{MP on \dref{a4}, \dref{a3}}{A\limplies A.}
+\end{deduction}
+\end{example}
+
+
+\begin{theorem}[Deduction theorem in $\mathsf{P}$]
+\label{dedthmprop}
+For any collection of propositional forms $\Gamma\subseteq F_P$ and any formulas $A,B\in F_P$, one can deduce $\Gamma\cup\{A\}\vdash_{\mathsf{P}} B$ if and only if $\Gamma \vdash_\mathsf{P} (A\limplies B)$. 
+\label{}
+\end{theorem}
+
+\begin{proof}
+
+We will first show that $\Gamma \cup \{A\} \vdash B$ implies $\Gamma \vdash (A\limplies B)$ following a proof by induction on the length $n$ of the deduction of $\Gamma\cup\{A\}\vdash B$.
+If $n = 1$, there are only three possibilities: either $B = A$, $B\in \Gamma$, or $B\in \Xi_P$. 
+
+According to \ref{dedaa}, any formula $A$ verifies $\vdash (A\limplies A)$, so, in particular, $\Gamma \vdash (A\limplies A)$.
+Thus, if $B = A$, it is obvious that $\Gamma\cup\{A\}\vdash A$ implies $\Gamma \vdash (A\limplies A)$. 
+
+If $B\in \Gamma$ or $B\in \Xi_P$, $\Gamma \vdash (A\limplies B)$ follows from a trivial application of MP to $B$ and \ref{axp1}.\footnote{Be aware that, when applying \ref{axp1}, ``$A$'' in \ref{axp1} should be substituted by ``$B$'' and ``$B$'' by ``$A$.''}
+
+Let us now assume the result to hold for deductions of an arbitrary length $n$ and prove it for those of length $n+1$.
+If the deduction is of length $n+1$, the formula $B$ may be, as in the base case, an axiom, equal to $A$, or an element of $\Gamma$.
+But it may also have been obtained from an application of MP on two previous elements of the deduction.
+In this case, those elements have deductions of length smaller than $n+1$ and, therefore, they satisfy the result by the inductive hypothesis. Let us then assume that $B$ has been obtained from an application of MP to two formulas of the form $X$ and $X\limplies B$ verifying $\Gamma \vdash (A\limplies X)$ and $\Gamma \vdash (A\limplies(X \limplies B))$. Under these conditions, we can make the following deduction from $\Gamma$.
+
+\begin{deduction}{thdedprop1}
+\dstep[h1]{By hypothesis, can be deduced from $\Gamma$}{A\limplies X,}
+\dstep[h2]{By hypothesis, can be deduced from $\Gamma$}{A\limplies (X\limplies B),}
+\dstep[a1]{\ref{axp1}}{(A \limplies (X\limplies B))\limplies ( (A\limplies X) \limplies (A\limplies B) ),}
+\dstep[c1]{MP on \dref{h2}, \dref{a1}}{(A\limplies X)\limplies (A\limplies B),}
+\dstep[c2]{MP on \dref{h1}, \dref{c1}}{A\limplies B.}
+\end{deduction}
+
+We shall now prove the converse: assuming that $\Gamma \vdash (A\limplies B)$, we will show that $\Gamma\cup \{A\} \vdash B$.
+This is easy. Keeping in mind that $\Gamma \vdash (A\limplies B)$ and, therefore, that $\Gamma\cup\{A\}\vdash (A\limplies B)$, we can write an explicit deduction of $\Gamma\cup\{A\}\vdash B$:
+\begin{deduction}{thdedprop2}
+\dstep[h1]{By hypothesis, can be deduced from $\Gamma\cup\{A\}$}{A\limplies B,}
+\dstep[h2]{Belongs to $\Gamma\cup\{A\}$}{A,}
+\dstep{MP on \dref{h2}, \dref{h1}}{B.}
+\end{deduction}
+This concludes the proof.
+\end{proof}
+
+\begin{para}
+\label{remarkdedp}
+The deduction theorem is, perhaps, one of the most significant results in this section, for it explains the confusion that the implication connective $\limplies$ generates.
+
+The formula $A\limplies B$ is a formula in the object language, full stop.
+What we have shown is that the meta-theoretic statement $\vdash (A\limplies B)$ meaning ``$(A\limplies B)$ is a theorem in $\mathsf{P}$'' is equivalent to the meta-theoretic statement $A\vdash B$ meaning ``$B$ can be deduced from $A$''.
+
+We will later introduce the first-order version of this metatheorem, which will shed even more light on this matter.
+\end{para}
+
+\begin{theorem}
+\label{pprop}
+The following metatheorems about propositional logic are true:
+\begin{statements}
+\item \label{pprop:sound} If $\Gamma \subseteq F_P$ and $X\in F_P$ are such that $\Gamma \vdash X$, then $\Gamma\vDash X$. In particular, if a formula $X\in F$ is a theorem in $\mathsf{P}$, it is a tautology; which is to say that $\mathsf{P}$ is sound.
+\item The formal system $\mathsf{P}$ is consistent.
+\item Every tautology is a theorem in $\mathsf{P}$. In other words, $\mathsf{P}$ is semantically complete.
+\end{statements}
+These results show beyond any doubt that $\mathsf{P}$ is a correct formalisation of propositional logic.
+\end{theorem}
+
+\begin{proof}
+\begin{parlist}
+\item We proceed by induction on the length $n$ of the deduction.
+If $n = 1$, then either $X \in \Gamma$ (in which case the result is obvious) or $X$ is an axiom of $\mathsf{P}$.
+In order for the result to hold, we need to see that every axiom of $\mathsf{P}$ is true under any interpretation, i.e., that it is a tautology.
+
+We shall first analyse \ref{axp1}.
+I think we can both agree that, given any $A,B\in F$, the formula $A\limplies (B\limplies A)$ either is or is not a tautology.
+Thus, we just need to show that it is impossible for $A\limplies (B\limplies A)$ not to be a tautology.
+Were that formula not a tautology, there would necessarily exist an interpretation $i$ under which it would be false.
+Nonetheless, according to the semantic rules of propositional logic, that would mean that $v_i(A) = 1$ yet $v_i(B\limplies A) = 0$.
+But, by those same rules, $v_i(B\limplies A) = 0$ can only mean that $v_i(B) = 1$ and $v_i(A) = 0$.\
+Consequently, $A\limplies (B\limplies A)$ can only be false under an interpretation $i$ verifying both $v_i(A) = 0$ and $v_i(A) = 1$.
+As that is impossible, we can safely conclude that all the axioms defined by the schema \ref{axp1} are tautologies.
+
+We can proceed in a similar fashion regarding \ref{axp2}.
+Let $A,B,C\in F_P$ be formulas.
+If an interpretation $i$ is such that
+\[ v_i( \underbrace{(A\limplies(B\limplies C))}_{D_1} \limplies \overbrace{((A\limplies B) \limplies (A\limplies C))}^{D_2}) = 0,\]
+then we necessarily have $v_i(D_1) = 1$ and $v_i(D_2) = 0$.
+Having $v_i(D_2) = 0$ implies that $v_i(A\limplies C) = 0$ and $v_i(A\limplies B) = 1$, which can only mean that $v_i(A) = 1$, that $v_i(C) = 0$ and that $v_i(B) = 1$.
+Simultaneously, $v_i(D_1) = 1$ with $v_i(A) = 1$ leads to $v_i(B\limplies C) = 1$, which --- with $v_i(C) = 0$ --- could only be the case if $v_i(B) = 0$.
+Having reached a contradiction, we can conclude that all the axioms defined by \ref{axp2} need be true under any interpretation and, therefore, that they are all tautologies.
+
+Finally, let us tackle \ref{axp3}. Given any two formulas $A,B\in F_P$, if we assume an interpretation $i$ to exist such that
+\[ v_i\left( (\lnot A \limplies \lnot B) \limplies (B \limplies A) \right) = 0,\]
+it will need to verify $v_i(B \limplies A) = 0$ and $v_i(\lnot A\limplies \lnot B) = 1$.
+The former of these conditions implies that $v_i(A) = 0$ and $v_i(B) = 1$, which --- according to the semantic rules --- is equivalent to having $v_i(\lnot A) = 1$ and $v_i(\lnot B) = 0$. If $v_i(\lnot A\limplies \lnot B) = 1$ and, as we have just shown, $v_i(\lnot A) = 1$, then we necessarily have $v_i(\lnot B) = 1$, which is, as expected, a contradiction.
+This proves that all the axioms defined by \ref{axp3} are tautologies.
+
+Now that we have completed the base case, let us assume the result to hold for deductions of length equal to or smaller than $n$, and we will prove it for those of length $n+1$.
+If the deduction has length $n+1$, $X$ may be an element of $\Gamma$ or an axiom as in the base case, or it may have been obtained from an application of MP on two previous elements of the deduction that, therefore, verify the result according to the inductive hypothesis.
+Thus, we need to show that, given any two formulas of the form $A$ and $A\limplies B$, if they are true in any particular interpretation $i$, so is $B$.
+
+If $v_i(A) = 1$ and $v_i(A\limplies B) = 1$, it is obvious that we need to have $v_i(B) = 0$. Indeed, if $v_i(B) = 0$ and $v_i(A) = 1$, that would yield $v_i(A\limplies B) = 0$.
+Thus, we have shown that, for any interpretation $i$ in which any two formulas $A$ and $A\limplies B$ are true, $B$ is true too.
+
+\item Let $A$ be a theorem in $\mathsf{P}$.
+By \ref{pprop:sound}, $A$ need be a tautology and, therefore, for an interpretation $i$, we will have $v_i(A) = 1$.
+According to the semantic rules, this means that, under any interpretation $i$, $v_i(\lnot A) = 0$.
+Consequently, $\lnot A$ is not a tautology and since, by \ref{pprop:sound}, being a tautology is a necessary condition for any formula to be a theorem in $\mathsf{P}$, $\lnot A$ cannot be a theorem.
+
+This shows that no formula $A$ can verify both $\vdash_{\mathsf{P}} A$ and $\vdash_{\mathsf{P}} \lnot A$, and, therefore, that $\mathsf{P}$ is consistent.
+
+\item The details of this proof are pretty tedious to go through. If you feel motivated enough to do it, feel free to visit \ref[appendix]{psemcom} in the appendices.
+\end{parlist}
+\end{proof}
+
+\begin{lemma}[Conjunction introduction rule]
+Let $\Gamma$ be a collection of propositional forms and let $A$ and $B$ be two arbitrary propositional forms. One can deduce $\Gamma\vdash_\mathsf{P} (A\land B)$ if and only if one can deduce both $\Gamma \vdash_{\mathsf{P}}A$ and $\Gamma \vdash_{\mathsf{P}}B$.
+\label{cinr}
+\end{lemma}
+
+\begin{proof}
+If $\Gamma \vdash (A\land B)$, then, since $(A\land B) \limplies A$ and $(A\land B)\limplies B$ are both tautologies --- and, therefore, theorems in $\mathsf{P}$ --- it follows by a direct application of the MP rule that $\Gamma \vdash A$ and $\Gamma \vdash B$.
+
+Conversely, if $\Gamma \vdash A$ and $\Gamma \vdash B$, we know $A\limplies (B\limplies (A\land B))$ to be another tautology. Two applications of MP yield $\Gamma \vdash (A\land B)$.
+\end{proof}
+
+\begin{proposition}
+\label{piff}
+Given any propositional forms $A$ and $B$, $\Gamma \vdash_{\mathsf{P}} (A \liff B)$ if and only if $\Gamma  \vdash_\mathsf{P} (A\limplies B)$ and $\Gamma \vdash_\mathsf{P} (B\limplies A)$.
+
+In particular, if $\Gamma = \emptyset$, $A\liff B$ is a theorem of $\mathsf{P}$ if and only if so are $A\limplies B$ and $B\limplies A$.
+\end{proposition}
+
+\begin{proof}
+If we have both $\Gamma\vdash (A\limplies B)$ and $\Gamma \vdash (B\limplies A)$, by \ref{cinr}, we know that $\Gamma \vdash ( (A\limplies B) \land (B\limplies A))$, which is, according to our definition of $\liff$, the same as $\Gamma \vdash (A\liff B)$.
+The converse is also a direct consequence of \ref{cinr}.
+\end{proof}
+
+
+\begin{lemma}
+Let $A$, $X$ and $Y$ be propositional forms. If $X\liff Y$ is a tautology and $A'$ denotes the propositional form resulting from replacing each appearance of $X$ in $A$ by $Y$, then $A\liff A'$ is a tautology and, therefore, a theorem in $\mathsf{P}$.
+\label{replacetautology}
+\end{lemma}
+
+\begin{proof}
+Let $i$ be any interpretation.
+It suffices to notice that, as $X \liff Y$ is a tautology, we always have $v_i(X) = v_i(Y)$.
+Therefore, as $A'$ is obtained by replacing every occurrence of $X$ by an occurrence of $Y$, we necessarily have $v_i(A) = v_i(A')$.
+Consequently, $v_i(A\liff A') = 1$.
+\end{proof}
+
+\begin{para}
+\label{lpinformal}
+Remember when, for any two propositional forms, we defined the formulas $A\land B$ and $A \lor B$. Well, as was to be expected, if you substitute those formulas by their real meaning in $L_P$, the following formulas are tautologies for any propositional forms $A$, $B$ and $C$:
+\begin{statements}
+\item $(A\liff B) \liff (B\liff A)$,
+\item $(A\land B) \liff (B\land A)$,
+\item $((A\land B) \land C) \liff (A\land (B \land C))$,
+\item $((A\lor B) \lor C) \liff (A\lor (B \lor C))$,
+\end{statements}
+This, together with \ref{replacetautology}, should be enough to convince you that the conventions we introduced in \ref[prel]{hierarchy} can be safely used when working with $L_P$ in $\mathsf{P}$.
+Furthermore, this shows that there is no harm in swapping formulas around the $\lor$, $\land$ and $\liff$ connectives.
+\end{para}
+
+
+\begin{proposition}
+\label{impsystemp}
+Let $A$, $B$, $A_1$, $A_2$, $B_1$ and $B_2$ be propositional forms and $\Gamma$ a set of propositional forms.
+\begin{statements}
+\item One can deduce $\Gamma \vdash_\mathsf{P} (A \limplies (B_1\land B_2))$ if and only if one can deduce both $\Gamma \vdash_\mathsf{P} (A\limplies B_1)$ and $\Gamma \vdash_\mathsf{P} (A\limplies B_2)$. In particular, if $\Gamma = \emptyset$, $A\limplies (B_1\land B_2)$ is a theorem of $\mathsf{P}$ if and only if so are $A\limplies B_1$ and $A \limplies B_2$.
+
+\item One can deduce $\Gamma \vdash_\mathsf{P} ( (A_1\land A_2) \limplies B_1 )$ if and only if one can deduce $\Gamma \vdash_\mathsf{P} (A_1 \limplies (A_2 \limplies B))$ or $\Gamma \vdash_\mathsf{P} (A_2 \limplies (A_1 \limplies B)$. In particular, if $\Gamma = \emptyset$, $(A_1\land A_2) \limplies B$ is a theorem if and only if so are $A_1\limplies (A_2\limplies B)$ or $A_2 \limplies (A_1 \limplies B)$.
+\end{statements}
+\label{implesmani}
+\end{proposition}
+
+\begin{proof}
+\begin{parlist}
+\item Follows from a direct application of MP taking into account \ref{piff} and the fact that \[(A\limplies (B_1\land B_2)) \liff ((A\limplies B_1) \land (A\limplies B_2))\] is a tautology.
+\item Follows from a direct application of MP taking \ref{piff} into account together with the fact that both
+\begin{gather*}
+((A_1 \land A_2)\limplies B) \liff (A_1 \limplies (A_2 \limplies B)),\\
+((A_1 \land A_2)\limplies B) \liff (A_2 \limplies (A_1 \limplies B))
+\end{gather*}
+are tautologies.
+\end{parlist}
+\end{proof}
+
+\begin{proposition}[Principle of explosion]
+\label{pexpprop}
+Anything can be deduced from a false premise: given any two propositional forms $A,B\in F_P$, we have $A,\lnot A \vdash B$. 
+\end{proposition}
+
+\begin{proof}
+It is easy to see that the formulas $A\limplies (A\lor B)$ and $\lnot A \limplies ( (A\lor B) \limplies B )$ are tautologies. We know $\mathsf{P}$ to be semantically complete and, therefore, we know those tautologies to be theorems of $\mathsf{P}$. The deduction of $B$ from $A,\lnot A$ is then very simple.
+\begin{deduction}{dedpexpprop}
+\dstep[h1]{Premise}{A,}
+\dstep[h2]{Premise}{\lnot A,}
+\dstep[t1]{Theorem}{A\limplies (A\lor B),}
+\dstep[t2]{Theorem}{\lnot A \limplies ( (A\lor B) \limplies B),}
+\dstep[d1]{MP on \dref{h1}, \dref{t1}}{A \lor B,}
+\dstep[d2]{MP on \dref{h2}, \dref{t2}}{(A\lor B) \limplies B,}
+\dstep{MP on \dref{d1}, \dref{d2}}{B.}
+\end{deduction}
+This completes the proof.
+\end{proof}
+
+

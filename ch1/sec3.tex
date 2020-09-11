@@ -1,0 +1,463 @@
+%begin-include
+
+\section{Predicate logic}
+
+\begin{definition}
+Let $L = (\Sigma, T, F)$ be a first-order language and $\xi\subseteq F$ a collection of formulas.
+The first order system $\mathsf{H}$ on the language $L$ defined by the \emph{non-logical axioms} $\xi$ is the formal system $\mathsf{H} = (L,\Xi,R)$ where $\Xi$ and $R$ are defined as follows.
+
+The set of axioms $\Xi$ consists of $\xi$ and all the axioms defined by the schemata \ref{axp1}, \ref{axp2} and \ref{axp3} in addition to the following.
+\begin{axioms}[Q]
+\item \label{axq1} If $A$ is a formula, $x_i$ a variable and $t$ a term not containing any variables quantified in $A$, then $((\forall x_i) A \limplies A(x_i\Vert t))$.
+The formula $A$ may or may not contain occurrences of $x_i$.
+When we use $A(x_i\Vert t)$, we refer to the formula obtained by replacing every occurrence of $x_i$ in $A$, should there be any, by $t$.
+\item \label{axq2} If $A$ and $B$ are formulas, $x_i$ is a variable and $A$ does not contain $x_i$ as a free variable, then $((\forall x_i)(A\limplies B)\limplies (A\limplies (\forall x_i) B))$.
+\end{axioms}
+
+The set $R$ of rules of inference contains modus ponens (which we have already studied) and the rule of \emph{generalisation}. The rule of generalisation states that, for any formula $A\in F$ and any variable $x_i\in T$, $A\vdash (\forall x_i) A$.
+
+The formal system $\mathsf{Q}$ of first-order logic is the first-order system on the language $L_Q$ defined in \ref{lfo}\ref{lq} with an empty set of non-logical axioms.
+\end{definition}
+
+\begin{para}
+There are some important remarks that need to be made about the definition I have just given you. The first of them concerns the purpose of the generalisation rule.
+When we work in first-order logic, we are only concerned with closed formulas (sentences), so the generalisation rule fixes the oddity of free variables by saying ``hey, is there a free variable in this formula? Well, that is the same as saying that the formula holds for every possible value this variable can take''.
+
+You see, when setting out the axioms for a first order-system, we could have done so in such a way that no axioms would contain free variables.
+Nevertheless, that would not have stopped anyone from trying to make deductions from non-closed formulas.
+Hence, the only way to prevent the appearance of free variables in our variables would have been to define first order languages in such a way that all its formulas were closed.
+Doing so in a proper, inductive way is --- as far as I know --- unnecessarily complicated.
+Furthermore, we would be losing a lot of expressive power.
+You know, sometimes free variables have their place!
+Maybe not as theorems of a formal system, but would you dare say that, if we were considering a first-order language of set theory, the formula $x = \emptyset$ is not a formula? That does not seem right.
+So, instead of doing weird things when defining our language, the most simple thing to do is to introduce the generalisation rule.
+
+Let us now see the generalisation rule in action with a simple example.
+Notice how, when combined with \ref{axq1} and MP, it allows us to deduce, for any given formula $A$ dependent on a variable $x_i$, that $A\vdash A(x_i\Vert x_j)$. This enables us to relabel our variables in our formulas freely, which is a pretty good deal.
+
+With that sorted, there is a part of the definition that might have created some confusion.
+Unless you paid close attention to \ref[prel]{notaquan}, you might be having issues understanding how \ref{axq1} and \ref{axq2} are parenthesised.
+In \ref{axq1}, the scope of the first quantifier is only $A$, whereas, in \ref{axq2}, the scope of the first quantifier is $(A\limplies B)$ and the scope of the second is $B$.
+
+If this has not been enough for you to fully understand what is going on, I invite you to revisit \ref[prel]{notaquan} and take things a little bit more slowly!
+\end{para}
+
+\begin{example}
+\label{exfofs}
+\begin{parlist}
+\item A very interesting kind of first-order system is that of first-order systems with equality. These systems use the first-order language associated to any set of symbols containing $\{=\}$ with signature $\sigma(=) = -2$; in other words, it uses any language incorporating one additional symbol representing a 2-ary predicate. Instead of writing ${=}(x,y)$, it is customary to use infix notation and write $x=y$.
+
+The set of non-logical axioms of these formal systems contains the following formulas and schemata.
+\begin{axioms}[E]
+\item $(\forall x)\qsep x = x$. \label{axe1}
+\item $(\forall x)(\forall y)\qsep x = y \limplies y = x$. \label{axe2}
+\item If $f$ is an $n$-ary function symbol and $t_1,\ldots t_n$ are terms, $(\forall x)(\forall y)\qsep x = y \limplies f(t_1,\ldots,x,\ldots,t_n) = f(t_1,\ldots,y,\ldots,t_n)$. \label{axe3}
+\item If $P$ is an $n$-ary predicate symbol and $t_1,\ldots,t_n$ are terms, $(\forall x)(\forall y)\qsep x = y \limplies (P(t_1,\ldots,x,\ldots,t_n) \limplies P(t_1,\ldots,y,\ldots,t_n))$. \label{axe4}
+\end{axioms}
+Only \ref{axe3} and \ref{axe4} are axiom schemata. The remaining items are axioms.
+
+\item \label{fspa} The standard first-order formalisation of arithmetic is known as Peano Arithmetic. The formal system $\mathsf{PA}$ of Peano Arithmetic uses the first-order language of arithmetic defined in \ref{lfo}\ref{lpa}. It is a formal system using first-order logic with equality and --- in addition to \ref{axe1}, \ref{axe2}, \ref{axe3} and \ref{axe4} --- its non-logical axioms are:
+\begin{axioms}[PA]
+\item \label{axpa1} $(\forall x)\qsep\lnot(s(x) = 1)$.
+\item \label{axpa1bis} $(\forall x,y)\qsep s(x) = s(y) \limplies x = y$.
+\item \label{axpa2} $(\forall x)\qsep x + 1 = s(x)$.
+\item \label{axpa3} $(\forall x,y)\qsep x + s(y) = s(x+y)$.
+\item \label{axpa4} $(\forall x)\qsep x \cdot 1 = x$.
+\item \label{axpa5} $(\forall x,y)\qsep x \cdot s(y) = x\cdot y + x$.
+\item \label{axpa6} If $A\in F$ has a free variable $x$, $(A(x\Vert0) \land (\forall x) (A \limplies A(x\Vert s(x)))) \limplies (\forall x) A$. 
+\end{axioms}
+Axiom \ref{axpa1} simply states that, within the theory of arithmetic, $1$ cannot be the successor of any number.
+Axiom \ref{axpa1bis} establishes that two numbers are equal whenever the numbers succeeding them are equal.
+Axioms \ref{axpa2} and \ref{axpa3} define addition, and \ref{axpa4} and \ref{axpa5} define multiplication. Finally, the axiom schema \ref{axpa6} formalises the principle of induction.
+
+When I first studied this, the axiom schema of induction made me feel suspicious. It kind of looks like a second-order axiom, doesn't it? It seems like we are quantifying over all the predicates! Isn't that cheating? Well, no. There is a second-order formalisation of Peano Arithmetic that, instead of using this axiom schema, uses a proper quantification over all the possible predicates, and the consequences of that seemingly innocent difference are very significant. 
+We will come back to this later.
+\end{parlist}
+\end{example}
+
+\begin{definition}
+Let $S$ be a collection of symbols together with a signature function $\sigma$.
+Let $L = (\Sigma, T, F)$ be the first-order language associated to $(S,\sigma)$.
+An interpretation $I$ of $L$ is the assignment of a set $D_I$ as the \emph{domain} of the interpretation together with an \emph{interpretation function} $\iota_I$ mapping every $c\in S$ with $\sigma(c) = 0$ to an element $\iota_I(c) \in D$, every $f\in S$ with $\sigma(c) = n > 0$ to an $n$-ary function $\iota_I(f):D\times\cdots\times D \longrightarrow D$, and every $P \in S $ with $\sigma(P) = -n < 0$ to an $n$-ary predicate $\iota_I(P)$ taking values in $D$.
+Instead of writing $\iota_I(c)$, $\iota_I(f)$ and $\iota_I(P)$, we will often use $\und{c}$, $\und{f}$ and $\und{P}$, provided there is no room for ambiguity, in order to make our notation more clear.
+
+To put it in less formal terms, an interpretation is nothing more than the definition of a domain (in which the variables of the languages are meant to take values) and an assignment of constants in that domain to the constant symbols of the language, of $n$-ary predicates taking arguments in the domain to each $n$-ary predicate symbol of the language, and of $n$-ary functions taking arguments in values in $S$ to every $n$-ary function symbol of the language.
+
+Let us then consider an arbitrary interpretation $I$ on $L$. An \emph{assignment of values} (\emph{assignment}, for short)  is any function $\alpha : \{x_1,\ldots, x_n,\ldots\} \longrightarrow D_I$ that can be extended to a function $\tilde{\alpha}:T\longrightarrow D_I$ by defining, for every $n$-ary function letter $f\in S$,
+\[\tilde{\alpha}(f(x_1,\ldots,x_n)) = \und{f}\left( \tilde{\alpha}(x_1),\ldots,\tilde{\alpha}(x_n) \right). \]
+Each of these assignments induces a valuation function $v_\alpha:F\longrightarrow\{0,1\}$ defined by the following inductive rules:
+\begin{enumerate}
+\item If $P\in S$ is an $n$-ary predicate letter and $t_1,\ldots,t_n \in T$, then $v_\alpha(P(t_1,\ldots,t_n)) = 1$ if and only if the predicate $\und{P}$ holds for $(\tilde{\alpha}(t_1),\ldots,\tilde{\alpha}(t_n))$.
+\item If $A,B\in F$, then $v_\alpha(A\limplies B) = 0$ if and only if $v_\alpha(A) = 1$ and $v_\alpha(B) = 0$.
+\item If $A \in F$, then $v_\alpha(\lnot A) = 1$ if and only if $v_\alpha(A) = 0$.
+\item If $A\in F$, then $v_\alpha((\forall x_i) A) = 1$ if and only if, for every assignment $\alpha'$ verifying $\alpha'(x_j) = \alpha(x_j)$ for every index $j\neq i$, $v_{\alpha'}(A) = 1$.
+\end{enumerate}
+If, given a formula $A\in F$, $v_\alpha(A) = 1$, it is said that the assignment $\alpha$ \emph{satisfies} the formula $A$.
+Informally speaking, the only purpose of assignments is, as their name suggests, assigning a value to the variables in the formulas.
+A formula is true in an interpretation $I$ if and only if it is satisfied by every assignment in $I$.
+Analogously, a formula is false in $I$ if and only if it is not satisfied by any assignment in $I$. 
+
+Two interpretations $I$ and $J$ of a language $L$ are said to be \emph{isomorphic} if they are equal up to a relabelling of the elements of their domains.
+To put it in formal terms, they are said to be isomorphic if there exists a bijective function $\theta: D_I \longrightarrow D_J$ verifying, for every constant symbol $c\in S$, $\iota_J(c) = \theta(\iota_I(c))$; for every $n$-ary function symbol $f$,
+\[\iota_I(f):(x_1,\ldots,x_n)\longmapsto \theta^{-1}(\iota_J(f)(\theta(x),\ldots,\theta(x_n)),\]
+and, for every $n$-ary predicate letter $P$, $\iota_I(P)(x_1,\ldots,x_n)$ if and only if $\iota_J(P)(\theta(x_1),\ldots,\theta(x_n))$. 
+
+Given a first-order system $\mathsf{H}$ over a first-order language $L$, an interpretation $I$ of $L$ is said to be a \emph{model} of $\mathsf{H}$ if all the axioms of $\mathsf{H}$ are true in $I$.
+Some first-order languages and systems are built with a particular model in mind; these models are known as the \emph{intended interpretations} or \emph{standard models}.
+Any model of a formal system that is non-isomorphic to the intended interpretation is said to be a \emph{non-standard model}.
+\label{<+label+>}
+\end{definition}
+
+\begin{example}
+The intended interpretation $\mathcal{N}$ of the first-order language of arithmetic defined in \ref{lfo}\ref{lpa} is defined by taking the set of natural numbers $\mathbb{N}$ as the domain of discourse and by making the following assignments:
+\begin{itemize}
+\item The constant $\und{1}$ is the number $1\in \mathbb{N}$.
+\item The predicate $\und{=}$ is the binary predicate that is true if and only if its two arguments are the same number.
+\item The function $\und{s}$ is the function taking every $x\in \mathbb{N}$ to $x+1\in\mathbb{N}$.
+\item The function $\und{+}$ is the function taking every $x,y\in \mathbb{N}$ to $x+y\in\mathbb{N}$.
+\item The function $\und{\cdot}$ is the function taking every $x,y\in \mathbb{N}$ to $x\cdot y \in \mathbb{N}$.
+\end{itemize}
+It should be obvious that $\mathcal{N}$ is a model of $\mathsf{PA}$.
+
+The formula $(x+1) + 1= s(x) + 1$ is true in $\mathcal{N}$ because, regardless of the value that $x$ is given in any assignment $\alpha$, the formula is satisfied; given any $n\in \mathbb{N}$, it is true that $(n+1) + 1 = (n+1) + 1$. Notice how this last expression is not meant to be a formula of the formal language, but a ``real'' (semantic) statement about $\mathbb{N}$.
+A formula in a formal language is a meaningless sequence of symbols. But what we have written is just a representation, with the usual notation of arithmetic, of $(n\und{+}\und{1})\und{+}\und{1} = \und{s}(n)+\und{1}$, which in turn represents the statement ``adding one to $n$ plus one is the same as adding one to the number that goes after $n$''.
+Analogously, it is easy to see how the formula $(x+1) = x$ is false in $\mathcal{N}$. Now, let us consider the formula $x = 1$. Is it true? Certainly not! It suffices to consider any assignment $\alpha$ with $\alpha(x) \neq 1$.
+Nevertheless, it is not false either, for it is satisfied by any assignment $\alpha$ with $\alpha(x) = 1$. 
+
+Let us now define a model isomorphic to $\mathcal{N}$. We just need to consider the interpretation $\mathcal{N}'$ obtained by
+\begin{itemize}
+\item using $\mathbb{N}'=\{1',2',3',\ldots\}$ instead of $\mathbb{N}$;
+\item using the constant $1'$ instead of $1$;
+\item using the functions $x'+' y' = (x+y)'$ instead of $+$, and  $x'\cdot' y' = (x\cdot y)'$ instead of $\cdot$,
+\item and using the relation $x' =' y'$ defined to be true if and only if $x = y$ instead of using the relation $=$.
+\end{itemize}
+
+To conclude this example, there is one question that we need to answer: are there any non-standard models of Peano Arithmetic? Yes, there are.
+Nonetheless, getting to those models truly goes beyond the scope of this book.
+
+The only way to have a formal system of arithmetic without non-standard models is to use second-order logic: and that is because of the axiom schema we discussed before!
+You see, the axiom schema we used when defining $\mathsf{PA}$ is much weaker than a quantification over all the possible predicates, for it only takes into consideration the predicates that can be defined within the language of arithmetic, and those predicates need to be formulated with a finite combination of symbols!
+Thus, there is an infinite amount of predicates that the formulas of our language cannot capture.
+
+You may then wonder, why don't we study second-order logic?
+Well, second-order logic has its oddities too, and, as we will later see in our study of set theory, first-order logic will suffice to define a formal system able to ``contain'' all mathematics (and, yes, that \emph{kind of} includes second-order arithmetic).
+\end{example}
+
+
+\begin{theorem}[First-order deduction theorem]
+\label{dedthmfol}
+Let $\mathsf{H}$ be a first-order formal system over a first-order language $L = (\Sigma,T,F)$ with a set of axioms $\Xi$.
+For any collection of formulas $\Gamma\subseteq F$, any \emph{closed} formula $A\in F$ and any formula $B\in F$, if one can deduce $\Gamma\cup\{A\}\vdash_{\mathsf{H}} B$, then $\Gamma \vdash_\mathsf{H} (A\limplies B)$. 
+
+Conversely, even if $A$ is not closed, if $\Gamma \vdash_\mathsf{H} (A\limplies B)$, then $\Gamma\cup\{A\}\vdash_{\mathsf{H}} B$.
+\label{}
+\end{theorem}
+
+\begin{proof}
+The reasoning followed in \ref{dedthmprop} to show that $\Gamma\cup\{A\} \vdash B$ implies $\Gamma\vdash (A\limplies B)$ is perfectly valid for first-order systems. We just need to extend it in order to take into consideration the generalisation rule.
+
+Proceeding by induction as in \ref{dedthmprop}, let us then assume that $B$ has been obtained by an application of the generalisation rule on a formula $X$ such that, according to our inductive hypothesis, $\Gamma \vdash (A\limplies X)$. We will assume that, for a certain variable $x_i$, $B$ is of the form $(\forall x_i) X$.
+In order to show that $\Gamma \vdash  (A \limplies B)$, we just need to consider the following deduction from $\Gamma$.
+\begin{deduction}{dedthmfol1}
+\dstep[h1]{By hypothesis, can be deduced from $\Gamma$}{A\limplies X,}
+\dstep[s1]{Generalisation on \dref{h1}}{(\forall x_i) (A\limplies X),}
+\dstep[h2]{\ref{axq2}}{(\forall x_i)(A\limplies X) \limplies (A\limplies (\forall x_i) X),}
+\dstep{MP on \dref{h1}, \dref{h2}}{A \limplies (\forall x_i) X.}
+\end{deduction}
+
+The proof of the converse is completely analogous to that of \ref{dedthmprop}.
+Furthermore, as we pointed out in the statement of the theorem, for the converse to be true, $A$ need not be closed.
+\end{proof}
+
+\begin{para}
+Let $A\in F_P$ be any tautology of propositional logic. Given any first-order language $L$, any first-order formula obtained by replacing the propositional symbols in $A$ by formulas of $L$ is also said to be a tautology in $L$.
+
+For instance, we know $A\limplies A \in F_P$ to be a tautology. Thus, the formula $(\forall x_1) P_1^1(x_1) \limplies (\forall x_1)P^1_1(x_1)$ is a tautology in $L_Q$.
+\end{para}
+
+\begin{proposition}
+\label{fotaupro}
+Let $\mathsf{H}$ be an arbitrary first-order system defined on a first-order language $L = (\Sigma, T, F)$.
+\begin{statements}
+\item \label{fotauthm} Any tautology in $L$ is a theorem of $\mathsf{H}$.
+\item \label{tauval} Any tautology in $L$ is a valid formula.
+\end{statements}
+\label{tautovalid}
+\end{proposition}
+
+\begin{proof}
+\begin{parlist}
+\item Let ${A}$ be a tautology in propositional logic and let $A'\in F$ be the first-order tautology obtained by substituting the propositional symbols of $A$ by formulas in $L$.
+As $\mathsf{P}$ is semantically complete, $\vdash_{\mathsf{P}}{A}$ and, therefore, we there know to exist a proof $({A}_1,\ldots,{A}_n)$ in $\mathsf{P}$ with ${A}_n = {A}$.
+We can then consistently substitute all the propositional symbols in the proof by their corresponding formulas in $L$ in such a way that $A_n' = A'$.
+Thus, we are led to a proof of $A'$ in $\mathsf{H}$ because the MP inference rule and the axiom schemata \ref{axp1}, \ref{axp2} and \ref{axp3} are included in $\mathsf{H}$ and, consequently, $\vdash_{\mathsf{H}}{A'}$. 
+
+\item As before, let $A \in F_P$ be a tautology of propositional logic and let $A' \in F$ be a first-order formula obtained by substituting the propositional symbols in $A$ by formulas in $L$.
+Let $B_1,\ldots,B_n$ be those distinct formulas and, without loss of generality, let $p_1,\ldots,p_n$ be the respective propositional symbols being substituted by them.
+
+Before diving into the proof, let us extend our notation. For any formula $P\in F_P$ using, exclusively, the propositional symbols $p_1,\ldots,p_n$, we will denote by $P'$ the first-order formula in $L$ obtained by replacing every propositional symbol $p_k$ in $P$ by $B_k$.
+
+Let us consider an arbitrary interpretation $\mathcal{I}$ of $L$. We need to show that, for any assignment of values $\alpha$ in $\mathcal{I}$, $v_\alpha(A) = 1$. In order to achieve this, we will first prove that --- for any interpretation $i$ of propositional logic verifying, for any $k \in \{1,\ldots,n\}$, $v_i(p_k) = v_\alpha(B_k)$ --- we have $v_\alpha(A') = v_i(A)$, which will be equal to $1$, since $A$ is a tautology.
+
+We will prove our claim by induction on the number of connectives $m$ in ${A}$. For the base case $m=0$, $A'$ will be $p_1$. Thus, by the definition of $i$, it is clear that $v_i(p_1) = v_\alpha(B_1)$. 
+Let us now assume our claim to hold for an arbitrary $m\in\mathbb{N} \cup \{0\}$ and prove it for $m+1$.
+There are three cases we need to consider: $A$ may be of the form $X\limplies p_k$,  $p_k \limplies X$ or $\lnot X$ for some $k \in \{1,\ldots,n\}$ and for some $X\in F_P$ having $m$ connectives.
+In the first case we mentioned, we have a formula of the form $X\limplies p_k$ with $v_i(X) = v_\alpha(X')$ and $v_i(p_k) = v_\alpha(B_k)$.
+By the semantics of propositional and predicate logic, we know that both $v_\alpha(X' \limplies B_k)$ and $v_i(X\limplies p_k)$ are $0$ if and only if $v_\alpha(X') = v_i(X) = 0$ and $v_\alpha(B_k) = v_i(p_k) = 1$, and they are both $1$ otherwise.
+Hence, they always have the same value. The proof for the second case is analogous. Lastly, the third case is trivial: if $v_i(X) = v_\alpha(X')$, then $v_i(\lnot X)$ and $v_\alpha(X')$ will both be $0$ if and only if $v_i(X) = v_\alpha(X') = 1$ and $1$ otherwise.
+\end{parlist}
+
+\end{proof}
+
+
+\begin{para}
+Let $A\in F_P$ be any contradiction of propositional logic. Given any first-order language $L$, any first-order formula obtained by replacing the propositional symbols in $A$ by formulas of $L$ is also said to be a contradiction in $L$.
+It can be easily shown, in full analogy with the proof of \ref{tautovalid}\ref{tauval}, that any first-order contradiction is false under any interpretation. I will leave the details for you.
+\end{para}
+
+
+\begin{para}
+The fact that any tautology in a first order system is both a theorem and a valid formula enables us to import effortlessly many results from propositional logic into predicate logic.
+In the remainder of this section, we will present a bunch of those results referencing their analogues in our treatment of propositional logic.
+If no proofs are given, it is because --- once \ref{fotaupro} is taken into consideration --- they are practically identical to those provided in our study of propositional logic.
+\end{para}
+
+\begin{lemma}[Analogue of \ref{cinr}]
+Let $\mathsf{H}$ be a first-order system on a first-order language $L = (\Sigma, T, F)$. Let $\Gamma \subseteq F$ and let $A$ and $B$ be two arbitrary formulas. One can deduce $\Gamma\vdash_{\mathsf{H}} (A\land B)$ if and only if one can deduce both $\Gamma \vdash_{\mathsf{H}} A$ and $\Gamma \vdash_\mathsf{H} B$.
+\label{}
+\end{lemma}
+
+\begin{proposition}[Analogue of \ref{piff}]
+\label{foiff}
+Let $\mathsf{H}$ be a first-order system on a first-order language $L$. Given any formulas $A$ and $B$ of $L$, $\Gamma \vdash_{\mathsf{H}} (A \liff B)$ if and only if $\Gamma \vdash_\mathsf{H} (A\limplies B)$ and $\Gamma \vdash_\mathsf{H} (B\limplies A)$.
+
+In particular, if $\Gamma = \emptyset$, $A\liff B$ is a theorem of $\mathsf{H}$ if and only if so are $A\limplies B$ and $B\limplies A$.
+\end{proposition}
+
+\begin{proposition}[Principle of explosion. Analogue of \ref{pexpprop}]
+In an arbitrary first-order system $\mathsf{H}$, anything can be deduced from a false premise: given any two formulas $A,B$ in its language, we have $A,\lnot A \vdash_{\mathsf{H}} B$. 
+\label{fo-pexpl}
+\end{proposition}
+
+\begin{lemma}
+Let $\mathsf{H}$ be a consistent first-order system with a set of non-logical axioms $\xi$.
+If $A$ is a closed formula that is not a theorem in $\mathsf{H}$, the formal system $\mathsf{H}^*$ obtained from $\mathsf{H}$ by adding $\lnot A$ as a non-logical axiom is consistent.
+\label{notacons}
+\end{lemma}
+
+\begin{proof}
+Let us assume that $\mathsf{H}^*$ is inconsistent and, therefore, that, for a formula $B\in F$, both $B$ and $\lnot B$ are theorems of $\mathsf{H}^*$.
+From the principle of explosion \ref{fo-pexpl}, it follows that $\vdash_{\mathsf{H}^*} A$.
+Nevertheless, since $\mathsf{H}^*$ is nothing more than $\mathsf{H}$ with $\lnot A$ as an additional axiom, any proof in $\mathsf{H}^*$ is a deduction from $\lnot A$ in $\mathsf{H}$.
+Therefore, $\lnot A \vdash_\mathsf{H} A$.
+
+By hypothesis, $A$ is closed and so must be $\lnot A$. Under these conditions, we can apply the deduction theorem to conclude that $\vdash_{\mathsf{H}} \lnot A \limplies A$. In addition, since the tautology $(\lnot A \limplies A)\limplies A$ is a theorem of $\mathsf{H}$, so an application of MP yields $\vdash_{\mathsf{H}} A$, which cannot be the case according to our hypotheses and proves that $\mathsf{H}^*$ need be consistent.
+\end{proof}
+
+
+\begin{theorem}
+\label{proph}
+Let $\mathsf{H}$ be any first-order system on a first-order language $L = (\Sigma,T,F)$. The following metatheorems are true.
+\begin{statements}
+\item \label{haxtrue} Every instance of the axiom schemata \ref{axp1}, \ref{axp2}, \ref{axp3}, \ref{axq1} and \ref{axq2} in $L$ is valid. Consequently, verifying the non-logial axioms of a first-order system is sufficient to show an interpretation to be a model.
+\item \label{hsound} Let $\mathcal{M}$ be a model of $\mathsf{H}$. If, given any collection of formulas $\Gamma\subseteq F$ and any formula $A\in F$, it can be deduced that $\Gamma\vdash A$, then $\mathcal{M}\vDash \Gamma$ implies $\mathcal{M}\vDash A$. In other words, if $\Gamma\vdash A$, any model in which all the formulas in $\Gamma$ are true makes $A$ true too. If, in particular, we take $\Gamma = \emptyset$, this means that any theorem of $\mathsf{H}$ is true in any model of $\mathsf{H}$.
+\item \label{hcons} If $\mathsf{H}$ has a model, it is consistent.
+\item \label{consmodel} If $\mathsf{H}$ is consistent, it has a model.
+\item \label{hsemc} Any valid formula $A$ in $L$ is a theorem in $\mathsf{H}$. In other words, any first-order system is semantically complete.
+\end{statements}
+\label{<+label+>}
+\end{theorem}
+
+\begin{proof}
+\begin{parlist}
+\item All instances of the axiom schemata \ref{axp1}, \ref{axp2} and \ref{axp3} are, undoubtedly, tautologies; therefore, applying \ref{fotaupro}\ref{tauval}, we already known them to be valid formulas.
+Let us then focus on the axiom schemata \ref{axq1} and \ref{axq2} and show that all of their instances are valid.
+For this purpose, we will consider an arbitrary interpretation $\mathcal{I}$ of $L$ and an arbitrary assignment of values $\alpha$ in $\mathcal{I}$.
+
+Let us begin with \ref{axq1}. Let $A\in F$ be an arbitrary formula, $x_i\in T$ be any variable and $t\in T$ be any term containing no variables that are quantified in $A$.
+We need to show that $v_\alpha( (\forall x_i) A \limplies A(x_i\Vert t)) = 1$.
+If we had $v_\alpha( (\forall x_i) A \limplies A(x_i\Vert t)) = 0$, then, necessarily, $v_\alpha( (\forall x_i) A) = 1$ and $v_\alpha ( A(x_i\Vert t)) = 0$.
+Nevertheless, the fact that $v_\alpha( (\forall x_i) A) = 1$ means that, for any valuation $\alpha'$ with $\alpha(x_j) = \alpha'(x_j)$ for any $i\neq j$, we have $v_{\alpha'}(A) = 1$.
+We will consider a particular $\alpha'$ satisfying $\alpha'(x_i) = t$ .
+Since none of the variables present in $t$ are quantified in $A$, it follows that $v_\alpha(A(x_i\Vert t)) = v_{\alpha'}(A) = 1$. As it is impossible for $v_\alpha(A(x_i\Vert t))$ to be both $0$ and $1$, we can conclude that it is impossible for $v_\alpha( (\forall x_i) A \limplies A(x_i\Vert t) )$ to be $0$.
+
+Lastly, let us analyse \ref{axq2}. Let $A,B\in F$ be any formulas and let $x_i$ be any variable not appearing free in $A$. Let us assume that
+\[v_\alpha( (\forall x_i)(A\limplies B) \limplies (A\limplies (\forall x_i) B)) = 0.\]
+In this scenario, we have $v_\alpha( (\forall x_i) (A\limplies B) ) = 1$ and $v_\alpha(A\limplies (\forall x_i) B) = 0$ simultaneously. 
+If $v_\alpha( (\forall x_i) (A\limplies B)) = 1$, then, for any assignment $\alpha'$ with $\alpha'(x_j) = \alpha(x_j)$ for any $i\neq j$, we have $v_{\alpha'}( A \limplies B) = 1$.
+Since $x_i$ does not appear as a free variable in $A$ and all such assignments $\alpha'$ only differ in $\alpha'(x_i)$, their valuations of $A$ are either all equal to $1$ or all equal to $0$.
+If they were all equal to $0$, then, in particular, $v_\alpha(A) = 0$, which would mean that $v_\alpha(A\limplies (\forall x_i) B) = 1$, and that would contradict our hypothesis.
+Thus, all those assignments $\alpha'$ need to verify $\alpha'(x_i) = 1$.
+Nevertheless, since, $v_{\alpha'}(A \limplies B) = 1$, this means that $v_\alpha'(B) = 1$ for any $\alpha'$.
+It is then immediate that $v_\alpha( (\forall x_i) B) = 1$ and, therefore, that $v_\alpha( A\limplies (\forall x_i) B) = 1$, which, again, would contradict our initial assumptions.
+It follows that, necessarily, $v_\alpha( (\forall x_i)(A\limplies B) \limplies (A\limplies (\forall x_i) B )) = 1$.
+
+\item We proceed by induction on the length $n$ of the deduction $(A_1,\ldots,A_n)$ with $A_n = A$ of $\Gamma\vdash A$.
+The base case $n=1$ is trivial: if the deduction is $(A)$ then $A$ may be an axiom (which is, by definition, true in any model) or an element of $\Gamma$ (which is, by hypothesis, true in $\mathcal{M}$).
+
+Let us assume the result to be true for any natural number smaller than or equal to an arbitrary $n\in \mathbb{N}$ and let us prove it for $n+1$.
+If we have a deduction with $n+1$ elements, $A$ may still be an axiom or an element of $\Gamma$ (if that were the case, we have nothing to worry about), but it may also have been obtained by applying the MP rule or the generalisation rule on previous elements of the deduction.
+These elements have deductions of length smaller than $n+1$ and, therefore, the inductive hypothesis applies to them.
+
+If $A$ has been obtained by an application of MP to two formulas of the form $X$ and $X\limplies A$ verifying $\mathcal{M} \vDash X$ and $\mathcal{M} \vDash X\limplies A$, is $A$ true in $\mathcal{M}$? We know that any assignment of values $\alpha$ verifies $v_\alpha(B) = 1$ and $v_\alpha(B\limplies A) = 1$. That can only mean that $v_\alpha(A) = 1$ for any assignment $\alpha$ and, therefore, that $\mathcal{M}\vDash A$.
+
+If, on the other hand, $A$ is a formula of the form $(\forall x_i) X$ and has been obtained by an application of the rule of generalisation to $X$ with $\mathcal{M}\vDash X$, is $A$ true in $\mathcal{M}$?
+Any assignment $\alpha$ verifies $v_\alpha(X) = 1$ and, for $(\forall x_i) X$ to be true, we need to have $v_\alpha( (\forall x_i) X) = 1$ for any assignment $\alpha$.
+Let us consider an arbitrary assignment $\alpha$ and show it.
+By definition, $v_\alpha( (\forall x_i) X ) = 1$ if and only if, for every assignment $\alpha'$ with $\alpha'(x_j) = \alpha(x_j)$ for $j \neq i$, we have $v_{\alpha'}(X) = 1$. Is that the case? Of course it is\ldots didn't we have $\mathcal{M}\vDash X$?
+
+By the principle of mathematical induction, the proof is complete.
+
+\item According to \ref{hsound}, any theorem in $\mathsf{H}$ needs to be true in $\mathcal{M}$. Thus, if $A$ is a theorem, every assignment $\alpha$ verifies $v_\alpha(A) = 1$ and, consequently, $v_\alpha(\lnot A) = 0$, so $\lnot A$ is false in $\mathcal{M}$ and cannot be a theorem of $\mathsf{H}$.
+
+\item This is an important result, but the proof is pretty lengthy and technical.
+If you are curious about the proof and want to go through it, check out \ref[appendix]{foconmodel} in the appendices.
+
+\item Let $A\in F$ be a valid formula and let us assume that $\not\vdash_{\mathsf{H}} A$ and that $\mathsf{H}$ is consistent.
+According to \ref{notacons}, the formal system $\mathsf{H}^*$ obtained by adding the axiom $\lnot A$ to $\mathsf{H}$ is consistent.
+Applying \ref{consmodel}, we know $\mathsf{H}^*$ to have a model $\mathcal{M}$, and, by the very definition of model, $\mathcal{M} \vDash \lnot A$, which means that $A$ will be false in $\mathcal{M}$.
+Nonetheless, that is impossible for, by hypothesis, $A$ is valid and, therefore, true in every interpretation.
+Consequently, every valid formula is, necessarily, a theorem in $\mathsf{H}$.
+
+If $\mathsf{H}$ is not consistent, any formula is a theorem by the explosion principle and the result is trivial.
+\end{parlist}
+\end{proof}
+
+
+
+\begin{theorem}
+The following metatheorems about the formal system of predicate logic are true:
+\begin{statements}
+\item All the theorems of $\mathsf{Q}$ are valid formulas: $\mathsf{Q}$ is sound.
+\item The formal system $\mathsf{Q}$ is consistent.
+\end{statements}
+\label{<+label+>}
+\end{theorem}
+
+\begin{proof}
+\begin{parlist}
+\item According to \ref{proph}\ref{haxtrue}, any interpretation is a model of $\mathsf{Q}$. Moreover, applying \ref{proph}\ref{hsound}, any theorem of $\mathsf{Q}$ must be true in every model of $\mathsf{Q}$, i.e. in every interpretation. This means that every theorem of $\mathsf{Q}$ is a valid formula.
+\item We know, thanks to \ref{proph}\ref{haxtrue}, that $\mathsf{Q}$ has a model (it can be any interpretation). Thus, the result is a direct consequence of \ref{proph}\ref{hcons}.
+
+\end{parlist}
+\end{proof}
+
+
+
+\begin{lemma}[Analogue of \ref{replacetautology}]
+Let $\mathsf{H}$ be a first-order system on a language $L$. Let $A$, $X$ and $Y$ be formulas of $L$. If $X\liff Y$ is a valid formula in $L$ and $A'$ denotes the formula resulting from replacing each appearance of $X$ in $A$ by $Y$, then $A\liff A'$ is a valid formula and, by \ref{proph}\ref{hsemc}, a theorem in $\mathsf{H}$.
+\end{lemma}
+
+\begin{para}
+In \ref{lpinformal}, we saw how the informal manipulations of propositional forms --- e.g., removing parentheses or swapping formulas around $\land$ or $\lor$ --- can be safely used in $\mathsf{P}$.
+That same reasoning should also be enough to convince you by now that those manipulations, together with the conventions set out in \ref[prel]{hierarchy} and \ref[prel]{notaquan}, can be used in any first-order system.
+
+In addition, it should be clear that the informal use of the pseudo-quantifiers that were introduced in \ref[prel]{pseudoquan} is perfectly safe in any first-order system accepting them.  
+\end{para}
+
+
+\begin{proposition}[Analogue of \ref{impsystemp}]
+Let $\mathsf{H}$ be a formal system on a language $L$. Let $A$, $B$, $A_1$, $A_2$, $B_1$ and $B_2$ be formulas of $L$ and $\Gamma$ a set of formulas of $L$.
+\begin{statements}
+\item One can deduce $\Gamma \vdash_\mathsf{H} (A \limplies (B_1\land B_2))$ if and only if one can deduce both $\Gamma \vdash_\mathsf{H} (A\limplies B_1)$ and $\Gamma \vdash_\mathsf{H} (A\limplies B_2)$. In particular, if $\Gamma = \emptyset$, $A\limplies (B_1\land B_2)$ is a theorem of $\mathsf{H}$ if and only if so are $A\limplies B_1$ and $A \limplies B_2$.
+
+\item One can deduce $\Gamma \vdash_\mathsf{H} ( (A_1\land A_2) \limplies B_1 )$ if and only if one can deduce $\Gamma \vdash_\mathsf{H} (A_1 \limplies (A_2 \limplies B))$ or $\Gamma \vdash_\mathsf{H} (A_2 \limplies (A_1 \limplies B)$. In particular, if $\Gamma = \emptyset$, $(A_1\land A_2) \limplies B$ is a theorem if and only if so are $A_1\limplies (A_2\limplies B)$ or $A_2 \limplies (A_1 \limplies B)$.
+\end{statements}
+\label{implesmani}
+\end{proposition}
+
+
+\begin{para}
+The remarks that we made about the deduction theorem in \ref{remarkdedp} are as valid for first-order closed formulas as they were for propositional forms. Nevertheless, they are not true for formulas with free variables.
+
+In a first-order system, given two formulas $A$ and $B$, $A\vdash B$ and $\vdash A\limplies B$ are not necessarily equivalent if $A$ is not closed.
+If $A$ has free variables, the statement $\vdash A \limplies B$ is stronger than $A \vdash B$; and, from a semantic perspective, it is obvious why this is the case.
+
+Going back to \ref{proph}\ref{hsound}, we know that if $A\vdash B$, then any model \emph{making $A$ true} makes $B$ true.
+If, instead, $\vdash (A\limplies B)$, we know that $A\limplies B$ is true in \emph{any} model of the system and, therefore, that --- in any model --- any assignment satisfying $A$ also satisfies $B$.
+
+For example, in $\mathsf{PA}$, the generalisation rule yields $x = 1 \vdash (\forall x)\qsep x = 1$ while, clearly, $\not\vdash (x = 1 \limplies (\forall x)\qsep x = 1)$. On the other hand, $\vdash (x = 1 \limplies s(x)  = s(1))$ and, consequently, $x = 1 \vdash s(x) = s(1)$.
+You see, saying that $A \vdash B$ is the same as saying that $B$ is a theorem if we add $A$ as a general assumption (i.e., as an axiom of the formal system), whereas $\vdash A \limplies B$ means that, in our formal system, whenever $A$ is true, $B$ is true.
+Remember when I told you that removing formulas with free variables would make us lose expressive power? This is what I was talking about. 
+
+In mathematics, when working inside any first order system, it is extremely common to represent --- for any two formulas $A$ and $B$ --- the statement $\vdash A\limplies B$ as $A\implies B$.
+Be aware that $A\implies B$, unlike $A\limplies B$, is a statement in the metalanguage.
+Using $A\implies B$ instead of $\vdash A\limplies B$ is so common that some mathematicians do not know what $\vdash A \limplies B$ means, so, unless you want to be frowned upon, always stick to $A\implies B$ unless, of course, you are working on mathematical logic as we have been doing.
+
+In full analogy, given any two formulas $A$ and $B$ in a first-order system, $A\iff B$ is used to mean $\vdash A\liff B$. This, as with $\implies$, is stronger a statement than saying both $A\vdash B$ and $B\vdash A$.
+\end{para}
+
+\begin{theorem}
+Let us consider an arbitrary first-order system.
+\begin{statements}
+\item Let $A$ and $B$ be any formulas. Proving that $A\implies B$ is equivalent to proving the \emph{contrapositive}: $\lnot B \implies \lnot A$. \label{contra}
+\item Let $X$ be any formula and let $C$ be any contradiction.
+Proving that $X$ is a theorem is equivalent to showing that $\lnot X \implies C$. In particular, if $X$ is of the form $A \limplies B$, proving $A \implies B$ is the same as showing
+\[A \land \lnot B \implies (A \land \lnot A),\]
+where we have used the fact that $A \land \lnot B$ is equivalent to $\lnot(A \limplies B)$. The use of this technique is known as doing a \emph{proof by contradiction}.
+\end{statements}
+Notice how any proof that makes use of the contrapositive can be trivially transformed into a proof by contradiction, but not conversely.
+\label{pftch}
+\end{theorem}
+
+\begin{proof}
+\begin{parlist}
+\item Let us assume that $A \implies B$, this is, that $\vdash A \limplies B$.
+As we know $(A\limplies B) \liff (\lnot B \limplies \lnot A)$ to be a tautology and, therefore, a theorem in our formal system, a direct application of MP and \ref{foiff} yields $\vdash \lnot B \limplies \lnot A$. The converse is analogous.
+
+\item The proof of this statement is analogous to that of \ref{contra} and relies on the fact that the formula
+$ X \liff \left( \lnot X \limplies C \right)$
+is a tautology.
+\end{parlist}
+\end{proof}
+
+\begin{para}
+And now, as we reach then end of the chapter, it is time for us to address the issue that we considered in \ref{whybother} and discuss a deep topic: G\"odel's incompleteness theorem.
+
+Now that we leave our analysis of mathematical logic behind, we will begin working in the formal system of set theory that unifies all mathematics. What properties would we like that system to have?
+We would certainly like it to be consistent and syntactically complete.
+In other words, given any formula $A$, we want either $A$ or $\lnot A$ to be a theorem because, whenever you have a property of set theory, you know that either it or its negation are true and, of course, you would like your system to be powerful enough to deduce the true one (and only the true one).
+
+If you were a committed formalist and you believed that mathematics is just a game of symbols with some rules, you would also want the formal system to be able to prove its own consistency in order for everything to fit nicely.
+In fact, were you not able to do that for basic arithmetic, all the work we have done would render meaningless for you because, in order to prove results about the formal system of propositional logic, we have been using some basic properties of the natural numbers and arithmetic.
+Thus, from the point of view of a pure formalist, the only way to see what we have done as valid would be formalising our reasoning in a formal metatheory that would need to capture basic arithmetic and prove its own consistency.
+
+There are some nice properties that we could also ask our formal system to have (like all their axioms' being independent), but that is insignificant when compared with the importance of what we have just discussed.
+
+Now, the question is: has anyone managed to do such a thing? Has anyone been able to prove the consistency of mathematics within mathematics? The answer is no, and that is for a very good reason\ldots
+\end{para}
+
+\begin{theorem}[Kurt G\"odel]
+Let $\mathsf{H}$ be any consistent formal system capturing elementary arithmetic.
+\begin{statements}
+\item The formal system $\mathsf{H}$ is not syntactically complete.
+\item The formal system $\mathsf{H}$ cannot prove its own consistency. 
+\end{statements}
+\label{<+label+>}
+\end{theorem}
+
+\begin{proof}
+This one does go far beyond the scope of this book. Nonetheless, if you have the time for it --- depending on you level of understanding, it may take you a few days, --- I invite you to read G\"odel's original proof at some point. You can find it in \cite{Godel}. It is a pretty illuminating experience.
+\end{proof}
+
+\begin{para}
+I should warn you that what follows is a personal, partially subjective remark. That theorem was\ldots intense, wasn't it? If you are a formalist, please accept my condolences.
+Just as Russel's paradox sentenced logicism by showing that we cannot reduce mathematics to logic, G\"odel's theorem killed pure formalism by proving that no formal system is able to capture all mathematics or even formally prove its consistency. In other words: syntax is not enough; symbols are not enough; there is something else.
+
+Now does this mean that arithmetic may be inconsistent? 
+From a purely formal point of view, yes.
+From a human point of view, of course not.
+We, as humans, can see further beyond mere formalisations of theories, and, even if we cannot prove it formally, we know that Peano Arithmetic is consistent.
+Why? Because we see arithmetic: the reality of arithmetic is one that we have already explored through our minds and know to exist and be consistent.
+That cannot be captured formally, but that does not make it any less real.
+
+This very same reasoning will also be applicable to the formalisation of set theory that we will soon introduce and that --- as we will see --- includes Peano Arithmetic and is thus affected by G\"odel's theorem.
+
+I am, of course, not trying to make a case for fully disregarding formalisation.
+Our minds are extremely fallible, and a formalist approach to mathematics is, to some extent, indispensable;
+furthermore, there is a special beauty in exploring the inner workings of reason, and that can only be done in a formal framework.
+Nevertheless, we should not forget that formalisation, in spite of its undoubted importance, is still a tool, not an end. Mathematics is so much more than symbols.
+
+I will leave it there. An in-depth treatment of these issues is more suitable for a philosophy book.
+If you would like to get more insights on the philosophy of mathematics, I encourage you to read \cite{Brown}.
+\end{para}

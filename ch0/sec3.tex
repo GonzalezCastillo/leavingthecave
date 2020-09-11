@@ -1,0 +1,169 @@
+%begin-include
+
+\section{Predicates}
+
+\begin{para}
+Until now, we have been concerned with propositions --- statements that were either true or false --- and how we could manipulate them with using logical connectives.
+We will now take one step further and take into consideration the particular objects which we make statements about.
+Welcome to the world of predicate logic.
+\end{para}
+
+\begin{para}[Predicates]
+Just as propositional logic was all about propositions, predicate logic is all about \emph{predicates}.
+An $n$-ary predicate $P(x_1,\ldots,x_n)$, where $n$ is zero or a natural number, is a statement that depends on $n$ variables $x_1,\ldots,x_n$, known as \emph{arguments}, that is either true or false depending on the values that those variables take.
+The set of values the variables are allowed to take is called the \emph{domain of discourse} (or \emph{domain}, for short).
+Of course, nullary predicates --- which are mere propositions --- need not be followed by parentheses since they do not take any arguments.
+
+For example, if were working with the set of all animals as domain, we could define a unary predicate $P(x)$ as ``$x$ can fly'' in such a way that $P(\tx{cow})$ would be false but $P(\tx{bird})$ would be true.
+
+Notice how the proposition that arises after any assignment of values to the arguments of a predicate is written substituting the different variable symbols by the values they take, just as we did in $P(\tx{cow})$ for $P(x)$.
+
+
+\end{para}
+
+\begin{para}
+Predicates, just like propositions, can be combined with the connectives from propositional logic in order to form new predicates.
+Nonetheless, being able to work directly with the objects we are ``saying things'' about opens up a new world of possibilities.
+One of them is the ability to incorporate functions and constants into our predicates, but the most notable of all is the use of \emph{quantifiers}.
+
+As their name implies, quantifiers allow us to create new predicates stating the quantity of elements in the domain that verify a certain predicate. The two most fundamental are the \emph{universal} quantifier and the \emph{existential} quantifier.
+The universal quantifier is used to state that a certain predicate $P(x_1,\ldots,x_n)$ is true for every value taken by a variable $x_i$ (with $i\in\{1,\ldots,n\}$) in the domain. This is written as $(\forall x_i)P(x_1,\ldots,x_n)$ and is read as ``for all $x_i$, $P(x_1,\ldots,x_n)$.''
+On the other hand, we use the existential quantifier to state that a certain property\footnote{``Property'' can be used to mean ``predicate.''} $P(x_1,\ldots,x_n)$ is verified by, at least, one assignment to $x_i$ of an element in the domain. We write this as $(\exists x_i)P(x_1,\ldots,x_n)$ and read it as ``there exists an $x_i$ such that $P(x_1,\ldots,x_n)$.''
+The predicate $P$ over which we are quantifying is said to be the \emph{scope} of the quantifier.
+
+A variable $x$ appearing in the scope of a quantifier $(\forall x)$ or $(\exists x)$ is said to be a \emph{bound} variable. Variables that are not bound are called \emph{free} variables. For example, if we let $P(x)$ and $Q(x)$ be predicates, in the predicate $P(x) \land (\forall x)Q(x)$, the first occurrence of $x$ is free but the second is bound.
+Nevertheless, it should be taken into account that it is a pretty poor notational choice to use the same symbol to represent a free and a bound variable in the same predicate. This last predicate could have been better written as $Q(y) \land (\forall x)Q(x)$, but, from a purely formal point of view, there is nothing wrong with the original formulation.
+\end{para}
+
+\begin{para}[Order matters]
+We are now ready to explore our first application of predicate logic; isn't that exciting!?
+And that application goes far beyond any mathematics that you will ever study: it is \href{https://www.youtube.com/watch?v=-mLpe7KUg9U}{love}.
+
+Yesterday, I was scrolling through my social media feed and I found this statement: ``No matter who you are, there exists someone who will love you''.
+Just when I was going to click the ``don't show me posts like this in the future'' button, I had a brilliant idea: that was a perfect sentence waiting for us --- you, my dear reader, and me --- to analyse. So let us get to it!
+
+It should be clear that, if we take the set of all human beings as our domain and let $\heartsuit(x,y)$ denote the predicate ``$y$ loves $x$'', the statement ``no matter who you are, love has already found someone for you'' can be written as $(\forall x)(\exists y) \heartsuit(x,y)$.
+Now, I have a simple question: what would happen if you changed the order of the quantifiers and wrote $(\exists y)(\forall x)\heartsuit(x,y)$?
+What does this sentence mean?
+It means that there exists an individual who we all happen to be in love with!
+The first sentence read ``for every person $x$, there exists a person $y$ who will love them'', but now it reads ``there exists a person $x$ who is loved by every person $y$''.
+Do you have the slightest idea of the mess you have made by swapping two quantifiers? You have taken a cheesy sentence and transformed its meaning to postulate the existence of a love monster!
+
+The moral of the story is simple: do not swap quantifiers.
+Nevertheless, if the same quantification is being used on two different variables consecutively, such as in $(\exists x)(\exists y)\heartsuit(x,y)$, there is obviously no harm in swapping the order of quantifiers; in fact, that last sentence would be often written as $(\exists x,y)\heartsuit(x,y)$.
+
+Hey, I know you might be angry at me for having created hype with applications and all that stuff and having only given you a cheesy sentence. What can I say? I needed your attention! I hope you will forgive me.
+\end{para}
+
+
+\begin{para}[Notation]
+\label{notaquan}
+There is a little bit of freedom in the way that quantifiers can be written and each alternative has its own advantages. The following are just some examples of the notation that one can find in the literature:
+\[ \forall x, \exists y, P(x,y),\qquad (\forall x)(\exists y) : P(x,y),\qquad \forall x : \exists y : P(x,y).\]
+
+I see myself as a liberal person when it comes to notation, but there is something I beg you to do: do not EVER write quantifiers after their scope. Every time you write $P(x),\forall x$ a cute kitten cries immersed in sadness, so, please do not do that.
+This is not a matter of taste; it is a matter of readability. When you are about to read an expression, what variables are being quantified is the first thing you should know, not the last!
+
+Furthermore, as we have just seen, the order in which quantifiers are set is very, very important; thus, if you write them at the end\ldots what order are they in? Should they be read from left to right or from right to left? I mean, it is just inelegant and clumsy. Do not do that, please.
+
+If you really want to do things right, you should extend this idea to your writing.
+I know; saying, for instance, ``$P(x)$ is true for all $x$'' sounds natural and harmless, but as the number of quantifiers increases --- and, believe me, it will increase and not just in logic, but in ordinary mathematics --- you better have those quantifiers right at the start.
+As a rule of thumb, I would only put a quantifier at the end of a predicate in written text if it is a single universal quantifier, and I would never ever write a quantifier at the end in a symbolic expression.
+
+
+Now that we are dealing with notation, let me draw your attention to an important issue.
+In \ref{hierarchy}, we said that, in propositional logic, there was no harm in getting rid of the parentheses that surround a full proposition, so there was no need to write $(p \land q)$ and we could just write $p\land q$.
+In predicate logic, however, we need to be somewhat careful with this idea.
+If, for instance, I wrote $(\forall x) P(x) \land Q(x)$, I would not mean the same as if I had written $(\forall x)(P(x) \land Q(x))$.
+In the former case, the scope of the quantifier is $P(x)$, whereas in the latter it is $P(x)\land Q(x)$.
+
+In order to save ourselves some parentheses and make everything a little bit cleaner, we will use the following convention.
+If a sequence of quantifiers is followed by a dot, it will mean that its scope is the remainder of the predicate unless an opening parenthesis is present before the quantifiers; if this happens, the scope will end at the point where the matching closing parenthesis is located.
+Thus, in $(\forall x)(\exists y)\qsep P(x)\land Q(y)$, the scope of the first quantifier is $(\exists y)(P(x) \land Q(y)$ and that of the second is $P(x) \land Q(y)$.
+On the other hand, in $( (\forall x)\qsep P(x) ) \land Q(x)$, the scope of the quantifier is $P(x)$.
+\end{para}
+
+
+\begin{para}[Negating predicates]
+If I told you that every single human loves mathematics, what would you have to do to prove me wrong?
+You would simply need to show the existence of a person who does not like mathematics.
+Therefore, the negation of the sentence ``for all $x$, $P(x)$ holds'' is ``there exists an $x$ such that $P(x)$ does not hold.''
+In other words, $\lnot (\forall x) P(x)$ is the same as $(\exists x)(\lnot P(x))$.
+
+Now, let us just say that I postulate the existence of a person who has the superpower of flying.
+If you wanted to show that my statement is false, you would have to prove that no person has the superpower of flying or, equivalently, that ``for every person $x$, $x$ cannot fly''.
+What is the moral of the story? That $\lnot(\exists x)P(x)$ equivalent to $(\forall x)(\lnot P(x))$.
+
+Putting together all that we have learnt: how would you write the predicate $\lnot(\forall x)(\exists y)P(x,y)$ without having a negation connective before any quantifier?
+Take a sheet of paper and write down the result.
+
+[Spoiler alert]
+If you have understood this part, you should have reasoned as follows: $\lnot(\forall x)(\exists y) P(x,y)$ is the same as $(\exists x)(\lnot (\exists y) P(x,y))$, which is equivalent to $(\exists x)(\forall y) \lnot P(x,y)$. If you got this right, congrats! You are on the right track.
+If you did not, do not worry: make yourself a good cup of tea, go through this material again and give it some thinking.
+
+As you can see, when negating an expression involving the existential and universal quantifiers, the only thing we need to do is ``swap them and negate what is inside them''.
+That is a pretty easy rule, but, as always happens with this kind of shortcuts, you should only apply it if you really know what is going on underneath the hood.
+\end{para}
+
+
+\begin{para}[Defining quantifiers]
+There is something kind of significant in our analysis of the negation of predicates. What we have shown --- probably without your noticing --- is that one of our quantifiers is redundant. The predicate $(\exists x) P(x)$ is equivalent to $\lnot (\forall x)(\lnot P(x))$, so, in a way, there was no need to introduce the existential quantifier once we had the universal one. Conversely, $(\forall x) P(x)$ is equivalent to $\lnot(\exists x)(\lnot P(x))$, hence the existential quantifier could also serve us as our only quantifier.
+
+Despite the redundancy, we introduced both of them for an obvious reason:
+for us humans, it is more natural to think ``every $x$ verifies $P(x)$'' than ``there does not exits an $x$ not verifying $P(x)$''.
+\end{para}
+
+\begin{para}[Pseudo-quantifiers]
+\label{pseudoquan}
+We will now introduce some ``pseudo quantifiers''.
+I have given them this name --- which is, by the way, not standard whatsoever --- because they are just constructions that help us quantify over things without being proper quantifiers.
+Instead, they are mere logical artefacts that are limited to a certain kind of theories.
+
+Some theories (in fact, most theories) define a predicate $E$ that is meant to represent equality. In these theories, we can define a predicate $(\exists! x)P(x)$ meaning ``there exists a unique $x$ verifying $P(x)$''. The equivalent real predicate behind $(\exists! x)P(x)$ would be
+\[(\exists x)(\forall y) (P(x) \land (P(y)\limplies E(x,y))),\]
+or, in English, ``there exists an $x$ verifying $P(x)$ and such that, if any $y$ verifies $P(y)$, then $y$ is equal to $x$''.
+
+On some occasions, one may wish to quantify only over the set of elements in the domain that verify a certain predicate $P$.
+This is very easy to do. If we wanted to restrict the quantification of $(\forall x)Q(x)$ or $(\exists x)Q(x)$ only to the elements $x$ verifying $P(x)$, we would just need
+\[ (\forall x)(P(x)\limplies Q(x)) \quad \tx{and} \quad  (\exists x)(P(x) \land Q(x))\]
+respectively.
+You see, saying ``for all $x$ verifying $P(x)$, $Q(x)$ is true'' is the same as saying ``for all $x$, if $x$ verifies $P(x)$, then $Q(x)$ is true'', and analogously for the existential quantifier.
+
+Many theories include binary predicates $P(x,y)$ that can be written as $xPy$ --- for instance, the inclusion predicate $\in$ that we studied in our elementary treatment of set theory, --- and, given a fixed $y$, one may wish to quantify over all the elements $x$ verifying $xPy$.
+Of course, one could write $(\forall x)(xPy\limplies Q(x))$ or $(\exists x)(xPy\land Q(x))$, but, instead of wasting time and ink with such lengthy expressions, it is common to simply use $(\forall x P y)Q(x)$ and $(\exists x P y) Q(x)$.
+Thus, if we wanted to postulate the existence of an element $X$ inside a set $Y$ verifying a property $P(x)$, we would simply have to write $(\exists X \in Y)P(X)$. 
+It is important to keep in mind that this is just shorthand notation, and we should always understand what is really going on.
+
+Just to finish with this, I have an innocent question for you: let us assume that we are in the context of set theory and, given a set $X$ and a predicate $P(x)$, we formulate the sentence $(\exists! x \in X) P(x)$.
+Is this expression well-formed and unambiguous? Take your time to think about it.
+
+[Spoiler alert] Turns out that this expression is ambiguous. What do you mean: that there exists an element $x\in X$ verifying $P(x)$ that is unique among all the elements, or unique among all the elements in $X$? As far as I know, there is no widespread convention on which of these two possible interpretations is correct, so it is better not to use this construction to avoid ambiguity.
+If you wanted to say that it is unique among all the elements of $X$, you could write $(\exists! x)(x\in X \land P(x))$. If, on the other hand, you meant that it is unique amongst all the elements, you could write $(\exists x\in X)(P(x)\land (\forall y)(P(y)\limplies y =x))$.
+\end{para}
+
+\begin{para}[Higher-order logic]
+Predicate logic is also known as \emph{first-order logic}. Higher-order logic is an extension of first-order logic that not only allows quantification over variables, but also over predicates about variables, over predicates about predicates about variables, and so on.
+
+For example, the statement ``for every property $P$, there exists an element $x$ such that $P(x)$ is true'' would be a statement in second-order logic. 
+\end{para}
+
+\begin{para}[Mathematical induction]
+And now, let us close this chapter with a fundamental tool that we will be using extensively from now on, the principle of mathematical induction.
+What this principle states is the following: if a subset $A$ of the natural numbers contains $1$ and, for every $n \in A$, $n+1 \in A$, then $A$ is the set of natural numbers.
+This is kind of trivial when you think about it.
+We already know that $A \subseteq \mathbb{N}$ by hypothesis, so, in order to prove that $A = \mathbb{N}$, we just need to show that $\mathbb{N} \subseteq A$.
+Thus, let $n\in\mathbb{N}$ and let us prove that $n\in A$.
+We know, by hypothesis that $1 \in A$ and --- since, for every $n\in A$, $n+1\in A$, --- then $1 + 1 \in A$ and, therefore, $1 + 1 + 1 \in A$. If we apply this reasoning $n$ times, we are led to
+\[ n = 1 + \overset{n}{\cdots} + 1 \in A.\]
+
+And how does this relate to predicates?
+Well, let us say that we want to show that a predicate $P(n)$ is true for all natural numbers $n$.
+Let $A$ be the set of natural numbers $m$ such that $P(m)$ is true.
+If we show that $1 \in A$ and that, given any $m\in A$, $m+1 \in A$, we will have shown that $A = \mathbb{N}$.
+In other words, if we show that $P(1)$ is true and that, assuming $P(n)$ to be true, $P(n+1)$ is true, then we will know that the predicate is true for all natural numbers.
+
+This principle can be extended to what is known as \emph{strong induction} (we will refer to it as induction too).
+If, given a subset $A\subseteq \mathbb{N}$, we know that $1\in A$ and that, assuming every natural number $i$ such that $0\leq i \leq n$ to belong to $A$, we have $n+1 \in A$, then $A = \mathbb{N}$.
+The reasoning that justifies this is essentially the same as that for normal induction.
+Of course, strong induction can also be applied to show that a certain property holds for every natural number.
+\end{para}

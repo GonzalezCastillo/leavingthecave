@@ -1,0 +1,251 @@
+%begin-include
+
+\section{Additional results in formal logic}
+
+\begin{lemma}
+Let $A$ and $B$ be any propositional forms. The formulas
+\begin{statements}
+\item \label{pcl1} $\lnot A \limplies (A \limplies B)$,
+\item \label{pcl2} $A \limplies \lnot\lnot A$,
+\item \label{pcl3} $A \limplies (\lnot B \limplies \lnot (A\limplies B))$,
+\item \label{pcl4} $(A\limplies B) \limplies ( (\lnot A \limplies B) \limplies B)$,
+\end{statements}
+are theorems of the formal system $\mathsf{P}$ of propositional logic.
+\label{pcl}
+\end{lemma}
+
+\begin{proof}
+What follows are some tedious, long and boring mechanical proofs.
+It is hard to say that you will gain anything from carefully reading them other than convincing yourself that this lemma is true.
+You have been advised. Proceed at your own discretion.
+\begin{parlist}
+\item It is immediate that $A, (A \limplies B), (B \limplies C) \vdash C$, so a simple application of the deduction theorem \ref[fund]{dedthmprop} reveals that
+\[(A\limplies B), (B\limplies C) \vdash (A \limplies C).\]
+This is known as the \emph{hypothetical syllogism rule} (HS). 
+
+With HS in our toolbox, we can perform the following proof in the formal system $\mathsf{P}$.
+\begin{deduction}{notaaimpb}
+\dstep[1]{\ref[fund]{axp1}}{\lnot A \limplies (\lnot B \limplies \lnot A),}
+\dstep[2]{\ref[fund]{axp3}}{(\lnot B \limplies \lnot A) \limplies (A \limplies B),}
+\dstep{HS on \dref{1} and \dref{2}}{\lnot A \limplies (A \limplies B).}
+\end{deduction}
+
+\item No fancy artefacts are required for this proof. We just need some patience.
+
+\begin{deduction}{browerdisapproves}
+\dstep[1]{\ref{pcl1}}{\lnot\lnot A \limplies (\lnot A \limplies \lnot\lnot\lnot A),}
+\dstep[2]{\ref[fund]{axp3}}{(\lnot A \limplies \lnot\lnot\lnot A) \limplies (\lnot\lnot A \limplies A),}
+\dstep[3]{HS on \dref{1}, \dref{2}}{\lnot\lnot A \limplies (\lnot \lnot A \limplies A),}
+\dstep[4]{\ref[fund]{axp2}}{(\lnot\lnot A \limplies (\lnot\lnot A \limplies A)) \limplies ( (\lnot \lnot A \limplies \lnot \lnot A) \limplies (\lnot\lnot A \limplies A)),}
+\dstep[5]{MP on \dref{3}, \dref{4}}{(\lnot \lnot A \limplies \lnot \lnot A) \limplies (\lnot\lnot A \limplies A),}
+\dstep[6]{\ref[fund]{dedaa}}{\lnot\lnot A \limplies \lnot\lnot A,}
+\dstep[7]{MP on \dref{5}, \dref{6}}{\lnot\lnot A \limplies A,}
+\dstep[8]{Instance of \dref{7}}{\lnot\lnot\lnot A \limplies \lnot A,}
+\dstep[9]{\ref[fund]{axp3}}{(\lnot\lnot\lnot A \limplies \lnot A) \limplies (A \limplies \lnot\lnot A),}
+\dstep{MP on \dref{8}, \dref{9}}{A \limplies \lnot\lnot A.}
+\end{deduction}
+
+\item For this proof, we need some background results.
+Firstly,we should notice that, for any formulas $A$ and $B$, we have $\lnot\lnot A, (A\limplies B) \vdash \lnot\lnot B$.
+This follows from some simple applications of modus ponens taking into consideration that, as we showed in the previous deduction, $\lnot\lnot A \limplies A$ and $B \limplies \lnot\lnot B$ are both theorems of $\mathsf{P}$.
+In addition, the application of the deduction theorem on this result yields the existence of a proof for
+\begin{equation}
+(A\limplies B) \limplies (\lnot\lnot A \limplies B).
+\tag{$1*$}
+\label{prelp31}
+\end{equation}
+Furthermore, some other applications of the deduction of theorem and the modus ponens rule on $A,(A\limplies B) \vdash B$ reveal that
+\begin{equation}
+A \limplies ( (A \limplies B) \limplies B)
+\tag{$2*$}
+\label{prelp32}
+\end{equation}
+is another theorem of $\mathsf{P}$.
+
+With these preliminaries out of the way, we can now safely proceed to our proof.
+\begin{deduction}{compleximplication}
+\dstep[1]{\eqref{prelp31}}{(A \limplies B) \limplies (\lnot\lnot A \limplies \lnot\lnot B),}
+\dstep[2]{\ref[fund]{axp3}}{(\lnot\lnot A \limplies \lnot\lnot B) \limplies (\lnot B \limplies \lnot A),}
+\dstep[3]{MP on \dref{1}, \dref{2}}{(A\limplies B) \limplies (\lnot B \limplies \lnot A),}
+\dstep[4]{Instance of \dref{3}}{( (A\limplies B) \limplies B) \limplies (\lnot B \limplies \lnot(A\limplies B)),}
+\dstep[5]{\eqref{prelp32}}{A \limplies ( (A\limplies B) \limplies B),}
+\dstep{HS on \dref{4}, \dref{5}}{A \limplies (\lnot B \limplies\lnot(A\limplies B)).} 
+\end{deduction}
+By the way, observe that we have also shown
+\begin{equation}
+(A \limplies B) \limplies (\lnot B \limplies \lnot A)
+\tag{$3*$}
+\label{axp3vv}
+\end{equation}
+to be a theorem of $\mathsf{P}$.
+
+\item As an auxiliary result, we need to prove that, given any formula $A\in L_P$,  the propositional form
+\begin{equation}
+(\lnot A \limplies A) \limplies A
+\tag{$1\star$}
+\label{prelp41}
+\end{equation}
+is a theorem in the formal system $\mathsf{P}$. If we consider an arbitrary $B \in L_P$, this can be through from the following deduction.
+\begin{deduction}{auxresult3}
+\dstep[1]{\ref{pcl1}}{\lnot A \limplies (A \limplies \lnot B),}
+\dstep[2]{\ref[fund]{axp2}}{(\lnot A \limplies (A \limplies \lnot B)) \limplies ( (\lnot A \limplies A) \limplies (\lnot A \limplies \lnot B)),}
+\dstep[3]{MP on \dref{1}, \dref{2}}{ (\lnot A \limplies A) \limplies (\lnot A \limplies \lnot B),}
+\dstep[4]{\ref[fund]{axp3}}{(\lnot A \limplies \lnot B) \limplies (B \limplies A),}
+\dstep[5]{HS on \dref{3}, \dref{4}}{ (\lnot A \limplies A) \limplies (B \limplies A),}
+\dstep[6]{Instance of \dref{5}}{(\lnot A \limplies A) \limplies ( (\lnot A \limplies A) \limplies A),}
+\dstep[7]{\ref[fund]{axp2}}{( (\lnot A \limplies A) \limplies ( ( \lnot A \limplies A) \limplies A ) ) \limplies ( ( ( \lnot A \limplies A) \limplies (\lnot A \limplies A)) \limplies ( (\lnot A \limplies A) \limplies A)),}
+\dstep[8]{MP on \dref{6}, \dref{7}}{( (\lnot A \limplies A) \limplies (\lnot A\limplies A)) \limplies ( (\lnot A \limplies A) \limplies A),}
+\dstep[9]{\ref[fund]{dedaa}}{(\lnot A \limplies A) \limplies (\lnot A \limplies A),}
+\dstep{MP on \dref{8}, \dref{9}}{(\lnot A \limplies A) \limplies A.}
+\end{deduction}
+
+In addition, it is immediate that $\lnot B, (\lnot B \limplies \lnot A), (\lnot A \limplies B) \vdash B$, which, after some applications of the deduction theorem, shows that
+\begin{equation}
+(\lnot B \limplies \lnot A) \limplies ( (\lnot A \limplies B) \limplies (\lnot B \limplies B)).
+\tag{$2\star$}
+\label{prelp42}
+\end{equation}
+is another theorem of propositional logic.
+
+We will now proceed to deduce $B$ from $(A\limplies B)$ and $(\lnot A \limplies B)$. This will, through some applications of the deduction theorem, yield the result we wanted to prove.
+\begin{deduction}{auxresult4}
+\dstep[1]{Hypothesis}{A \limplies B,}
+\dstep[2]{\ref{pcl3}\eqref{axp3vv}}{(A\limplies B)\limplies (\lnot B \limplies \lnot A),}
+\dstep[3]{MP on \dref{1}, \dref{2}}{\lnot B \limplies \lnot A,}
+\dstep[4]{\eqref{prelp42}}{(\lnot B \limplies \lnot A) \limplies ( (\lnot A \limplies B) \limplies (\lnot B \limplies B),}
+\dstep[5]{MP on \dref{3}, \dref{4}}{(\lnot A \limplies B) \limplies (\lnot B \limplies B),}
+\dstep[6]{Hypothesis}{\lnot A \limplies B,}
+\dstep[7]{MP on \dref{5}, \dref{6}}{ \lnot B \limplies B,}
+\dstep[8]{\eqref{prelp41}}{(\lnot B \limplies B) \limplies B,}
+\dstep{MP on \dref{7}, \dref{8}}{B.}
+\end{deduction}
+Having shown that $(A \limplies B), (\lnot A \limplies B) \vdash B$, the deduction theorem leads us to $\vdash (A\limplies B) \limplies ( (\lnot A \limplies B) \limplies B)$. This concludes the proof.
+\end{parlist}
+\end{proof}
+
+\begin{lemma}
+Let $A\in L_P$ be any propositional and let $i$ be any interpretation of propositional logic together with its induced valuation function $v_i$.
+Without loss of generality, let $x_1,\ldots,x_k$ be the only distinct propositional variables appearing in $A$.
+
+For every propositional form $\phi \in L_{P}$, we define $\phi^i$ as $\phi$ if $v_i(\phi) = 1$ and $\phi^i$ as $\lnot \phi$ if, otherwise, $v_i(\phi) = 0$.
+Under these conditions,
+\[ x_1^i,\ldots,x_k^i \vdash A^i.\]
+\label{<+label+>}
+\end{lemma}
+
+\begin{proof}
+We will prove this by induction on the number of connectives in $A$.
+If $A$ has no connectives, then it will simply be the variable $x_1$ and, clearly, $x_1^i \vdash x_1^i$, so the base case is obvious.
+
+Let us assume the result to hold for any formulas with $n$ or less connectives and show it for an arbitrary formula $A$ with $n+1$.
+Necessarily, $A$ will be of the form $\lnot X$ or $X \limplies Y$ for $X,Y \in F_P$.
+In either case, the result will hold, by hypothesis, for the subformulas $X$ and $Y$.
+
+If $A$ is of the form $\lnot X$, we may have $v_i(X) = 0$ or $v_i(X) = 1$. If $v_i(X) = 0$, then $X^i$ will be $\lnot X$, so, by the inductive hypothesis, $x_1^i, \ldots, x_k^i \vdash \lnot X$.
+Moreover, $v_i(X) = 0$ implies that $v_i(A) = v_i(\lnot X) = 1$, so $A^i$ will be $\lnot X$ and, therefore, we can conclude that $x_1^i,\ldots,x_k^i \vdash A^i$.
+
+If $v_i(X) = 1$, then $X^i$ will be $X$ and we will have $v_i(A) = v_i(\lnot X) = 0$, so $A^i$ will be $\lnot\lnot X$.
+In addition, by the inductive hypothesis, we know that $x_1^i,\ldots,x_k^i\vdash X$.
+In conjunction with \ref{pcl}\ref{pcl2}, this shows that $x_1^i,\ldots,x_k^i \vdash \lnot\lnot X$ which translates into our desired $x_1^i,\ldots,x_k^i\vdash A^i$.
+
+Let us now assume $A$ to be of the form $X \limplies Y$. We will consider three different subcases: one for $v_i(X) = 0$, one for $v_i(Y) = 1$ and one for $v_i(X) = 1$ and $v_i(Y) = 0$.
+
+If $v_i(X) = 0$, then $X^i$ will be $\lnot X$ and we will obviously have $v_i(A) = v_i(X \limplies Y) = 1$, so $A^i$ will be $A$.
+According to our inductive hypothesis, we know that $x_1^i,\ldots,x_k^i\vdash \lnot X$. Taking \ref{pcl}\ref{pcl1} into consideration, it follows that $x_1^i, \ldots,x_k^i \vdash (X\limplies Y)$, hence $x_1^i, \ldots,x_k^i \vdash A$ as we wanted to show.
+
+If $v_i(Y) = 1$, $Y^i$ will be $Y$ and we will also have $v_i(A) = v_i(X\limplies Y) = 1$. In this scenario, our hypothesis states that $x_1^i, \ldots,x_k^i \vdash Y$, which, using \ref[fund]{axp1}, leads us to $x_1^i,\ldots,x_k^i \vdash X \limplies Y$.
+
+Lastly, if $v_i(X) = 1$ and $v_i(Y) = 0$, we will have $v_i(A) = 0$, so $A^i$ will be $\lnot(X \limplies Y)$. By the inductive hypothesis,
+\[ x_1^i,\ldots,x_k^i \vdash X,\qquad x_1^i,\ldots,x_k^i \vdash \lnot Y,\]
+which, together with \ref{pcl}\ref{pcl3}, leads to $x_1^i,\ldots,x_k^i \vdash \lnot(X\limplies Y)$ and completes our proof.
+\end{proof}
+
+\begin{theorem}
+The formal system $\mathsf{P}$ of propositional logic is semantically complete.
+\label{psemcom}
+\end{theorem}
+
+\begin{proof}
+Let $A$ be any tautology. We aim to prove that it is a theorem in $\mathsf{P}$.
+
+According to our previous lemma, letting $x_1,\ldots,x_k$ be the only distinct propositional variables appearing in $A$, if we fix any interpretation $i$, we will have $x_1^i,\ldots,x_k^i \vdash A^i$. Nonetheless, as $A$ is a tautology, it will be true under any interpretation $i$ and, therefore, $A^i$ will be $A$.
+
+We can pick any two interpretations $i$ and $j$ that make $x_k$ true and false respectively and that are equal in all the remaining variables, this is, that satisfy $v_i(x_k) = 1$, $v_j(x_j) = 0$ and $v_i(x_l) = v_j(x_l)$ if $k \neq l$.
+According to our previous lemma, we will have
+\[ x_1^i,\ldots,x_{k-1}^i,x_k \vdash A,\qquad
+x_1^i,\ldots,x_{k-1}^i, \lnot x_k \vdash A,\]
+where we have used the fact that $x_l^i$ is the same as $x_l^j$ if $l \neq k$.
+Applying the deduction theorem, we are thus led to
+\[ x_1^i,\ldots,x_{k-1}^i \vdash (x_k \limplies A),\qquad
+x_1^i,\ldots,x_{k-1}^i \vdash (\lnot x_k \limplies A).\]
+If we now consider \ref{pcl}\ref{pcl4}, it is immediate that
+\[ x_1^i,\ldots,x_{k-1}^i \vdash A.\]
+A recursive application of this reasoning eventually leads to $\vdash A$.
+\end{proof}
+
+
+\begin{lemma}
+Let $\mathsf{H}$ be a consistent first-order system defined on a certain first-order language.
+There exists a consistent extension of the set of non-logical axioms of $\mathsf{H}$ (also known as an extension of $\mathsf{H}$) that makes $\mathsf{H}$ syntactically complete.
+\label{fol-scext}
+\end{lemma}
+
+\begin{proof}
+Let us consider an infinite enumeration $A_1,\ldots,A_n,\ldots$ of all the formulas in the first-order language under consideration.
+Such an enumeration can indeed be constructed and I will leave the details for you.
+We define a sequence of extensions of $\mathsf{H}$ as follows. Firstly, the formal system $\mathsf{H}_0$ will be $\mathsf{H}$ itself. Then, for every natural $n$, we will define $\mathsf{H}_n$ to be the extension of $\mathsf{H}_{n-1}$ including $\lnot A_n$ as an axiom if $A_{n}$ is not a theorem in $\mathsf{H}_{n-1}$. If it is a theorem, we define $\mathsf{H}_n$ to be $\mathsf{H}_{n-1}$.
+
+By \ref[fund]{notacons}, we know that each of this extensions will be consistent. Thus, if we consider the extension $\mathsf{H}_{\infty}$ including as axioms all the axioms of all the $\mathsf{H}_n$ for every $n\in\mathbb{N}$, it is immediate that it will be consistent too.
+In addition, it can be easily seen that $\mathsf{H}_\infty$ will be a syntactically complete extension. Just assume that there is a sentence $A$ such that neither $A$ or $\lnot A$ are theorems in $\mathsf{H}_\infty$. Shouldn't one of them have been added as an axiom in a certain  $\mathsf{H}_n$?
+\end{proof}
+
+\begin{theorem}
+Any consistent first-order formal system $\mathsf{H}$ has a (countable!) model.
+\label{foconmodel}
+\end{theorem}
+
+\begin{proof}
+Let us consider the formal system $\mathsf{H}_0$ obtained by adding an infinite sequence of symbols $b_0,\ldots,b_n,\ldots$ to the particular language it uses.
+
+It is easy to see that the addition of these symbols has no effect in the consistency of the system.
+It suffices to show how a proof in the new formal system of any statement $A$ can be transformed into one, in the old system, of the formula $A'$ obtained by replacing every constant $b_1,\ldots,b_n,\ldots$ in $A$ by a new variable not occurring in $A$.
+Thus, should the new system be able to prove both $A$ and $\lnot A$, the old one would prove $A'$ and $\lnot A'$, but that would be impossible for we have assumed $\mathsf{H}$ to be consistent.
+
+We can now consider an enumeration $A_1,\ldots,A_n,\ldots$ of all the formulas in the language of $\mathsf{H}_0$ with a single free variable --- which we will denote, for each $A_n$, as $y_n$. 
+From this point, we define a sequence of extensions of $\mathsf{H}_0$ as follows.
+The first element of this sequence will obviously be $\mathsf{H}_0$.
+Then, for every natural $n$, we will take $\mathsf{H}_n$ to be the extension of $\mathsf{H}_{n-1}$ incorporating the additional axiom $S_n$ given by
+\[ A_n(y_n\Vert c_n) \limplies (\forall y_n) A_n,\]
+where $c_n$ is the first element in $b_1,\ldots,b_n,\ldots$ that does not appear in $A$ and that does not belong to $\{c_1,\ldots,c_{n-1}\}$. 
+
+Let us show that all these extensions will be consistent. Given any natural $n$, we will assume that $\mathsf{H}_n$ is not consistent and, therefore, that it can prove, for a certain formula $A$, both $A$ and $\lnot A$.
+According to the principle of explosion, this means that we will be able to prove $\vdash_{\mathsf{H}_n} \lnot S_n$. Proofs in $\mathsf{H}_n$ are deductions from $S_n$ in $\mathsf{H}_{n-1}$. Considering this fact together with the deduction theorem yields
+\[ \vdash_{\mathsf{H}_{n-1}} S_n \limplies \lnot S_n.\]
+Since $(A \limplies \lnot A) \limplies \lnot A$ is a tautology, we can then deduce that $\lnot S_n$ will be a theorem in $\mathsf{H}_{n-1}$, so we will have
+\[ \vdash_{\mathsf{H}_{n-1}} \lnot \left( A_n(y_n\Vert c_n) \limplies (\forall y_n) A \right).\]
+As both $\lnot(A\limplies B) \limplies A$ and $\lnot(A \limplies B) \limplies \lnot B$ are tautologies, this means that
+\[ \vdash_{\mathsf{H}_{n-1}} A_n(y_n\Vert c_n),\qquad
+\vdash_{\mathsf{H}_{n-1}} \lnot (\forall y_n) A_n.\]
+As $c_n$ does not appear in the axioms of $\mathsf{H}_{n-1}$, we can safely replace each occurrence of $c_n$ in the proof of $A_n(y_n\Vert c_n)$ by a variable not appearing in the proof.
+Then, an application of the generalisation rule reveals that $\vdash_{\mathsf{H}_{n-1}} (\forall y_n) A_n$, which would mean that $\mathsf{H}_{n-1}$ would not be consistent, thus contradicting our hypothesis and showing the consistency of all the extensions in the sequence.
+
+As all these extensions are consistent, the formal system $\mathsf{H}_\infty$ defined as the extension of $\mathsf{H}_0$ containing all the axioms $A_n$ will be consistent too.
+We can now consider the (consistent) extension $\mathsf{H}^*$ of $\mathsf{H}_\infty$ obtained from a direct application of lemma \ref{fol-scext}.
+
+We will now show that every element in the domain of any model of $\mathsf{H}^*$ can be referenced directly from the language.
+Formally, this means showing that, given any formula $A_n$ with a single free variable $y_n$, if --- for every \emph{closed term} $t$ (term with no free variables) --- $A(y_n\Vert t)$ is a theorem, then so is $(\forall y_n) A$.
+
+This is fairly easy to do. If we assume $A_n(y_n\Vert t)$ to be a theorem for every closed term $t$, then, in particular, $A(y_n\Vert c_n)$ will be a theorem. Thus, applying modus ponens on $S_n$, one can prove $\vdash_{\mathsf{H}_\infty} (\forall y_n) A$.
+
+We will now define an interpretation of $\mathsf{H}^*$ that will be a model for it and, therefore, will also define a model for $\mathsf{H}$. This interpretation will have as domain of discourse the set of closed terms of the language of $\mathsf{H}^*$ (recall that it is the extension of the language of $\mathsf{H}$ with the additional constants $b_i$).
+The interpretation of each constant $b_i$ will be itself and the functions will behave in the obvious way.
+The interpretation of each $n$-ary predicate symbol $P$ will be the predicate that, for any closed terms $t_1,\ldots,t_n$ is true if and only if $P(t_1,\ldots,t_n)$ is a theorem in $\mathsf{H}^*$. 
+
+We can then prove by induction on the number of connectives that any closed formula is a theorem in $\mathsf{H}^*$ if and only if it is true in the interpretation we have defined.
+Taking the generalisation rule into consideration, this can be trivially extended to non-closed formulas, which implies that our interpretation is, indeed, a model of $\mathsf{H}^*$.
+From the existence of a model of $\mathsf{H}^*$, the existence of a model for $\mathsf{H}$ can be trivially inferred.
+
+Proving, by induction on the number of connectives, that closed formulas in $\mathsf{H}^*$ are theorems if and only if they are true is fairly straightforward and somewhat entertaining if you have a good understanding of the material. I will leave it to you.
+Keep in mind that --- at least for the purpose of convincing yourself this result is true --- you don't need to write a fully-fledged formal proof.
+A few diagrams and notes and a good dose of thinking will probably suffice.
+\end{proof}

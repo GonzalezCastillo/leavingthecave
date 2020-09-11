@@ -1,0 +1,678 @@
+%begin-include
+
+\section{ZFC Set theory}
+
+\begin{para}[ZFC set theory]
+The standard axiomatisation of set theory is known as ZFC. The Z and the F stand, respectively, for the mathematicians Ernst Zermelo and Abraham Fraenkel. The C stands for the controversial axiom of choice, so, yes, there is an axiomatisation of set theory known as ZF that does not include this axiom.
+
+The formal system $\mathsf{ZFC}$ in which we are going to formalise set theory uses first-order logic with equality and is built on the first-order language with set of symbols $S = \{=,\in,\emptyset\}$ and signature $\sigma(=) = -2$,  $\sigma(\in) = -2$ and $\sigma(\emptyset) = 0$. Both $=$ and $\in$ are used with infix notation.
+If two elements $x$ and $y$ satisfy $x = y$ or $x\in y$, we will say, respectively that ``$x$ is equal to $y$'' and that ``$x$ is an \emph{element} of $y$''.
+We can also say that ``$x$ is \emph{contained} in $y$'' to mean that $x\in y$.
+The constant $\emptyset$ will be referred to as the \emph{empty set}.
+The elements of the domain of any model of $\mathsf{ZFC}$ are called \emph{sets}.
+
+For any two variables (sets) $x$ and $y$, we introduce the notation $x\subseteq y$ as an abbreviation of the formula $(\forall a)\qsep a\in x \limplies a \in y$ for any variable $a$ not occurring anywhere in the formula where $x\subseteq y$ is being used.
+If two sets $x$ and $y$ satisfy $x\subseteq y$, we say ``$x$ is \emph{included} in $y$''.
+
+We will now present all the non-logical axioms of $\mathsf{ZFC}$ and analyse them from a semantic perspective.
+\begin{axioms}[ZF]
+\item \label{extensionality} Axiom of extensionality: $(\forall x)(\forall y)(\forall a)\qsep (a \in x \liff a\in y) \limplies x = y$.
+\end{axioms}
+In layman's terms, the axiom of extensionality means that any two sets with the same elements are equal.
+In addition, using this axiom, \ref{axe4}, \ref{foiff} and the generalisation rule, one can easily deduce that
+\[(\forall x)(\forall y)(\forall a)\qsep x = y \liff (a\in x \liff a \in y).\]
+
+\begin{axioms}
+\item \label{emptyset} Axiom of the empty set: $(\forall x)\qsep \lnot(x\in\emptyset)$.
+\end{axioms}
+The axiom of the empty set, as anyone should expect, simply states that $\emptyset$ has no elements. Furthermore, it follows from \ref{extensionality} that any element verifying this property is equal to $\emptyset$.
+
+\begin{axioms}
+\item Axiom of union: $(\forall X)(\exists U)(\forall x)(\forall a)\qsep (x\in X \land a \in x) \limplies a\in U$.
+\label{union}
+\end{axioms}
+The axiom of union states that, given any set $X$, there exists a set $U$ containing all the elements of the sets in $X$.
+Informally, this means that, given any collection of sets $X$, there exists a set that contains the union of all the sets in $X$.
+
+\begin{axioms}
+\item \label{infinity} Axiom of infinity: $(\exists X)\qsep \emptyset \in X \land (\forall x)\qsep$\\
+$x\in X \limplies (\exists y)(y \in X \land (\forall a)\qsep a\in y \liff (a = x \lor (\forall b)(b\in a \liff b = x)))$.
+\end{axioms}
+I know what you are thinking and you are right; the axiom of infinity is a mess.
+There are simpler ways to present this axiom, but this is by far the most formal of all, and, you know, if we are going to do a formal treatment of set theory, let us do it properly! You and I are warriors, not soldiers.
+
+If you take your time to analyse it, you will see that it postulates the existence of a set $X$ having $\emptyset \in X$ and verifying, for every $x\in X$, $x\cup \{x\} \in X$.
+Notice that we have not yet defined what $x\cup \{x\}$ means in $\mathsf{ZFC}$, but we have already done an informal treatment of set theory and you should know that, with that, I (informally) mean ``the set having as elements $x$ and a set that only has $x$ as an element''.
+
+You may wonder what the point of this axiom is. Turns out this will enable us to define the natural numbers and, from there on, the rationals, the reals\ldots you name it! 
+
+\begin{axioms}
+\item Power set axiom: $(\forall x)(\exists P)(\forall a)\qsep a\subseteq x \limplies a\in P$.
+\label{powerset}
+\end{axioms}
+
+The power set axiom --- which, after going through the axiom of infinity, looks ridiculously simple --- simply establishes the existence, for any set $x$, of a set containing each subset of $x$, i.e., its power set.
+
+\begin{axioms}
+\item \label{regularity} Axiom of regularity: $(\forall x)\qsep \lnot(x=\emptyset) \limplies (\exists y)(y \in x \land \lnot (\exists z) (z\in y \land z \in x))$.
+\end{axioms}
+This axioms guarantees the existence in any non-empty set $x$ of an element $y$ containing no elements of $x$. To put it in perhaps clearer terms, it says that no set $x$ can only consist of sets having elements of $x$.
+
+The best way in which you can see why the axiom of regularity need be true is by trying to construct a set contradicting it.
+
+\begin{axioms}
+\item \label{replacement} Axiom schema of replacement:
+for any formula $\psi$ in which there are only free occurrences of $x$ and $y$ and in which there are no quantifications over $X$ and $Y$,
+$(\forall x)(\exists! y) \psi \limplies (\forall X)(\exists Y)(\forall y)\qsep y\in Y \liff (\exists x)(x\in X \land \psi)$.
+\end{axioms}
+What the axiom of replacement tells us is that, if we are given a formula\footnote{We are using the informal notation $\psi(x,y)$ to represent an arbitrary formula $\psi$ having two free variables $x$ and $y$.} $\psi(x,y)$ that, for each value of $x$, is true for one unique value of $y$ --- in other words, if $\psi(x,y)$ behaves like a function, --- then, given any set $X$, there exists a set $Y$ containing, exclusively, all the elements $y$ for which there exists an $x\in X$ verifying $\psi(x,y)$.
+
+Putting it simpler terms, this means that if a ``function'' $f$ taking any set $x$ to a set $y$ can be expressed as a formula $A(x,y)$ that is true if and only if $f(x) = y$, then, for any set $X$, there exists a set containing the image of $X$ under $f$.
+Of course, these formulas are not functions within set theory: a function within $\mathsf{ZFC}$ need be an object of $\mathsf{ZFC}$ and, therefore, a set, not a formula!
+We will later on define the concept of a function in $\mathsf{ZFC}$ in a precise and formal manner. 
+
+\begin{axioms}
+\item \label{choice} Axiom of choice: $(\forall X) \qsep (\forall x)(x\in X \limplies (\lnot(x = \emptyset) \land$\\
+\hspace*{1em}$(\forall y)\qsep y \in X \land\lnot(x = y) \limplies \lnot(\exists a)\qsep a \in x \land a \in y))\limplies$\\
+$((\exists S)(\forall s)\qsep s\in S \limplies ((\exists x)\qsep x\in X \land s \in x \land(\forall z)((\lnot (z=a)\land z\in S )\limplies \lnot (z \in x))))$.
+\end{axioms}
+What this famous and controversial axiom of choice is telling us is something that is, well, obvious.
+It is simply stating that, given any collection $X$ of non-empty sets that have no elements in common, there exists a set $S$ containing one and only one element from every set in $X$.
+This assumption is extremely natural and so are the consequences that are derived from it --- at least from my personal perspective --- but the poor axiom of choice is rejected by some people (see \cite{Brown} for reference).
+Please, give him some love and say with me ``I choose choice!''.
+
+By the way, if you were, by any chance, hoping that there could be a way to prove that either the axiom of choice or its negations would make $\mathsf{ZF}$ inconsistent and thus settle this debate of choice versus no choice once and for all\ldots I have bad news. The axiom of choice is independent from $\mathsf{ZF}$ and, if $\mathsf{ZF}$ is consistent, so is $\mathsf{ZF}$ with the axiom of choice and so is $\mathsf{ZF}$ with the negation of the axiom of choice. So, at the end of the day, accepting or negating the axiom of choice is not a mathematical issue, but a philosophical one. This is one of those things that makes mathematics look more like a religion than like a science.
+
+We shall now introduce a pretty solid collection of definitions and results. All those definitions and results that follow are done within $\mathsf{ZFC}$ unless otherwise stated.
+\end{para}
+
+\begin{proposition}
+\label{setelementary}
+The following elementary properties of sets are true:
+\begin{statements}
+\item Let $X$ be a set. Both $X$ and $\emptyset$ are subsets of $X$.
+\item \label{doubleinclussion} Two sets $X$ and $Y$ satisfy $X = Y$ if and only if $X\subseteq Y$ and $Y\subseteq X$.
+\end{statements}
+\label{<+label+>}
+\end{proposition}
+
+\begin{proof}
+\begin{parlist}
+\item It is obvious that $X\subseteq X$. In regard to $\emptyset$, for it to be a subset of $X$, the formula $(\forall x)(x\in \emptyset \limplies x \in X)$ needs to be satisfied.
+Since, according to \ref{emptyset}, no set $x$ can verify $x\in \emptyset$, the formula $x\in \emptyset \limplies x \in X$ is satisfied for any $x$ and $X$. Thus, the empty set is a subset of any set.
+
+\item Immediate from \ref{extensionality} and from the definition of $\subseteq$.
+\end{parlist}
+\end{proof}
+
+
+\begin{theorem}[Schema of specification]
+Let $\phi$ be a formula in the language of set theory with a single free variable. Given any set $X$, there exist the subset $Y\subseteq X$ of elements $x\in X$ verifying $\phi(x)$.
+Such a set is described using \emph{set-builder notation}: $Y = \{x\in X \mid \phi(x)\}$.
+\label{specification}
+\end{theorem}
+
+\begin{proof}
+If there are no elements $x\in X$ satisfying $\phi(x)$, then $Y = \emptyset$, which certainly exists.
+
+Let us then assume the existence of an element $y_0 \in Y$. We can consider the formula $\psi(x,y)$ given by
+\[ (\phi(x) \land y = x) \lor (\lnot \phi(x) \land y = y_0).\]
+It is clear that, for any set $x$, there exists a unique $y$ satisfying $\psi(x,y)$: if $\phi(x)$ holds, that $y$ is $x$ itself, whereas, if it does not, that $y$ is $y_0$.
+Thus, we can apply \ref{replacement} to conclude that the collection $Y'$ of all the elements $y$ for which there exists an $x\in X$ verifying $\psi(x,y)$ is a set. Furthermore, this set is $Y$. Let us prove it by double inclusion, i.e., using \ref{setelementary}\ref{doubleinclussion}.
+
+Given any $y\in Y$, the formula $\psi(y,y)$ holds and --- since $Y\subseteq X$ and, therefore, $y\in X$ --- we have $y \in Y'$, which shows that $Y\subseteq Y'$.
+Conversely, given any $y'\in Y'$, we there know to exist an $x\in X$ such that $\psi(x,y')$ holds.
+If $\phi(x)$ is satisfied, then $y'=x$, so $y'\in Y$.
+If $\phi(x)$ is not satisfied, then $y' = y_0$, which, by hypothesis, belongs to $Y$.
+In either case, $y'\in Y$, which shows that $Y'\subseteq Y$.
+\end{proof}
+
+\begin{para}
+Do you remember when back in \ref{logifail} we said that, in modern day set theory, we could identify predicates with sets --- just as people wanted to do in the early days --- provided we did it with care?
+The scheme of specification has just made that notion precise: given any set $X$ we can identify each unary predicate $\phi$ with the set $\{x \in X \mid \phi(x)\}$.
+What makes this approach different from the one that led to Russel's paradox is our requiring the ``domain'' over which we define $\phi$ to be a set complying with the axioms of $\mathsf{ZFC}$, and that enables us to escape from any paradox.
+
+We will shortly analyse some details regarding the schema of specification  and how it avoids the paradoxes of primitive set theory.
+\end{para}
+
+\begin{para}[Definition-Proposition]
+\label{setops}
+Let $X$ and $Y$ be any two arbitrary sets.
+\begin{statements}
+\item \label{setunion} There exists a set $\cup X$ containing, exclusively, all the elements of the sets contained in $X$. This set is known as the \emph{union} of the elements of $X$.
+\item There exists a set $\cap X$ containing, exclusively, the elements that belong to all the sets contained in $X$. This set is called the \emph{intersection} of the elements of $X$.
+\item There exists a set $X\setminus Y$ containing, exclusively, the elements of $X$ that do not belong to $Y$. The set $X\setminus Y$ is known as the \emph{difference} of $X$ and $Y$. In particular, if $Y\subseteq X$, the set $X\setminus Y$ is said to be the \emph{complement} of $Y$ in $X$.
+\item There exists a set $\mathcal{P}(X)$ containing, exclusively, all the subsets of $X$. This set is known as the \emph{power set} of $X$.
+\end{statements}
+\label{<+label+>}
+\end{para}
+
+\begin{proof}
+According to \ref{union}, there exists a set $U$ that contains all the elements of the sets contained in $X$. Applying \ref{specification}, it follows that
+\begin{gather*}
+\cup X = \{u \in U \mid (\exists x \in X) u \in x\},\\
+\cap X = \{u \in U \mid (\forall x \in X) u \in X\},
+\end{gather*}
+
+In regard to $X\setminus Y$, it suffices to use \ref{specification} again and consider $X\setminus Y = \{x\in X \mid x\not\in Y\}$.
+
+Lastly, regarding the power set, \ref{powerset} guarantees the existence of a set $P$ containing every subset of $X$, so we just need to apply \ref{specification} once more and take
+\[\mathcal{P}(X) = \{p \in P \mid p \subseteq X\}.\]
+\end{proof}
+
+\begin{proposition}
+Any element $a$ of a set $X$ is a set.
+\label{elisset}
+\end{proposition}
+
+\begin{proof}
+It suffices to apply \ref{specification} and \ref{setops}\ref{setunion} to conclude that $a = \cup \{x \in X \mid x = a\}$ is a set.
+\end{proof}
+
+\begin{proposition}[Pairing]
+Let $a$ and $b$ be sets. The set $\{a,b\}$ containing, exclusively, the elements $a$ and $b$ exists. In particular, if $a=b$, the \emph{singleton} $\{a\}$ exists.
+\label{pairing}
+\end{proposition}
+
+\begin{proof}
+According to \ref{infinity}, we there know to exist a set that contains, in particular, the element $X = \{\emptyset, \{\emptyset\}\}$. Thus, using \ref{elisset}, we know $X$ to be a set.
+We can then consider the formula $\psi(x,y)$ defined by
+\[ (x = \emptyset \land y = a) \lor (x = \{\emptyset\} \land y = b) \lor (\lnot (x \in X) \limplies x = y).\]
+A direct application of the axiom schema of replacement \ref{replacement} shows that the set $Y$ of elements $y$ for which there exists an $x\in X$ verifying $\psi(x,y)$ is a set. Since $Y = \{a,b\}$, we have shown the set $\{a,b\}$ to exist.
+\end{proof}
+
+\begin{para}[Notation]
+Let $X$ and $Y$ be sets. By \ref{pairing}, $\{X,Y\}$ is a set. We define $X\cup Y = \cup\{X,Y\}$ and $X\cap Y = \cap \{X\cap Y\}$. 
+If $X\cap Y = \emptyset$, we say that $X$ and $Y$ are \emph{disjoint}. Furthermore, given any collection $C$ of sets, we say that the sets in $C$ are \emph{pairwise disjoint} if, for any $X,Y\in C$ with $X\neq Y$, the sets $X$ and $Y$ are disjoint.
+
+
+Let $n$ be a natural number and let $X_1,\ldots,X_n$ be sets. Through a recursive application of \ref{pairing} and \ref{setops}\ref{setunion}, we know the set $X$ with elements $X_1,\ldots, X_n$ to exist. This set is represented as $\{X_1,\ldots,X_n\}$.
+\end{para}
+
+\begin{para}
+Now that we know singletons to exist, we can add a final touch on our discussion on the scheme of specification and Russel's paradox.
+
+We can illustrate the robustness of our system with a simple example.
+If we consider \emph{any} set $X$ and try to recreate Russel's paradox by defining the set $R = \{x \in X \mid x\not\in x\}$, we would have
+\[ R \in R \iff (R \in X \land R \not \in R).\]
+Does it look suspicious? It is actually harmless.
+Let $A$ be any set. Applying the axiom of regularity \ref{regularity} to $\{A\}$, we know that $A \not\in A$. Therefore, it is clear that $R = X$ and, therefore, that $R\not\in X$.
+It then follows that both sides of the equivalence are false: everything fits nicely and we are paradox-free.
+
+You may then wonder: and what if I take $X$ to be a ``universe'' set containing all the sets in $\mathsf{ZFC}$? Well, it is immediate from the axiom of regularity \ref{regularity} that such a set cannot exist in $\mathsf{ZFC}$, so there is nothing to worry about.
+\end{para}
+
+\begin{definition}
+Let $x$ and $y$ be sets. The \emph{ordered pair} with \emph{first coordinate} $x$ and \emph{second coordinate} $y$ is the set
+\[ (x,y) = \{ \{x\}, \{x,y\} \}.\]
+Obviously, $(x,y) \neq (y,x)$ unless $y = x$, hence the name ordered pair.
+Moreover, if $x_1,x_2,y_1,y_2$ are some arbitrary sets, $(x_1,y_1) = (x_2,y_2)$ if and only if $x_1 = x_2$ and $y_1 = y_2$.
+
+Let us assume that, for some sets $X$ and $Y$, $x\in X$ and $y\in Y$. The ordered pair $(x,y)$ belongs to the set $\mathcal{P}(X\cup Y)$, so we can define the \emph{binary cartesian product} of $X$ and $Y$ as the set
+\[ X\times Y = \{p \in \mathcal{P}(X\cup Y) \mid (\exists x)(\exists y)\qsep x\in X \land y\in Y \land p = (x,y)\}.\]
+To put it simply, $X\times Y$ is the set of all ordered pairs $(x,y)$ with $x\in X$ and $y\in Y$.
+\label{<+label+>}
+\end{definition}
+
+\begin{para}
+Just as every unary predicate (unary relation) on a set $X$ was characterised by a subset of $X$, every binary relation on two sets $X$ and $Y$ will be characterised by a subset of $X\times Y$.
+The ability to work with relations in $\mathsf{ZFC}$ will enable us to introduce functions as mere set-theoretical objects, and, in return, functions will enable us --- among many other things --- to define $n$-ary cartesian products and, therefore, to introduce $n$-ary relations in set theory.
+\end{para}
+
+\begin{definition}
+\label{binrel}
+Let $X$ and $Y$ be sets. A \emph{binary relation} over the sets $X$ and $Y$ is a subset $R$ of the cartesian product $X\times Y$.
+If a subset $R\subseteq X\times Y$ is being regarded as a binary relation and not as a mere subset, it is customary to write $xRy$ in lieu of $(x,y) \in R$.
+
+Any formula $\phi$ with a free variable can induce a binary relation according to \ref{specification}, for it suffices to consider $R = \{(x,y)\in X\times Y \mid \phi ( ( x,y) )\}$.
+This kind of definition is often done in an implicit manner as ``let $R$ be the relation on $X$ and $Y$ that is satisfied if and only if $\phi( (x,y))$''.
+
+Very often, relations will be subsets of $X\times X$. In this case, we say that $R$ is a binary relation over $X$: it would be redundant to say that it is a binary relation over $X$ and $X$.
+
+Writing $xRy$ might look a little bit confusing, that is why binary relations are often represented by fancy symbols such as $\sim$ or $\equiv$.
+In addition, some relations may use a more complex notational artefact than just the structure ``element symbol element''.
+As always, if there is something inexact and non-universal about mathematics, that is its notation! 
+
+
+\label{<+label+>}
+\end{definition}
+
+\begin{example}
+\begin{parlist}
+\item Let $X$ be any set.
+The empty relation $R = \emptyset$ is a binary relation over $X$.
+It is, obviously, not satisfied by any $(a,b)\in X\times X$.
+\item Let $X$ be any set.
+The subset $R = \{(a,b)\in X\times X \mid a = b\}$ is a binary relation over $X$.
+The relation $R$ can equivalently be defined as the binary relation on $X$ such that $aRb$ if and only if $a= b$.
+\item Let $X$ and $Y$ be sets.
+The set $R = X\times Y$ is a binary relation over $X$ and $Y$.
+Of course, any $x\in X$ and $y\in Y$ verify $xRy$.
+\end{parlist}
+\end{example}
+
+\begin{definition}
+A \emph{function} $f$ from a set $X$ to a set $Y$ is a binary relation over $X$ and $Y$ such that, for every $x\in X$, there exists a unique $y\in Y$ verifying $xfy$. Instead of writing $xfy$, we will use $f(x) = y$.
+The fact that $f$ is a function from $X$ to $Y$ is denoted by $f:X\longrightarrow Y$. In addition, $f(x) = y$ can also be written as $f:x\longmapsto y$.
+
+Given $f:X\longrightarrow Y$, the set $X$ is said to be the \emph{domain} of $f$ ($X = \op{dom} f$) whereas $Y$ is known as the \emph{codomain} of the function. The \emph{image} $\op{im} f$ of $f$ is the subset of $Y$ containing the elements $y\in Y$ for which there exists an $x\in X$ such that $f(x) = y$, i.e.,
+\[\op{im} f = \{y\in Y \mid (\exists x \in X)(y = f(x)\},\]
+where, as in \ref[prel]{pseudoquan}, $(\exists x \in X)\theta(x)$ means $(\exists x)(x\in X \limplies \theta(x))$.
+
+
+We say that $f$ is injective if, for every $y\in \op{im}f$, there exists a unique $x$ such that $f(x) = y$, or if, equivalently, for every $a,b\in X$, $f(a) = f(b)$ implies $a = b$.
+In addition, $f$ is said to be \emph{surjective} if $\op{im} f = Y$.
+If a function is both injective and surjective, it is said to be \emph{bijective}.
+
+Given any $A\subseteq X$, the \emph{image} under $f$ of $A$ is the set
+\[ f[A] = \{y \in Y \mid (\exists a \in A)\qsep f(a) = y\}.\]
+Notice how $\op{im} f = f[X]$.
+Similarly, given any $B\subseteq Y$, the \emph{inverse image} of $B$ under $f$ is the set
+\[ f^{-1}[B] \{x\in X \mid f(x) \in B\}.\]
+
+If $f$ is injective, we can define a function $f^{-1}: \op{im} f\longrightarrow X$ mapping every $y\in Y$ to $\cup f^{-1}[\{y\}] \in X$, i.e., to the only element $x\in X$ satisfying $f(x) = y$.
+
+Given any set $X$, the \emph{identity} function on $X$ is the function $\op{id}_X :X\longrightarrow X$ taking any $x\in X$ to itself: $f(x) = x$.
+
+Given any two functions $f:X\longrightarrow Y$ and $g:Y\longrightarrow Z$, the \emph{composition} of $f$ with $g$ is the function
+\begin{align*}
+g\circ f: X &\longrightarrow Z \\
+x &\longmapsto g\left( f(x) \right).
+\end{align*}
+
+Lastly, given a subset $A\subseteq X$ and a function $f:X\longrightarrow Y$, we define the \emph{restriction} of $f$ to $A$ as the function
+\begin{align*}
+f\vert_A : A &\longrightarrow Y\\
+a &\longmapsto f(a).
+\end{align*}
+\label{<+label+>}
+\end{definition}
+
+\begin{proposition}
+Let $f:X\longrightarrow Y$ and $g:Y\longrightarrow Z$ be functions.
+\begin{statements}
+\item The function $g\circ f$ is injective only if $f$ is injective.
+\item The function $g\circ f$ is surjective only if $g$ is surjective.
+\end{statements}
+\label{compinjsur}
+\end{proposition}
+
+\begin{proof}
+We will prove the contrapositive of each of the statements.
+
+\begin{parlist}
+\item If $f$ is not injective, there exist $a,b\in X$ such that $a\neq b$ and $f(a) = f(b)$; consequently, $g\circ f(a) = g \circ f(b)$. Thus, $g\circ f$ is not injective.
+\item Analogously, if $g$ is not surjective, no $y\in Y$ satisfies $f(y) = z_0$ for some $z_0\in Z$. Thus, given any $x\in X$, since $f(x) \in Y$, we have $g\circ f(x) \neq z_0$.
+\end{parlist}
+\end{proof}
+
+\begin{proposition}
+Let $f: X\longrightarrow Y$. The function $f$ is bijective if and only if there exists a function $g:Y\longrightarrow X$ such that $f\circ g = \op{id}_X$ and $g\circ f =\op{id}_Y$.
+\label{<+label+>}
+\end{proposition}
+
+\begin{proof}
+If $f$ is bijective, the function $g$ we are looking for is $f^{-1} : \op{Im} f = Y \longrightarrow X$. It is immediate that $f \circ f^{-1} = \op{id}_X$ and that $f^{-1}\circ f = \op{id}_Y$.
+
+Conversely, since both $\op{id}_X = f\circ g$ and $\op{id}_Y = g\circ f$ are bijective, the result follows from \ref{compinjsur}.
+\end{proof}
+
+
+\begin{para}[Definition-proposition]
+We say that a set $X$ is \emph{inductive} if it verifies the formula $\Omega(X)$ given by
+\[ \emptyset \in X \land (\forall x)(x\in X \limplies x \cup \{x\} \in X),\]
+where, for the sake of clarity, we have used $x\cup\{x\}\in X$ in lieu of
+\[(\exists y)\qsep y \in X \land (\forall t)\qsep t\in y\liff(t = x \lor (\forall s)(s\in t \liff s = x )).\]
+There exists a \emph{minimal} inductive set $\omega$, i.e., an inductive set that is included in every inductive set.
+\label{<+label+>}
+\end{para}
+
+\begin{proof}
+By \ref{infinity}, we know an inductive set $V$ to exist. The set $\omega$ can be constructed using \ref{specification} as
+\[ \omega = \{v\in V\mid (\forall X)(\Omega(X)\limplies v\in X)\}.\]
+In plain English, $\omega$ is the set containing, exclusively, the elements that are common to all inductive sets.
+Informally, we could have defined it as the ``intersection of all the inductive sets''; nonetheless, since we have not proven the existence of such thing as a set of all inductive sets, we have had to create this custom definition.
+
+The set $\omega$ is clearly inductive. On the one hand, any inductive set $X$ verifies $\emptyset \in X$, so $\emptyset\in \omega$.
+On the other hand, if $v\in\omega$, then $v$ belongs to any inductive set $X$, and, by definition, so does $v\cup\{v\}$. Thus, $v\cup\{v\}\in \omega$.
+
+Lastly, it is trivial that $\omega$ is included in any inductive set for the elements in $\omega$ belong, by definition, to any inductive set.
+\end{proof}
+
+
+\begin{para}
+If set theory has any intention of becoming a foundational system for mathematics, it better let us work with natural numbers!
+Now, how could we possibly implement natural numbers in $\mathsf{ZFC}$? How could we construct a set of natural numbers?
+The answer is, surprise surprise, we have already done it! The set $\omega$ is the set we have been looking for! Informally, if we let $0 = \emptyset\in \omega$, we can define
+\[ 1 = \{0\}\in \omega,\qquad 2 = \{0,1\} \in \omega, \qquad 3 = \{0,1,2\}\in \omega,\]
+and so on. In general, given any natural number $n$ representing a set $n\in \omega$, we define its successor as $s(n) = n \cup \{n\} = \{1,\ldots,n\}\in \omega$. 
+
+In this construction, the set of natural numbers would be $\mathbb{N} = \omega \setminus \{\emptyset\}$.
+
+I know. This looks weird. Having $4\subseteq 5$ seems like an odd property; nonetheless, as you will later see, this oddities will not have any visible effect in our daily-life arithmetic.
+In fact, these very oddities will prove themselves very useful in enabling us to properly incorporate number systems into our beautiful foundational theory.
+
+From now on, unless otherwise stated, we will use Arabic numerals in order to refer to their corresponding elements in $\omega$. This is just notation.
+
+Shortly, we will define the basic operations and relations in $\omega$, but we need to go through a very significant result before we can get there.
+\end{para}
+
+\begin{theorem}[Principle of recursive definition]
+Let $X$ be a set with $a \in X$. Let $u:X\longrightarrow X$ be a function. There exists a unique function $f:\omega \longrightarrow X$ verifying $f(0) = a$ and $f(s(n)) = u(f(n))$.
+\label{<+label+>}
+\end{theorem}
+
+\begin{proof}
+We will prove this theorem by explicitly constructing $f$ as a set of ordered pairs in $\omega\times X$.
+
+For that purpose, let us consider the set $F$ of all subsets $S\subseteq \omega \times X$ such that $(0,a)\in S$ and, whenever $(n,x)\in S$, $(s(n),u(x)
+\in S$.
+The set $F$ is clearly non-empty for $\omega \times X\in F$.
+
+We now take $f = \cap F$.
+It should be clear that $f\in F$ and that $f$ is included in every element of $f$.
+Thus, if we showed $f$ to be a function, we would have proved the result.
+The reasoning behind this is simple.
+If there existed another function $g$ verifying the conditions of the theorem, $g\in F$ and, therefore, $f\subseteq g$; nonetheless, assuming that $f$ is a function from $\omega$, $g$ can only be a function from $\omega$ if it is equal to $f$, because if it contained an additional ordered pair, we would have, for a certain $n\in \omega$ and $x,y\in X$ with $x\neq y$, both $(n,x)\in g$ and $(n,y)\in g$, which would mean that $g$ would not be a function.
+
+Let us then show $f$ to be function! We can consider the set $N\subseteq \omega$ of elements $n\in \omega$ for which there exists a unique ordered pair in $f$ with first coordinate $n$.
+
+If we had $0\not\in N$, then there would exist an element of the form $(0,b)\in f$ with $b\neq a$. Nonetheless, then $f' = f\setminus \{(0,b)\}\in F$ with $f'\subset f$, which would contradict our hypothesis that $f = \cap F$.
+Analogously, If we had, for some $n\in \omega$, $n\in N$ but $s(n)\not\in N$, then there would exist a unique $x\in X$ such that $(n,x)\in f$ and there would exist an $y \in X$ distinct from $u(x)$ such that $(s(n), y)\in f$.
+Were this the case, then it is trivial that $f\setminus \{(s(n),y)\}\in F$ and we would once again reach a contradiction.
+
+Since $\omega$ is the smallest inductive set and we have shown that, for a set $N\subseteq \omega$, we have $0\in N$ and, whenever $n\in N$, $s(n) \in N$, we can conclude \emph{by induction} that $N = \omega$. This completes the proof. 
+\end{proof}
+
+\begin{definition}
+Let $m\in \omega$. Applying the principle of recursive definition, we can define two functions $s_m$ and $p_m$ from $\omega$ to $\omega$ verifying, on the one hand, $s_m(0) = m$ and $s_m(s(n)) = s(s_m(n))$, and, on the other hand, $p_m(0) = 0$ and $p_m(s(n)) = s_{p_m(n)}(n)$.
+
+This enables us to define \emph{addition} $+$ and \emph{multiplication} $\cdot$ in $\omega$ as
+\begin{align*}
++:\omega \times \omega & \longrightarrow \omega & \cdot : \omega \times \omega & \longrightarrow \omega \\
+(x,y) &\longmapsto x+y = s_x(y), & (x,y) & \longmapsto x\cdot y = p_x(y),
+\end{align*}
+where, of course, we have used infix notation.
+
+Just to complete our definitions in $\omega$, let us the relation $\leq$ in $\omega$ as $x\leq y$ if and only if $x\in y$ or $x = y$. Analogously, we define a relation $<$ such that $x < y$ if and only if $x \in y$. As was to be expected, if $x\leq y$ we say that $x$ is \emph{smaller than or equal to} $y$ and if $x < y$, it is said that $x$ is \emph{smaller than} $y$. 
+\label{<+label+>}
+\end{definition}
+
+\begin{definition}
+Let $X$ be a set. An \emph{internal $n$-ary law of composition} on $X$ is a function $*:\times_{i=1}^n X \longrightarrow X$. The adjective ``internal'' is often dropped. Furthermore, for binary laws of composition, the adjective ``binary'' is often omitted too.
+Laws of compositions are commonly referred to as operations.
+
+Infix notation is often used with laws of composition: thus, $*(x,y)$ is written as $x * y$. We say that a law of composition $*$ is
+\begin{itemize}
+\item \emph{associative} if, for any $x,y,z\in X$, we have $(x*y)*z = x * (y * z)$,
+\item \emph{commutative} if, for any $x,y \in X$, we have $x * y = y * x$,
+\item \emph{left distributive} with respect to another law of composition $\square$ if, for any $x,y,a\in X$, $a * (x \square y) = (a * x) \square (a * y)$,
+\item \emph{right distributive} with respect to another law of composition $\square$ if, for any $x,y,a\in X$, $ (x \square y) * a = (x * a) \square (y * a)$,
+\item and \emph{distributive} with respect to another law of composition if it is both left distributive and right distributive.
+\end{itemize}
+Laws of composition often use \emph{additive notation} (i.e., use the symbol $+$ and infix notation) or \emph{multiplicative notation} (i.e., use the symbol $\cdot$ and infix notation). In multiplicative notation, the use of $\cdot$ may be replaced by juxtaposition: thus, $xy$ would be read as $x\cdot y$.
+
+Clearly, the operations $+$ and $\cdot$ that we have defined on $\omega$ are laws of composition using, respectively, additive and multiplicative notation.
+\label{<+label+>}
+\end{definition}
+
+\begin{lemma}
+Let $n\in \omega$. The following seemingly irrelevant statements are true:
+\begin{statements}
+\item \label{wsubse} If $m\in n$, then $n\not\subseteq m$. In other words, no element of $\omega$ is a subset of any of its elements.
+\item \label{wtrans} The set $\omega$ is transitive: if $m\in n$, then $m\subseteq n$.
+\end{statements}
+\label{lemmapeano}
+\end{lemma}
+
+\begin{proof}
+\begin{parlist}
+\item Let $N\subseteq \omega$ be the set of elements $n\in\omega$ such that, for any $m\in n$, we have $n\not\subseteq m$. It is clear that $0 \in N$ for $0 = \emptyset$. In addition, if $n \in N$, we can easily show that $s(n) = n \cup \{n\}\in N$.
+
+The elements of $n \cup \{n\}$ are those of $n$ and $n$ itself. Can $n\cup\{n\}$ be a subset of $n$? For that to be the case, we would need to have $\{n\}\subseteq n$ and, therefore, $n\in n$, but, as $n\in N$ and $n\subseteq n$, it is clear that $n\not\in n$. Can $n\cup \{n\}$ be a subset of $x\in n$? Since $n\subseteq n \cup\{n\}$, if this were the casee, $n$ would also be a subset of $x$ thus contradicting the hypothesis that $n\in N$. We can conclude that $s(n) \in N$ and, by induction, that $N = \omega$.
+
+\item We proceed, again, inductively. Let $N\subseteq\omega$ be the set of elements $n$ for which the result holds.
+It is out of question that $0\in N$.
+In addition, if we assume $n\in N$, we can easily prove that $s(n)\in N$.
+The elements of $s(n)$ are $n$ and all the elements of $n$.
+Clearly, since all the elements of $n$ belong to $s(n)$, we have $n\subseteq s(n)$.
+Moreover, according to the inductive hypothesis, all the elements $x\in n$ are subsets of $n$, and, since $n \subseteq s(n)$, they must also be subsets of $s(n)$.
+\end{parlist}
+\end{proof}
+
+
+\begin{theorem}
+Let us consider the interpretation of the formal system $\mathsf{PA}$ of Peano Arithmetic using $\mathbb{N}$ as domain and having $\{\emptyset\} = 1$ as $\und{1}$; the set-theoretic relation $=$ as $\und{=}$; the set-theoretic function $s$ as $\und{s}$, and the set-theoretic functions $+\vert_{\mathbb{N}\times\mathbb{N}}$ and $\cdot\vert_{\mathbb{N}\times\mathbb{N}}$ as $\und{+}$ and $\und{\cdot}$ respectively.
+This interpretation is a model.
+
+Consequently, if $\mathsf{ZFC}$ is consistent, so is $\mathsf{PA}$.
+\label{<+label+>}
+\end{theorem}
+
+\begin{proof}
+We need to show that, in the interpretation of $\mathsf{PA}$ that we have constructed, all the axioms are true.
+The axioms of equality are clearly verified, so we can get to work with the remaining non-logical axioms.
+
+It is trivial that \ref{axpa1}, \ref{axpa2}, \ref{axpa3}, \ref{axpa4} and \ref{axpa5} are true by how we have defined the elements of the interpretation. Furthermore, the principle of mathematical induction captured in \ref{axpa6} trivially holds by considering, for any property $\phi(x)$, the set $\{x\in \omega\mid \phi(x)\}$ and noting that $\omega$ is inductive.
+
+The only axiom that remains to be shown to be true is \ref{axpa1bis}.
+Let us assume that two elements $m,n\in \omega$ verify $s(m) = s(n)$.
+Under these conditions,
+\[ m\in s(m) = s(n) = n \cup \{n\} \quad \tx{and} \quad n\in s(n) = s(m) = m \cup \{m\},\]
+so either $m = n$ or both $m\in n$ and $n\in m$. In the latter case, we have $m\in n \in m$, but, applying \ref{lemmapeano}\ref{wtrans}, this implies that $n\subseteq m$ and, therefore, yields a contradiction with \ref{lemmapeano}\ref{wsubse}.
+\end{proof}
+
+\begin{para}
+The following statements about $\omega$ can be shown to be true in any model of $\mathsf{ZFC}$ in an identical way to their analogues in $\mathbb{N}$:
+\begin{axioms}[$\omega$]
+\item \label{axw1} $(\forall x\in \omega)\qsep\lnot(s(x) = 0)$.
+\item \label{axw2} $(\forall x,y\in \omega)\qsep s(x) = s(y) \limplies x = y$.
+\item \label{axw3} $(\forall x\in \omega)\qsep x + 0 = x$.
+\item \label{axw4} $(\forall x,y\in \omega)\qsep x + s(y) = s(x+y)$.
+\item \label{axw5} $(\forall x\in \omega)\qsep x \cdot 0 = 0$.
+\item \label{axw6} $(\forall x,y\in \omega)\qsep x \cdot s(y) = x\cdot y + x$.
+\item \label{axw7} $(\forall A \subseteq \omega)\qsep (0 \in \omega \land  (\forall n\in \omega) (s(n) \in \omega) \limplies A = \omega)$. 
+\end{axioms}
+It goes without saying that \ref{axw7} implies that any formula $P(x)$
+is true for any $x\in \omega$ if proved to hold for $x = 0$ and, given an arbitrary $n\in \omega$, for $x = s(n)$ assuming $P(n)$.
+\end{para}
+
+\begin{lemma}
+Assuming addition in $\omega$ to be associative, the following statements about $\omega$ are true:
+\begin{statements}
+\item \label{xp0i0} $(\forall x \in \omega)\qsep 0 + x = 0$.
+\item \label{switchs} $(\forall x,y\in \omega)\qsep s(x) + y = s(x+y)$.
+\end{statements}
+\label{lemmaomplus}
+\end{lemma}
+
+\begin{proof}
+\begin{parlist}
+\item Let us show that $0 + n = 0$ for every $n\in \omega$ by induction on $n$.
+For $n = 0$, the result is immediate from \ref{axw3}.
+If we now assume this property to hold for an arbitrary $n\in \omega$, it follows from \ref{axw3} and \ref{axw4} that it is verified by $s(n)$ as
+\[ 0 + s(n) = 0 + s(n+0) = 0 + n + s(0) = n + s(0) = s(n).\]
+Thus, the result is true by the principle of mathematical induction, i.e., by \ref{axw7}.
+Notice how we have also made an implicit use of the associativity hypothesis.
+
+\item We shall prove that $s(x) + n = s(x+n)$ for any $x,n\in \omega$ using induction on $n$.
+The result $n = 0$ is a direct consequence of \ref{axw3}. Assuming it to hold for an arbitrary $n\in \omega$, we can deduce from \ref{axw3} and \ref{axw4} that
+\begin{align*}
+s(x) + s(n) &= s(x) + s(n+0) = s(x) + n + s(0) = s(x+n) + s(0) \\
+&= (x+s(n)) + s(0) = s( (x+s(n)) + 0) = s(x+s(n)),
+\end{align*}
+and, therefore, the result is true by induction.
+\end{parlist}
+\end{proof}
+
+\begin{proposition}
+Addition $+$ on $\omega$ is associative and commutative.
+\end{proposition}
+
+\begin{proof}
+We shall first prove associativity: we will prove, by induction on $n\in \omega$, that $(x+y)+n = x + (y + n)$. For $n=0$, the result is obvious since, according to \ref{axw3},
+\[ (x+y) + 0 = x+ y = x + (y + 0).\]
+Let us then assume associativity to hold for an arbitrary $n\in \omega$. Regarding $s(n)$, the inductive hypothesis together with a repeated application of \ref{axw4} yields
+\begin{align*}
+(x+y) + s(n) &= s( (x+y) + n ) = s(x + (y + n)) = x + s(y+n) \\
+&= x + (y+ s(n)).
+\end{align*}
+
+Now that we have associativity assured, let us deal with commutativity. We will show that any $x,n\in \omega$ verify $x+n = n+x$ using, once again, induction on $n$. The property is obvious for $n=0$ as $x + 0 = x$ and $0 + x = x$. These equalities are direct applications of \ref{axw3} and \ref{lemmaomplus}\ref{xp0i0}.
+Assuming as inductive hypothesis that $x+n = n+x$, we have
+\[ x+ s(n) = s(x+n) = s(n+x) = s(n) + x.\]
+The fact that $s(n+x) = s(n) + x$ was shown in \ref{lemmaomplus}\ref{switchs}. 
+\end{proof}
+
+\begin{lemma}
+The following statements about $\omega$ are true:
+\begin{statements}
+\item \label{lemmaw0x} $(\forall x \in \omega)\qsep 0 \cdot x = 0$.
+\item \label{lemmawps} $(\forall x,y\in \omega)\qsep s(x) \cdot y = x \cdot y + y$.
+\end{statements}
+\label{lemmawprod}
+\end{lemma}
+
+\begin{proof}
+\begin{parlist}
+\item As you should have expected, we proceed by induction on $x$. It is clear that $0\cdot 0 = 0$ from \ref{axw5}. If we now assume the result to hold for an arbitrary $x$, it follows from \ref{axw6} and \ref{axw3} that
+\[ 0 \cdot s(x) = 0\cdot x + 0 = 0 + 0 = 0.\]
+
+\item Once again, we proceed by induction on $y$. The result is immediate for $y = 0$ and, assuming it to hold for an arbitrary $y\in \omega$, we have
+\[ s(x) \cdot s(y) = s(x) \cdot y + s(x) = x\cdot y + y + s(x) = x \cdot s(y) + s(y),\]
+which shows that the result holds for $s(y)$.
+\end{parlist}
+\end{proof}
+
+\begin{proposition}
+Multiplication $\cdot$ on $\omega$ is distributive over addition, associative and commutative.
+\label{<+label+>}
+\end{proposition}
+
+\begin{proof}
+We will first prove left distributivity and use it in the proof of associativity and commutativity.
+Then, right distributivity will follow from commutativity.
+
+We need to show that, for every $n,x,y\in \omega$, we have $n\cdot (x+y) = n\cdot x + n\cdot y$.
+As our notation suggests, we will proceed by induction on $n$. Using \ref{lemmawprod}\ref{lemmaw0x}, the base case $n=0$ for distributivity is trivial as $0\cdot (x+y) = 0 = 0\cdot x + 0\cdot y$.
+Assuming left distributivity to hold for an arbitrary $n\in \omega$, we have
+\begin{align*}
+s(n) \cdot (x + y) &= n\cdot(x+y) + (x+y) = n\cdot x + n\cdot y + x + y \\
+&= s(n) \cdot x + s(n) \cdot (y),
+\end{align*}
+where we have made implicit use of properties such as the associativity and commutativity of addition, \ref{lemmawprod}\ref{lemmawps} and \ref{axw6}.
+
+In regard to associativity, let us show that $x\cdot(y \cdot n) = (x\cdot y) \cdot n$ by induction on $n$. For $n=0$, it follows from \ref{axw5} that 
+\[ x \cdot (y \cdot 0) = x\cdot 0 = 0 = (x\cdot y)\cdot 0.\]
+Assuming associativity to hold for an arbitrary value of $n\in \omega$, we have, using left distributivity 
+\begin{align*}
+x\cdot (y\cdot s(n) ) &= x\cdot (y \cdot n + y) = x \cdot (y \cdot n) + x \cdot y = (x\cdot y)\cdot n + x\cdot y \\
+&= (x\cdot y) \cdot s(n),
+\end{align*}
+where we have also used \ref{axw6}.
+
+Lastly, regarding commutativity, let us prove that $x \cdot n = n \cdot x$ for any by induction on $n$. The result is trivial for $n = 0$ and, assuming it to hold for an arbitrary $n$,
+\[ x \cdot s(n) = x \cdot n + x = n \cdot x + x = s(n) \cdot x,\]
+where we have made use of \ref{axw6} and \ref{lemmawprod}\ref{lemmawps}.
+\end{proof}
+
+\begin{para}
+What we have just done is quite significant. We have proven some facts about $+$ and $\cdot$ without making any direct reference to the way in which they are defined: we have only used a collection of assumptions.
+
+What we have seen in these proofs is an example of how the axiomatic method is used ``in practice'' within $\mathsf{ZFC}$.
+\end{para}
+
+\begin{definition}
+Let $I$ and $X$ be sets. A function $x:I\longrightarrow X$ may be regarded as a \emph{family} of elements of $X$ \emph{indexed} by the set $I$.
+If that is the case, given $i\in I$, we write $x_i$ instead of $x(i)$ and we denote the function $x$ by $\{x_i\}_{i\in I}$ or by $\{x_i\}_i$ for short. 
+On some occasions, the context might make it acceptable to also use the notation $\{x_i\}$.
+
+Given a family $\{X_i\}_{i\in I}$ of sets, its union is defined as $\cup_{i\in I} X_i = \cup \op{im} X$.
+If $I\neq \emptyset$, we define its intersection as $\cap_{i\in I} X_i = \cap \op{Im} X$.
+Lastly, the cartesian product of the family is the set $\times_{i\in I} X_i$ of families $\{x_i\}_{i\in I}$ such that, for every $i\in I$, $x_i \in X_i$; or, in more symbolic terms,
+\[ \bigtimes_{i\in I} X_i= \left\{x : I \longrightarrow \bigcup_{i\in i} X_i \mmid (\forall i\in\{1,\ldots,n)(x_i\in X_i)\right\}.\] 
+If the context allows for it, we may write $\cup_i$, $\cap_i$ and $\times_i$ instead of $\cup_{i\in I}$, $\cap_{i\in I}$ and $\times_{i\in I}$.
+Naturally, a family $\{X_i\}_{i\in I}$ of sets is said to be pairwise disjoint if, for any $i,j\in I$ with $i\neq j$, $X_i \cap X_j = \emptyset$. Notice how we are only requiring that $i\neq j$, not that $X_i\neq X_j$.
+
+If the index set of a family $\{x_i\}$ is $\mathbb{N}$, the family is said to be a \emph{sequence} of elements in $X$.
+
+Of particular interest is the case where the index set is $I = \{1,\ldots,n\}\subseteq \mathbb{N}$.
+In this situation, a family $\{x_i\}_{i\in I}$ is said to be an $n$-\emph{tuple} and it is represented writing down its terms explicitly as $(x_1,\ldots,x_n)$. Notice that tuples generalise ordered pairs. 
+If $(X_1,\ldots,X_n)$ is a tuple of sets, we can write
+\begin{gather*}
+\bigcup_{i\in I} X_i = \bigcup_{i=1}^n X_i = X_1\cup \cdots \cup X_n,\qquad \bigcap_{i\in I} X_i = \bigcap_{i=1}^n X_i = X_1 \cap \cdots \cap X_n,\\
+\bigtimes_{i\in I} X_i = \bigtimes_{i=1}^n X_i = X_1\times\cdots\times X_n.
+\end{gather*} 
+
+Given any tuple of sets $(X_1,\ldots,X_n)$, its cartesian product $X_1\times \cdots\times X_n$ is, according to the definition, the set of all tuples $(x_1,\ldots,x_n)$ having, for every $i\in\{1,\ldots,n\}$, $x_i\in X_i$. 
+The subsets of these cartesian products enable us to generalise the binary relations introduced in \ref{binrel} to $n$-ary relations.
+
+While it might seem awkward to have two distinct objects representing the same concepts (2-tuples vs ordered pairs and 2-ary relations vs binary relations), this redundancy has no noticeable consequences in practice.
+The different implementations of these concepts behave identically, so we might as well ignore their very nature.
+In addition, we will use their different denominations interchangeably.
+\label{<+label+>}
+\end{definition}
+
+\begin{definition}
+Let $X$ be a set. A binary relation $\sim$ defined over $X$ is said to be an \emph{equivalence relation} if it satisfies the following properties:
+\begin{itemize}
+\item Reflexivity: for every $a\in X$, we have $a\sim a$.
+\item Symmetry: for every $a,b \in X$, if $a\sim b$ then $b\sim a$.
+\item Transitivity: for every $a,b,c\in X$, if $a\sim b$ and $b\sim c$, then $a\sim c$.
+\end{itemize}
+Given any $a\in X$, we define its \emph{equivalence class} as the set $[a] = \{x\in X \mid a\sim x\}$.
+The \emph{quotient set} $X/{\sim}$ of $X$ by $\sim$ is the set of all the equivalence classes in $X$.
+\label{<+label+>}
+\end{definition}
+
+\begin{definition}
+Given a set $X$, a \emph{partition} $P$ of $X$ is a collection of pairwise disjoint subsets of $X$ such that $\cup P = X$. 
+\end{definition}
+
+\begin{proposition}
+Let $X$ be a set.
+\begin{statements}
+\item If $\sim$ is an equivalence relation over $X$, the quotient set $X/\sim$ is a partition of $X$. 
+\item If $P$ is a partition of $X$, then the equivalence relation $\sim$ defined in such a way that $x\sim y$ if and only if $x$ and $y$ belong to the same set in $P$ is an equivalence relation. 
+\end{statements}
+\end{proposition}
+
+\begin{proof}
+\begin{parlist}
+\item It is clear from reflexivity that, given any $a\in X$, we have $a\in [a]$.
+Thus, it is obvious that $\cup (X/{\sim}) = X$, so we just need to show that any two distinct equivalence classes are disjoint.
+
+Let $a,b\in X$ and let us assume the existence of an element $x\in [a]\cap [b]$.
+Under these assumptions, we know that $x\sim a$ and $x\sim b$ and, therefore, by transitivity, $a\sim b$. Given any $x\in [a]$, we will have $x\sim a$, so, by transitivity, $x\sim b$ and, therefore, $x\in [b]$.
+This proves that $[a]\subseteq [b]$ and it can be shown analogously that $[b] \subseteq [a]$.
+Thus, two sets in the quotient set can only have a non-empty intersection if they are the same set, i.e., the elements of $X/{\sim}$ are pairwise disjoint. 
+
+Notice, by the way, how we have been constantly using the symmetry of equivalence relations throughout the proof.
+
+\item Symmetry and reflexivity are obvious. Regarding transitivity, let $a,b, c\in X$ be such that $a\sim b$ and $a\sim c$. If we let $A\in P$ be the only subset of the partition to which $a$ belongs, as $a\sim b$, we know that $b\in A$. In addition, since $b\sim c$, that must mean that $c\in A$ and, therefore, that $a\sim c$. This proves that $\sim$ is an equivalence relation.
+\end{parlist}
+\end{proof}
+
+\begin{definition}
+Let $X$ be a set. A binary relation $\preceq$ defined on $X$ is said to be a \emph{partial order} if it verifies the following properties:
+\begin{itemize}
+\item Reflexivity: for any $a\in X$, we have $a\preceq a$.
+\item Antisymmetry: for any $a,b\in X$, if $a\preceq b$ and $a\neq b$, then $b\not\preceq a$.
+\item Transitivity: for any $a,b,c\in X$, if $a\preceq b$ and $b\preceq c$, then $a\preceq c$.
+\end{itemize}
+A partial order is said to be a \emph{total order} if, for any $a,b\in X$, we have $a\preceq b$ or $b\preceq a$.
+
+A \emph{strict partial order} $\prec$ is a binary relation that verifies antisymmetry, transitivity and \emph{irreflexivity}, i.e., that for any $a\in A$, $a\not\prec a$. 
+Any partial order $\preceq$ can be used to define a strict partial order $\prec$ as $a \prec b$ if and only if $a\preceq b$ and $a\neq b$.
+Conversely, any strict partial order defines a partial order in the obvious way.
+
+Given a set $X$ endowed with a partial order $\preceq$, an element $a\in A$ is said to be a \emph{minimal} element if there exists no $x\in X$ such that $x\preceq a$.
+Analogously, $a$ is said to be \emph{maximal} if no $x\in X$ exists such that $a\preceq x$.
+The element $a$ is said to be a \emph{minimum} in $X$ if, for any $x\in X$, $a\preceq x$; moreover, it is said to be a \emph{maximum} if any $x\in X$ satisfies $x\preceq a$.
+Notice how all these definitions need to be understood with respect to a particular partial order $\preceq$: an element may be maximal, minimal, a maximum or a minimum with respect to one partial order but not to another.
+
+A total order $\preceq$ on a set $X$ is said to be a \emph{well-order} if any $A\subseteq X$ has a minimum. If a set $X$ has a well-order $\preceq$, it is said that $X$ is \emph{well-ordered} (by $\preceq$).
+\label{<+label+>}
+\end{definition}
+
+

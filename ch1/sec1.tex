@@ -1,0 +1,280 @@
+%begin-include
+
+\section{The axiomatic method. Syntax and semantics}
+
+
+\begin{para}[The breakdown of logicism]
+In the early days of set theory, logicism was on the rise.
+It was by then believed --- and rightly so --- that set theory could be used as a foundation for all mathematics, so, if set theory could be reduced to logic, mathematics would be reducible to logic too.
+If you allow me to oversimplify a bit, the idea behind this endeavour was the following. How do you define a set? Well, they said, just take any predicate $\phi(x)$ and define the set $R = \{x\mid \phi(x)\}$ of all elements $x$ verifying $\phi$.
+Thus, for instance, we could take $\phi(x)$ to be the predicate ``$x$ is a natural number'', and define the set of natural numbers as the set of elements verifying $\phi$.
+
+It was all good and great until, one day, Bertrand Russell found a paradox that threatened to destroy set theory and the very foundations of mathematics.
+Let us consider the set $R = \{x \mid x \not \in x\}$. By the definition of $R$, we would have $R\in R$ if and only if $R\not\in R$. Boom!
+Many more paradoxes emerged that sentenced the logicist approach to set theory to death.
+What these paradoxes showed was that logic was not enough to define mathematics: mathematics can of course be built on top of logic, but it needs its own formal structure.
+
+Nevertheless, the idea of identifying predicates with sets stayed alive, but not in such a wild state as it originally did.
+In general, there is no harm in identifying predicates with sets\ldots provided you do it with care.
+What does it mean to do it carefully? Be patient, you will get a proper answer later.
+
+If you are interested in the events that followed and preceded Russell's paradox and would like to get some more context, I invite you to read chapter II.7 of \cite{Companion}.
+\label{logifail}
+\end{para}
+
+\begin{para}
+Mathematics is all about proofs. When you are doing mathematics, you are working with certain abstract objects and your job is to deduce (that is, prove) some properties about them.
+From an informal perspective, a proof could be defined as an argument that would convince any intelligent being that something is true; from a formal perspective, as we will soon see, things are a little bit more subtle.
+
+If mathematics is all about proofs and proofs are all about deduction, we need an starting point.
+Thus, when we are working with a mathematical object, we need to understand its defining properties: the properties that are so essential and intrinsic to that object, that not only are unquestionable, but can also be used to define the object itself.
+Some of these defining properties properties are chosen to be \emph{axioms}, and they are the starting point for any proof concerning the mathematical entities they define.
+That is what the axiomatic method is all about.
+
+For example, let us consider the natural numbers. The statement
+``if $x = y$, then $x+1 = y+1$''
+could well be an axiom of the natural numbers.
+It is unquestionably true according to our concept of natural number, and it can be used to define what a natural number is.
+
+Now that we have all the intuition behind how mathematical reasoning should work, we will seek to formalise everything that we have done so far.
+Firstly, we aim to provide an axiomatic framework for logic itself.
+\end{para}
+
+\begin{para}
+Before diving into the world of mathematical logic, I would like to give you some vocabulary. In mathematics, we use the words \emph{proposition}, \emph{lemma}, \emph{theorem} and \emph{corollary} when we are referring to proven statements (also known as \emph{results}) in a particular theory. Specifically:
+\begin{itemize}
+\item A proposition is an ordinary result (and should not be confused with the ``propositions'' of propositional logic that we studied before),
+\item a lemma is an auxiliary result that is only used as a means of proving something more important,
+\item a theorem is an important result,
+\item and a corollary is an immediate consequence of another result.
+\end{itemize}
+
+By the way, when a mathematician says that something is ``immediate'' from something, it means that it can be somewhat mechanically deduced without using any extravagant ideas.
+If something is simply obvious, it is said to be trivial.
+Lastly, if something is somewhere in between trivial and immediate, it is said to be ``direct''.
+
+We will now be working not within any theory, but analysing theories themselves. These theories will be called \emph{object theories} and, in rigour, we should refer to the results we obtain about those theories as \emph{metatheorems} because they will not be results in the theory itself, but in the \emph{metatheory} that we will be using to analyse our object theory. Nevertheless, being aware of this fact, we will still use the usual terms (proposition, theorem\ldots) to refer to the different metatheorems.
+\end{para}
+
+\begin{para}
+The first notion that we will formalise is that of a language.
+I think we can both agree that any language needs two things: a collection of symbols and a collection of accepted constructions with those symbols.
+For instance, the English language has a collection of symbols (the letters of the alphabet, empty space and punctuation marks) and a collection of appropriate combinations of those symbols (the collection of all sentences).
+
+In the context of formal languages, we can take this classification one step further.
+Among the allowed constructions with symbols, we can make a distinction between terms and formulas: a term would be a construction representing an object, whereas a formula would be a construction representing a well-formed statement about terms.
+For example, if we were to define the language or arithmetic, we should define it in such a way that $x+1$ were a term and $x+1 = 0$ were a formula.
+
+In an attempt to further connect these notions with human languages, we could identify terms with nominal phrases and formulas with sentences.
+\end{para}
+
+\begin{definition}
+Given a set of symbols $\Sigma$, the set of words $\Sigma^*$ over $\Sigma$ is defined as the set of finite sequences of symbols of $\Sigma$.
+Given any sequence of elements $a_1,a_2,\ldots,a_n$ of $\Sigma$, their corresponding element in $\Sigma^*$ is represented by concatenation: $a_1a_2\cdots a_n\in \Sigma^*$.
+
+A \emph{formal language} --- or \emph{language}, for short --- is a set of symbols $\Sigma$ together with three subsets $T,F\subseteq \Sigma^*$ and $\Lambda \subseteq F$.
+The set $\Sigma$ is said to be the \emph{alphabet} of the language, and $T$, $F$ and $\Lambda$ are said to be the sets of \emph{terms}, \emph{well-formed formulas} (or just \emph{formulas}) and \emph{sentences} of the language.
+Such a formal language is represented by the tuple $(\Sigma, T, F, \Lambda)$.
+
+
+For must practical purposes, the set of sentences is irrelevant.
+Thus, we might sometimes refer to a language $(\Sigma, T, F, \Lambda)$ simply as $(\Sigma, T, F)$ if there is no need to know what its sentences are. 
+\end{definition}
+
+\begin{para}
+So that was our first formal definition.
+It should have been clear enough, but there is a little thing I would like to clarify.
+In mathematics, when we define an object that consists of several pieces, we often represent it with a tuple.
+It is just a fancy way of representing things, do not try to find in it any sort of metaphysical nature.
+
+As unnecessary as this may seem, it is done for a good reason.
+Imagine that we are defining a formal language and we have already constructed the alphabet $A$, the set of terms $B$, the set of formulas $C$ and the set of sentences $D$.
+Instead of writing ``the language having $A$ as alphabet, $B$ as set of terms, $C$ as set of formulas and $D$ as set of sentences'', we can just say ``the language $(A,B,C,D)$''.
+It is more clean and convenient.
+\end{para}
+
+\begin{example}
+\label{lp}
+The first formal language that we will define is the formal language $L_P$ of propositional logic.
+The alphabet of this language will consist of an infinite collection of symbols $p_1,p_2,\ldots$ meant to represent propositional variables, of parentheses, and of the $\limplies$ and $\lnot$ connectives.
+We only include these connectives because, as we showed in \ref[prel]{adequateni}, they suffice to construct any propositional form.
+
+Theoretically, we could add more connectives to our language, but that would simply be redundant.
+The purpose of formal languages is to provide a precise framework in which to analyse languages theoretically and, therefore, they should be as simple and minimal as possible.
+In our work as mathematicians, we can, of course, add as many connectives as we want --- regarding them as aliases for their equivalent constructions involving the $\limplies$ and $\lnot$ connectives.
+
+Thus, the alphabet of the language of propositional logic will be
+\[\Sigma_P = \{(,),\limplies,\lnot,p_1,p_2,\ldots,p_n,\ldots\}.\]
+The set of terms $T_P$ of will simply be the set of words representing propositional variables: $T_P = \{p_1,p_2,\ldots\}\subseteq \Sigma_P^*$.
+The terms of $L_P$ will be known as \emph{propositional symbols}.
+Finally, the set of formulas $F_P$ is defined following what is known as an \emph{inductive procedure}:
+\begin{enumerate}
+\item All terms are well-formed formulas: $T_P \subseteq F_P$.
+\item If $A$ and $B$ are well-formed formulas, so are $(\lnot A)$ and $(A\limplies B)$.
+\end{enumerate}
+Just to better understand what is going on here, how could we prove that $((\lnot p_1)\limplies p_2)$ is a formula of propositional logic?
+By the first rule, we know that both $p_1$ and $p_2$ are formulas.
+By the second one, we know that $(\lnot p_1)$ is also a formula; therefore, as both $(\lnot p_1)$ and $p_2$ are formulas, if we apply the second rule again, we know $( (\lnot p_1) \limplies p_2)$ to be a formula.
+
+Just to conclude the definition of $L_P$, we will take any formula of this language to be a sentence.
+
+The language of propositional logic is then $L_P = (\Sigma_P, T_P, F_P, F_P)$.
+It is easy to see that the formulas of this language are, precisely, the propositional forms on the propositional variables $p_1,p_2,\ldots$.
+That is why we will refer to the formulas in $F_P$ as \emph{propositional forms} too.
+
+
+Informally, for any formulas $A,B\in F_P$, we will define the formula $(A\land B)$ as an abbreviation of $(\lnot(A\limplies (\lnot B)))$, the formula $A\lor B$ as an abbreviation of $((\lnot A )\limplies B)$, and the formula $(A\liff B)$ as an abbreviation of $((A\limplies B) \land (B\limplies A))$.
+\end{example}
+
+\begin{definition}
+Let $S$ be a collection of symbols together with a \emph{signature} function $\sigma : S \longrightarrow \mathbb{Z}$. For any $s\in S$, we say that $s$ is an \emph{$n$-ary function symbol} if $\sigma(s) = n > 0$; we say that $s$ is an \emph{$n$-ary predicate symbol} if $\sigma(s) = -n < 0$, and we say that $s$ is a \emph{constant symbol} if $\sigma(s) = 0$.
+Let $\{x_1,\ldots,x_n,\ldots\}$ be an arbitrary collection of symbols such that, for any $i\in\mathbb{N}$, $x_i\not\in S$.
+The alphabet $\Sigma_{(S,\sigma)}$ associated to $(S,\sigma)$ is 
+\[\Sigma = S\cup \{\lnot,\limplies,\forall,(,)\} \cup \{,\} \cup \{x_1,x_2,\ldots,x_n,\ldots\}.\]
+The set of terms $T_{(S,\sigma)}$ is defined inductively according to the following rules.
+\begin{enumerate}
+\item All the elements of the set $\{x_1,x_2,\ldots,x_n,\ldots\}$ of \emph{variables} are terms.
+\item All constant symbols are terms.
+\item Given any $n$-ary function symbol $f$ and given any $n$ terms $t_1,\ldots,t_n$, the construction $f(t_1,\ldots,t_n)$ is a term.
+\end{enumerate}
+The set of formulas $F_{(S,\sigma)}$ is defined inductively according to:
+\begin{enumerate}
+\item Given any $n$-ary predicate symbol $P$ and any $n$ terms $t_1,\ldots,t_n$, the \emph{atomic formula} $P(t_1,\ldots,t_n)$ is a formula.
+\item If $A$ and $B$ are formulas and $i\in\mathbb{N}$, then $(\lnot A)$, $(A\limplies B)$ and $(\forall x_i) A$ are formulas.
+\end{enumerate}
+
+As in the informal treatment of predicate logic, given any formula of the form $(\forall x_i) A$, the formula $A$ is said to be the \emph{scope} of the quantifier $(\forall x_i)$.
+Moreover, any occurrence of a variable $x_i$ within the scope of a quantifier $(\forall x_i)$ is said to be \emph{bound}.
+If an appearance of a variable is not bound, we say that it is \emph{free}.
+
+The set of sentences $\Lambda_{(S,\sigma)}$ is the set of all the \emph{closed formulas}: the collection of all formulas having no free occurrences of variables.
+
+The language $L_{(S,\Sigma)} = (\Sigma_{(S,\sigma)}, T_{(S,\sigma)}, F_{(S,\sigma)}, \Lambda_{(S,\sigma)})$ is said to be the \emph{first-order language} associated to $(S,\sigma)$. 
+
+Just as we did in the language of propositional logic, given any formulas $A$ and $B$ in any first order language, we can define the formula $(A\land B)$ as an abbreviation of $(\lnot(A\limplies (\lnot B)))$, the formula $A\lor B$ as an abbreviation of $((\lnot A )\limplies B)$, and the formula $(A\liff B)$ as an abbreviation of $((A\limplies B) \land (B\limplies A)$.
+In addition, for any variable $x_i$, we will define $(\exists x_i) A$ to be an alias for $(\lnot(\forall x_i)(\lnot A))$.
+\end{definition}
+
+\begin{para}
+First-order languages will make it easy to define the language of any theory built in the framework of first-order logic.
+If you have perfectly understood the definition I have given you, that's wonderful! Just move on.
+Otherwise, if you feel a little bit overwhelmed and are wondering why on earth I have just done this to you\ldots let us have a small chat here.
+One of the most important skills you will learn in your journey through the wonders of mathematics is being able to see beyond formal concepts.
+I have given you a purely formal definition, and now you need to work on it to get the intuition behind it.
+This might be the first time you are facing this kind of challenge, so let me guide you through.
+
+The idea behind all of this is simple.
+The alphabet of any first-order language always has an infinite amount of symbols representing variables ($x_1,\ldots,x_n,\ldots$), two connectives ($\lnot$ and $\limplies$), one quantifier ($\forall$) and some punctuation symbols (parentheses and a comma).
+In addition, it may have some constants, some symbols representing predicates and some symbols representing functions.
+These last objects are what can make first-order languages distinct, and they are encoded in $S$ and $\sigma$.
+Instead of using  a set for the constants, a set for the predicate symbols and another set for the function symbols, I thought it would be better to put them all in one set and use the $\sigma$ function to distinguish them.
+Why? Because we were going to need such a function anyway to specify the arity of each of the symbols for, as you have seen, knowing the arity of a function or predicate symbol is necessary when defining how terms and formulas can be constructed.
+So, instead of having three sets and two arity functions (one for the set of predicates and another one for the set of function symbols), why not use just one set and a ``signature'' function? A signature of zero just means that symbol is a constant, a positive signature that a symbol is a function, and a negative signature that it is a predicate. Moreover, the absolute value indicates the arity. It is all more compact and simple to encode. 
+\end{para}
+
+\begin{example}
+\label{lfo}
+\begin{parlist}
+\item \label{lq} Any first-order language can be used as a language for predicate logic. Nonetheless, we will do it for the most general first-order language available: one that contains an infinite amount of constants, predicates and functions. Our first-order language $L_Q$ will be the one associated to the set $S$ of all the symbols of the form
+\[P_i^j,\quad f_i^j,\quad c_i\]
+with $i,j\in\mathbb{N}$, and to the signature function $\sigma$ defined, for every $i,j\in\mathbb{N}$ as
+\[\sigma\left(P_i^j\right) = -j,\qquad\sigma\left(f_i^j\right) = j,\qquad\sigma\left(c_i\right) = 0.\]
+
+\item \label{lpa} The language of first-order arithmetic is the first-order language associated to the set $S = \{=,1,s,+,\cdot\}$ and the signature $\sigma(=)=-2$, $\sigma(1) = 0$, $\sigma(s) = 1$, $\sigma(+) = 2$ and $\sigma(\cdot) = 2$. Instead of witting $=\!(x,y)$, $+(x,y)$ and $\cdot(x,y)$, we will use \emph{infix notation} and write $x=y$, $x+y$ and $x\cdot y$ respectively.
+Furthermore, $x\cdot y$ will often be abbreviated as $xy$.
+
+The symbol $=$ is meant to represent equality, $+$ is meant for addition, $\cdot$ for multiplication, $1$ is meant for the number one, and $s$ for the successor function.
+I suppose that wasn't very surprising.
+
+In order to simplify the notation and reduce the number of parentheses, by convention, $\cdot$ will have higher precedence than $+$ in the creation of terms. Thus $x + y \cdot  z$ will be parsed as $x + ( y \cdot z) $ and not as $(x + y ) \cdot z$.
+\end{parlist}
+\end{example}
+
+\begin{para}[Syntax and semantics]
+With formal languages, we now have a formal device enabling us to precisely express statements about a particular theory. What remains to be done is providing mechanical rules for transforming formulas in order to enable deductions, and providing ways of deciding the truth or falsity of such formulas and the validity of the methods of deduction.
+These two different tasks are tackled by syntax and semantics respectively.
+
+As we will soon see, the central object in syntax is that of a \emph{formal system}: a framework in which we can use a deductive machinery to operate with the formulas of a language.
+
+The fundamental tools in semantics are \emph{interpretations}. An interpretation is nothing more than an assignment of meaning to the elements of a language. Thus, once a formula is considered under a particular interpretation, we are able to decide its truth or falsity.
+
+The informal analysis of propositional and predicate logic that we have made has been purely semantic.
+When we studied propositional logic, we developed a complete and systematic understanding of the truth of propositional forms for each possible assignment of truth values to its variables;
+as we will soon formalise, those assignments of truth values are the possible interpretations of propositional logic.
+In our study of predicate logic, we learned to identify the truth or falsity of formulas in a certain domain of discourse; 
+following the same ideas, an interpretation of any first-order language will be nothing more than a choice of a domain of discourse and an assignment of meaning to the symbols of the language under that domain. 
+\end{para}
+
+\begin{definition}
+A \emph{formal system} $\mathsf{S}$ is a language $L = (\Sigma_L, T_L, F_L)$ together with a subset $\Xi\subseteq F_L$ of formulas known as its set of \emph{axioms} and a set $R$ of \emph{rules of inference}.
+We write $\mathsf{S} = (L,\Xi,R)$.
+
+We say that a formula $P \in F_L$ can be \emph{deduced} from a set of formulas $\Gamma\subseteq F_L$ in the formal system $\mathsf{S}$ if there exists a sequence of formulas $P_1,\ldots,P_n$ with $P_n = P$ such that, for every $i\in \{1,\ldots,n\}$, $P_i$ belongs to $\Xi$ or $\Gamma$, or has been obtained by applying a rule of inference on previous formulas of the sequence. If $\Gamma = \emptyset$, $P$ is said to be a \emph{theorem} of $\mathsf{S}$ and the sequence $P_1,\ldots,P_n$ is said to be a \emph{proof} of $P$ in $\mathsf{S}$.
+
+If $P$ can be deduced from $\Gamma$, we write $\Gamma \vdash_{\mathsf{S}} P$. Furthermore, if $\Gamma = \{H_1,\ldots,H_m\}$, we can also write $H_1,\ldots,H_m\vdash_{\mathsf{S}} P$. We can denote the fact that $P$ is a theorem of $S$ by $\vdash_{\mathsf{S}} P$ or by $\mathsf{S}\vdash P$. In addition, if the context makes it clear that the deduction or proof is taking place in $\mathsf{S}$, the symbol $\vdash_{\mathsf{S}}$ can be safely replaced by $\vdash$.
+\end{definition}
+
+\begin{para}
+I would like to make a small remark about the definitions I have just given you.
+What we have done is a mere formalisation.
+Thus, if we are ever proving or deducing something in any particular formal system, we will probably not find ourselves just applying inference rules in such a mechanical way as that described in the formal definition of proofs.
+
+Instead, in practice, we will use some methods that will enable us to reason in a more intuitive and human-like manner, but always with the assurance that a ``formal proof'' like the one we have defined can be constructed from that reasoning --- even if that would involve an unfeasible amount of mechanical work.
+\end{para}
+
+\begin{para}[Notation]
+Instead of writing ``$P_1,\ldots,P_n$ with $P_n = P$'' as we did in the previous definition, it is customary and convenient to write $P_1,\ldots,P_n = P$.
+
+This is quite a bit more than something specific of this context. In fact, one should always be flexible in the way they read notation. For instance, if I wanted to say ``this applies to the set $A$ that is a subset of $B$'', I could just say ``this applies to $A\subseteq B$''.
+\end{para}
+
+\begin{proposition}
+Let $\mathsf{FS}$ be a formal system on a language $L = (\Sigma, T, F)$. If $\Gamma,\Gamma'\subseteq F$ are collections of formulas and $A$ and $B$ are two arbitrary formulas, then:
+\begin{statements}
+\item If $\Gamma \vdash A$, then $\Gamma \cup \{B\} \vdash A$.
+\item If $\Gamma \vdash A$ and $\Gamma' \cup \{A\} \vdash B$, then $\Gamma \cup \Gamma' \vdash B$.
+\item If $\Gamma \vdash A$, then $\Gamma \vdash B$ if and only if $\Gamma \cup \{A\} \vdash B$.
+\end{statements}
+\label{<+label+>}
+\end{proposition}
+
+\begin{definition}
+Given a language $L = (\Sigma,T,F)$, an \emph{interpretation} of $L$ is an assignment of meaning to the elements of $L$. The elements of $L$ are nothing more than a bunch of meaningless symbols.
+Under a certain interpretation, however, those symbols are given an abstract reference.
+For example, in the formal language of arithmetic, the symbol $1$ is nothing more than a meaningless character, but we can construct an interpretation in which $1$ represents ``the number one''.
+The way in which these interpretations can be constructed is different for each of the two ``flavours'' of logic that we have studied and will be described, with full precision, later.
+
+An interpretation of $L$ will define two subsets of $F$: a subset of \emph{true} formulas, and a subset of \emph{false} formulas; we denote that a formula $A\in F$ is true in an interpretation $I$ by $I\vDash A$. Bear in mind, though, that there might be formulas that are neither true or false.
+
+A formula $A\in F$ is said to be \emph{valid} in $L$ if it is true in any interpretation. That is denoted by $\vDash A$.
+
+Given a formula $B\in F$ and a collection of formulas $\Gamma\subseteq F$, if whenever an interpretation $I$ satisfies $I\vDash A$ for every $A\in \Gamma$, we have $I\vDash B$, we say that $B$ is a \emph{semantic consequence} of $\Gamma$ or that $\Gamma$ \emph{semantically entails} $B$.
+In this case, we write $\Gamma\vDash B$.
+If $\Gamma = \{A_1,\ldots,A_n\}$, we may also write $A_1,\ldots,A_n\vDash B$.
+Notice how $\emptyset \vDash B$ is the same as $\vDash B$.
+\end{definition}
+
+
+\begin{para}[Why bother?]
+At this point, one question might be popping up in your mind. You should by now have a fully developed understanding of propositional and predicate logic --- an understanding that we have labelled as ``semantic''.
+why isn't that everything you need? Why bother with the axiomatic method and with syntax altogether?
+
+While what you already know is, probably, everything you will ever need to know about logic in your future career as a mathematician, syntactical approaches in general and the axiomatic method in particular have a purpose.
+
+You see, logic is very intuitive, mechanical and simple; so much so that it sometimes seems just like a linguistic artefact.
+This will not be the case with mathematics. When arguing about the truth or falsity of, let us say, a proposition (in propositional logic), we have systematic semantic methods that enable us to do so. In mathematical theories, such a thing does not exist.
+
+How would you show me that there exists an infinite amount of prime numbers in a semantic way? You cannot --- at least unless you are able to write down an infinite list of prime numbers to prove it.
+While it is semantically clear that there either is or there is not an infinite amount of prime numbers, there is no way to decide semantically.
+We need to have some structure enabling deduction: that is why we need syntax.
+The purpose of a formal system is capturing the ``essence'' of the entities it aims to add syntax to.
+Syntax aims to model an abstract reality in such a way that we can work in it whereas semantics is concerned with the abstract realities themselves.
+
+Of course, one should expect syntax and semantics --- that is, formal systems and interpretations --- to work well together. In an ideal situation, we should all expect that a formula be a theorem in a formal system if and only if it be true in any suitable interpretation of its language.
+That is what should happen and, indeed, that is what we know happens in the formalisations of propositional and predicate logic. Unfortunately, that is everything we have.
+As we will later discuss, G\"odel showed that this perfect harmony can never be reached for any formal system powerful enough to capture basic arithmetic. I know, that is a real pain in the neck: syntax can only do its job perfectly wherever it is not necessary.
+
+As catastrophic as this may seem, this is not that bad; in fact, depending on your views on the philosophy of mathematics, it can be great news. Please, bear with me.
+\label{whybother}
+\end{para}
+

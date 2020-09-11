@@ -1,0 +1,110 @@
+%begin-include
+
+\section{Numbers and sets}
+
+\begin{para}
+I assume that you are familiar with the notions of addition, subtraction, multiplication and equality of integers, and also with the usual ordering of the integers and with their representation in Arabic numerals.
+
+If you are an AI or an alien trying to learn mathematics and you need more insight into these matters, please, study them thoroughly before reading this book. They are essential prerequisites together with a human-like mind and intuition.
+\end{para}
+
+
+\begin{para}
+A \emph{set}, vaguely defined, is a collection of mathematical objects. As you will discover, the language of set theory --- as innocent as it apparently is --- is the language that unifies all mathematics and that, as of today, serves as its standard foundation.
+
+Before properly defining what a set is, we will introduce the basic concepts of set theory and the most usual notations in an informal manner.
+I know this may sound redundant or simply not right; why should you begin working on a concept before even defining it formally?
+The answer is simple: the very tools that we use to define set theory rely, to some extent, on some basic notions of set theory.
+As circular as it may seem, it is the way it needs to be.
+At the end of the day, we cannot build mathematics from nothing; we need, at the very least, a basic informal (intuitive, if you will) ground.
+\end{para}
+
+\begin{para}[Your first set]
+Let us say that you have a finite collection of mathematical elements.
+Let them be the natural numbers $1$, $2$ and $3$.
+With them, you can create a set: an imaginary box containing the numbers $1$, $2$ and $3$.
+
+The way in which we represent ``the set containing the numbers $1$, $2$ and $3$'' is $\{1, 2, 3\}$.
+The things that are ``inside'' a set are its \emph{elements} and the elements of a set are said to \emph{belong} to it.
+We can denote the belonging of an element $a$ to a set $A$ as $a\in A$, so, for example, we would have $1\in\{1,2,3\}$.
+
+There exists an empty set $\emptyset$ to which no element belongs.
+Of course, there also exists a set $\{1,2,3,\ldots\}$ of natural numbers and one of integers. 
+The set of natural numbers is often represented by the symbol $\mathbb{N}$ and that of integers by $\mathbb{Z}$; nonetheless, some people use the notation $\mathbf{N}$ and $\mathbf{Z}$.
+Originally, only the boldface symbols were used in print.
+This posed a problem when, for instance, writing on a blackboard, because there is no way to effectively write bold letters.
+Thus, people came up with ``blackboard bold'' letters $\mathbb{N},\mathbb{Z},\ldots$ and, eventually, these new symbols made its way to print and ended up substituting the boldface letters that they were once meant to represent.
+\end{para}
+
+\begin{para}[Set relations]
+An important feature of sets is that they can have no ``repeated'' elements and that the order in which their elements are presented is meaningless.
+In fact, set equality is \emph{extensional}: two sets $A$ and $B$ are equal, denoted as $A = B$, if and only if any element belonging to $A$ belongs to $B$ and vice-versa.
+For example,
+\[ \{1,1,2\} = \{2,1\}.\]
+Now, I have a question for you: if you put an apple in a box and then put that box into another box, is it the same as if you had put the apple into just one box? Of course not!
+Analogously, the sets $\{1\}$ and $\{\{1\}\}$ are not equal, and neither are
+\[\{1,2,3\},\quad\{1,\{2,3\}\},\quad \{\{1\},2,\{3\}\}.\]
+
+If all the elements of a set $A$ are also elements of another set $B$, we say that $A$ is \emph{included} in $B$ or that $A$ is a \emph{subset} of $B$, and denote it as $A \subseteq B$.
+If, in addition, $A\neq B$, we can also say that $A$ is a \emph{proper} or \emph{strict} subset of $B$, and we can write $A\subset B$. 
+For example, we have
+\[\{1,2\} \subseteq \{1,2,3\},\qquad \{\{1,2\}\}\subset\{\{1,2\},3\}.\]
+Notice that, given any set $A$, we always have $A\subseteq A$ and $\emptyset\subseteq A$;\footnote{We will come back to that later.} additionally, if $A$ and $B$ are sets such that $A\subset B$, then, necessarily, $A\subseteq B$.
+Some people prefer using $\subset$ instead of $\subseteq$ for normal inclusion and $\subsetneq$ in lieu of our $\subset$ for strict inclusion, so keep that in mind when reading other sources.
+
+If two sets $A$ and $B$ satisfy $A\subseteq B$ and $B \subseteq A$, then, trivially, $A = B$.
+This fact is so convenient when proving set equalities that its use has a name: proof by \emph{double inclusion}.
+Conversely, of course, $A = B$ implies both $A \subseteq B$ and $A \supseteq B$.
+\end{para}
+
+\begin{para}[Cardinality]
+A set is said to be \emph{finite} if it has a finite number of elements, and \emph{infinite} otherwise.
+The \emph{cardinality} of a finite set $A$ is denoted by $\abs{A}$ or $\#A$ and is the number of elements it has. Thus, for example,
+\[ \Abs{\{1,\{2,3\}\}} = 2.\]
+The cardinality of an infinite set is\ldots well, keep your infinite sets away for a moment. It is, in a way, the number of elements it has; but, as you might have expected, things get tricky when we deal with infinite stuff.
+
+These definitions are as naive as they could be, but remember that we are doing an informal treatment of set theory just to have a basic framework in which to work.
+\end{para}
+
+\begin{para}[Set operations]
+Now that we know everything we ever wanted to know about how to describe sets (well, kind of), let us define some tools that will allow us to construct new sets from existing ones! Let $A$ and $B$ be sets:
+
+\begin{itemize}
+\item The \emph{union} of $A$ and $B$ is a set $A\cup B$ containing exclusively the elements of $A$ and the elements of $B$. 
+For example, $\{1,3\} \cup \{1,2\} = \{1,2,3\}$.
+\item The \emph{intersection} of $A$ and $B$ is a set $A\cap B$ containing exclusively the elements that belong to both $A$ and $B$.
+For instance, $\{1,3\} \cap \{1,2\} = \{1\}$.
+\item The \emph{power set} of $A$ is the set $\mathcal{P}(A)$ containing exclusively all the subsets of $A$. Thus, $\{1,2\}\in\mathcal{P}(\{1,2,3\})$. Notice how $A \in \mathcal{P}(A)$ and $\emptyset \in \mathcal{P}(A)$.
+\item The \emph{subtraction} of a $A$ by $B$ is the set $A\setminus B$ containing exclusively all the elements of $A$ that do not belong to $B$.
+\end{itemize}
+
+The last set-construction tool that we will study is slightly more complex. Given $n$ sets $A_1,\ldots,A_n$, their \emph{cartesian product} is a set $A_1\times\cdots\times A_n$ consisting exclusively of all the possible ordered sequences of elements $(a_1,\ldots,a_n)$ with $a_i \in A_i$ for every $i$ between $1$ and $n$. The elements $(a_1,\ldots,a_n)$ are referred to as $n$-\emph{tuples} or, in the particular case $n=2$, as \emph{ordered pairs}. 
+We can consider, for example:
+\[ \{1,2\} \times \{1,3,4\} = \{(1,1),(1,3),(1,4),(2,1),(2,3),(2,4)\}.\]
+As we will later see in our formal treatment of set theory, there are ways in which we can encode tuples as sets.
+\end{para}
+
+\begin{para}[Functions]
+The last concept we will deal with is that of a function. Given two sets $A$ and $B$, a function $f$ from $A$ to $B$ is a rule that assigns to each element $a\in A$ a unique element $f(a)\in B$. This is denoted as
+\begin{align*}
+f : A & \longrightarrow B \\
+a & \longmapsto f(a).
+\end{align*}
+For example, we could define a function $f$ from $\{1,2\}$ to $\{3,4\}$ as
+\begin{align*}
+f: \{1,2\} &\longrightarrow \{3,4\} \\
+1 &\longmapsto 4\\
+2 &\longmapsto 3.
+\end{align*}
+
+If we are given a function $f:A\longrightarrow B$, the set $A$ is said to be the \emph{domain} of $f$ and the set $B$ its \emph{codomain}.
+All of this arrows and symbols look very fancy, but there is one thing I want you to keep in mind: notation is meant to be a tool, not a prison.
+There is no need to use this particular notation each time you define a function. As long as you (and your reader) know what the domain and the codomain of a function are and how it maps the elements of the domain to those of the codomain, everything is fine. 
+
+Let $f:A\longrightarrow B$ be a function. The subset of $B$ containing the elements $b\in B$ for which there exists an $a\in A$ such that $f(a) = b$ is known as the \emph{image} of $f$ and is represented by $\op{im} f$. The function $f$ is said to be \emph{injective} if, for every $b\in \op{im} f$, there exists a unique $a\in A$ such that $f(a) = b$. If $B = \op{im} f$, the function is said to be \emph{surjective}. A \emph{bijective} function is a function that is both injective and surjective.
+For example, the function $f:\mathbb{N}\longrightarrow\mathbb{N}$ that takes $f:n\longmapsto n+1$ for every $n\in\mathbb{N}$ is injective but not surjective.
+If a function $f:A\longrightarrow B$ is injective, we define its \emph{inverse} as the function $f^{-1} : \op{im} f \longrightarrow A$ that maps every $b\in A$ to the only $a\in A$ such that $f(a) = b$.
+
+If the domain of a function is the cartesian product of a set $A$ with itself $n$ times ($A\times \overset{n}{\cdots} \times A$), the function is said to be an $n$-ary function taking values in $A$.
+\end{para}
+
