@@ -1,0 +1,23 @@
+name: Compile LaTeX source and deploy output
+on:
+  push:
+    branches:
+      - master
+jobs:
+  main_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone source files
+        uses: actions/checkout@v2
+      - name: Clone dotfiles
+        uses: actions/checkout@v2
+        with:
+          repository: gonzalezcastillo/dotfiles
+          submodules: true
+          path: dotfiles
+      - name: Compile source code and deploy
+        uses: ./.github/actions/compile-deploy
+        with:
+          host: ${{ secrets.ssh_host }}
+          user: ${{ secrets.ssh_user }}
+          password: ${{ secrets.ssh_password }}
