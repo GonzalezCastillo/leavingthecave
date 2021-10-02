@@ -16,11 +16,11 @@ If two sets $x$ and $y$ satisfy $x\subseteq y$, we say ``$x$ is \emph{included} 
 
 We will now present all the non-logical axioms of $\mathsf{ZFC}$ and analyse them from a semantic perspective.
 \begin{axioms}[ZF]
-\item \label{extensionality} Axiom of extensionality: $(\forall x)(\forall y)(\forall a)\qsep (a \in x \liff a\in y) \limplies x = y$.
+\item \label{extensionality} Axiom of extensionality: $(\forall x)(\forall y)\qsep ((\forall a)\qsep (a \in x \liff a\in y)) \limplies x = y$.
 \end{axioms}
 In layman's terms, the axiom of extensionality means that any two sets with the same elements are equal.
 In addition, using this axiom, \ref{axe4}, \ref{foiff} and the generalisation rule, one can easily deduce that
-\[(\forall x)(\forall y)(\forall a)\qsep x = y \liff (a\in x \liff a \in y).\]
+\[(\forall x)(\forall y)\qsep x = y \liff ((\forall a)\qsep a\in x \liff a \in y).\]
 
 \begin{axioms}
 \item \label{emptyset} Axiom of the empty set: $(\forall x)\qsep \lnot(x\in\emptyset)$.
