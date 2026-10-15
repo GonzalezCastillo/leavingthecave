@@ -8,12 +8,14 @@
 
 \setlicense{This work is licensed under \href{https://creativecommons.org/licenses/by/4.0}{CC BY 4.0}. \ccby}
 
-\dedication{To truth, reason, purity and perfection.}
-
 \newcommand\versiondate{\the\year{}/\the\month{}/\the\day{}}
-\release[\versiondate]{1}
+\edition[\versiondate]{1}{0}
 
-\bibliographystyle{siam}
+\providecommand\und[1]{\underline{#1}}
+\nthm{Remark}{remark}
+\declaretheorem[style=custom,name=,numbered=no]{para*}
+
+\addbibresource{ltc.bib}
 
 \begin{document}
 
@@ -32,7 +34,7 @@
 \vspace*{\fill}
 
 \nocite{*}
-\bibliography{ltc}
+\printbibliography
 
 
 \end{document}

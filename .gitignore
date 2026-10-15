@@ -1,2 +1,10 @@
 *.pdf
 *.bbl
+*.aux
+*.bcf
+*.out
+*-SAVE-ERROR
+*.blg
+*.xml
+*.fls
+*.fdb_latexmk

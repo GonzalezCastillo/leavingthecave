@@ -5,7 +5,6 @@
 % You don't have to distribute your derivative work under this license.
 % Change it if you want.
 \setlicense{This work is licensed under \href{https://creativecommons.org/licenses/by/4.0}{CC BY 4.0}. \ccby}
-\dedication{To truth, reason, purity and perfection.}
 %%%%%
 
 \hypersetup{pdfauthor=\NewAuthor}
@@ -24,7 +23,11 @@ Licensed under \href{https://creativecommons.org/licenses/by/4.0}{CC BY 4.0}. \c
 Copyright \copyright \ \the\year, \NewAuthor.
 }
 
-\bibliographystyle{siam}
+\providecommand\und[1]{\underline{#1}}
+\nthm{Remark}{remark}
+\declaretheorem[style=custom,name=,numbered=no]{para*}
+
+\addbibresource{ltc.bib}
 
 \begin{document}
 
@@ -41,7 +44,7 @@ Copyright \copyright \ \the\year, \NewAuthor.
 
 
 \nocite{*}
-\bibliography{ltc}
+\printbibliography
 
 
 \end{document}
