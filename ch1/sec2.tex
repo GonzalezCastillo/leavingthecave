@@ -9,7 +9,7 @@ I mean, it does not seem legit to use propositional logic in order to study prop
 
 Turns out we can safely do it.
 What we will be studying is not propositional logic itself, but a formalisation of propositional logic.
-It should be out of question to any rational being that propositional logic is perfectly valid (and, thus, that there is no harm in using it).
+It should be out of the question to any rational being that propositional logic is perfectly valid (and, thus, that there is no harm in using it).
 What will not be obvious, however, is that the formalisation of propositional logic that we are about to present is correct and faithfully represents it.
 \end{para}
 
@@ -26,7 +26,7 @@ for all $A,B\in F_P$. This rule is known as \emph{modus ponens}, MP for short.
 \end{definition}
 
 \begin{para}
-As you may have already noticed, axioms such as \ref{axp1}, \ref{axp2} and \ref{axp3} are not axioms per se. Instead, they are ``rules'' for constructing the axioms; that is why they are called \emph{axiom schemata} instead of axioms. The axioms that are constructed using a particular axiom schema are said to be \emph{instances} of the schema. For example, the axiom $(p_1\limplies p_2)\limplies p_1$ is an instance of the axiom schema \ref{axp1}.
+As you may have already noticed, axioms such as \ref{axp1}, \ref{axp2} and \ref{axp3} are not axioms per se. Instead, they are ``rules'' for constructing the axioms; that is why they are called \emph{axiom schemata} instead of axioms. The axioms that are constructed using a particular axiom schema are said to be \emph{instances} of the schema. For example, the axiom $p_1\limplies (p_2\limplies p_1)$ is an instance of the axiom schema \ref{axp1}.
 \end{para}
 
 \begin{definition}
@@ -45,7 +45,7 @@ Propositional forms that are false under any interpretation of propositional log
 \begin{para}
 It should be obvious that an interpretation is nothing more than an assignment of truth values. The interpretation function $i$ defined for the propositional symbols represents the assignment and then the ``truth value'' of the remaining formulas, given by their image under $v_i$, is obtained inductively by applying the semantic rules that define the connectives $\lnot$ and $\limplies$.
 
-It should be obvious, according to the semantic rules that we have used, that getting the value of $v_i(A)$ for a propositional form $A$ and an interpretation $i$ is the same as getting the truth value of $A$ under the assignment of truth values induced by $i$. Thus, all the informal methods that can used to decide the truth or falsity of a propositional forms can be safely used to compute valuations.
+It should be obvious, according to the semantic rules that we have used, that getting the value of $v_i(A)$ for a propositional form $A$ and an interpretation $i$ is the same as getting the truth value of $A$ under the assignment of truth values induced by $i$. Thus, all the informal methods that can be used to decide the truth or falsity of a propositional form can be safely used to compute valuations.
 
 Notice, by the way, how we have redefined tautologies. The underlying meaning, however, is the same.
 \end{para}
@@ -54,7 +54,7 @@ Notice, by the way, how we have redefined tautologies. The underlying meaning, h
 Let $L = (\Sigma,T,F, \Lambda)$ be a language and $\mathsf{FS} = (L,\Xi,R)$ be a formal system containing all instances of axiom schemata \ref{axp1}, \ref{axp2} and \ref{axp3} among its axioms.
 \begin{itemize}
 \item If there exists no formula $A \in F$ such that $\vdash_\mathsf{FS} A $ and $\vdash_\mathsf{FS} \lnot A$, the system $\mathsf{FS}$ is said to be \emph{consistent}.
-\item If, for every sentence $A\in \Lambda$, we have $\vdash_\mathsf{FS} A$ or $\vdash \lnot A$, we say that $\mathsf{FS}$ is \emph{syntactically complete} or, for short, \emph{complete}.
+\item If, for every sentence $A\in \Lambda$, we have $\vdash_\mathsf{FS} A$ or $\vdash_\mathsf{FS} \lnot A$, we say that $\mathsf{FS}$ is \emph{syntactically complete} or, for short, \emph{complete}.
 \item The system $\mathsf{FS}$ is said to be \emph{semantically complete} if every valid formula is a theorem in $\mathsf{FS}$. Conversely, if every theorem is a valid formula, $\mathsf{FS}$ is said to be \emph{sound}.
 \end{itemize}
 Let $A$ be an axiom and let $\mathsf{FS}^*$ be the formal system obtained by removing the axiom $A$ from $\mathsf{FS}$. If neither $A$ nor $\lnot A$ are theorems of $\mathsf{FS}^*$, $A$ is said to be an \emph{independent axiom}. Ideally, we want all axioms to be independent in order to avoid redundancy.
@@ -90,7 +90,7 @@ Thus, if $B = A$, it is obvious that $\Gamma\cup\{A\}\vdash A$ implies $\Gamma \
 
 If $B\in \Gamma$ or $B\in \Xi_P$, $\Gamma \vdash (A\limplies B)$ follows from a trivial application of MP to $B$ and \ref{axp1}.\footnote{Be aware that, when applying \ref{axp1}, ``$A$'' in \ref{axp1} should be substituted by ``$B$'' and ``$B$'' by ``$A$.''}
 
-Let us now assume the result to hold for deductions of an arbitrary length $n$ and prove it for those of length $n+1$.
+Let us now assume the result to hold for deductions of length equal to or smaller than an arbitrary $n$ and prove it for those of length $n+1$.
 If the deduction is of length $n+1$, the formula $B$ may be, as in the base case, an axiom, equal to $A$, or an element of $\Gamma$.
 But it may also have been obtained from an application of MP on two previous elements of the deduction.
 In this case, those elements have deductions of length smaller than $n+1$ and, therefore, they satisfy the result by the inductive hypothesis. Let us then assume that $B$ has been obtained from an application of MP to two formulas of the form $X$ and $X\limplies B$ verifying $\Gamma \vdash (A\limplies X)$ and $\Gamma \vdash (A\limplies(X \limplies B))$. Under these conditions, we can make the following deduction from $\Gamma$.
@@ -98,7 +98,7 @@ In this case, those elements have deductions of length smaller than $n+1$ and, t
 \begin{deduction}{thdedprop1}
 \dstep[h1]{By hypothesis, can be deduced from $\Gamma$}{A\limplies X,}
 \dstep[h2]{By hypothesis, can be deduced from $\Gamma$}{A\limplies (X\limplies B),}
-\dstep[a1]{\ref{axp1}}{(A \limplies (X\limplies B))\limplies ( (A\limplies X) \limplies (A\limplies B) ),}
+\dstep[a1]{\ref{axp2}}{(A \limplies (X\limplies B))\limplies ( (A\limplies X) \limplies (A\limplies B) ),}
 \dstep[c1]{MP on \dref{h2}, \dref{a1}}{(A\limplies X)\limplies (A\limplies B),}
 \dstep[c2]{MP on \dref{h1}, \dref{c1}}{A\limplies B.}
 \end{deduction}
@@ -145,7 +145,7 @@ I think we can both agree that, given any $A,B\in F$, the formula $A\limplies (B
 Thus, we just need to show that it is impossible for $A\limplies (B\limplies A)$ not to be a tautology.
 Were that formula not a tautology, there would necessarily exist an interpretation $i$ under which it would be false.
 Nonetheless, according to the semantic rules of propositional logic, that would mean that $v_i(A) = 1$ yet $v_i(B\limplies A) = 0$.
-But, by those same rules, $v_i(B\limplies A) = 0$ can only mean that $v_i(B) = 1$ and $v_i(A) = 0$.\
+But, by those same rules, $v_i(B\limplies A) = 0$ can only mean that $v_i(B) = 1$ and $v_i(A) = 0$.
 Consequently, $A\limplies (B\limplies A)$ can only be false under an interpretation $i$ verifying both $v_i(A) = 0$ and $v_i(A) = 1$.
 As that is impossible, we can safely conclude that all the axioms defined by the schema \ref{axp1} are tautologies.
 
@@ -168,11 +168,11 @@ Now that we have completed the base case, let us assume the result to hold for d
 If the deduction has length $n+1$, $X$ may be an element of $\Gamma$ or an axiom as in the base case, or it may have been obtained from an application of MP on two previous elements of the deduction that, therefore, verify the result according to the inductive hypothesis.
 Thus, we need to show that, given any two formulas of the form $A$ and $A\limplies B$, if they are true in any particular interpretation $i$, so is $B$.
 
-If $v_i(A) = 1$ and $v_i(A\limplies B) = 1$, it is obvious that we need to have $v_i(B) = 0$. Indeed, if $v_i(B) = 0$ and $v_i(A) = 1$, that would yield $v_i(A\limplies B) = 0$.
+If $v_i(A) = 1$ and $v_i(A\limplies B) = 1$, it is obvious that we need to have $v_i(B) = 1$. Indeed, if $v_i(B) = 0$ and $v_i(A) = 1$, that would yield $v_i(A\limplies B) = 0$.
 Thus, we have shown that, for any interpretation $i$ in which any two formulas $A$ and $A\limplies B$ are true, $B$ is true too.
 
 \item Let $A$ be a theorem in $\mathsf{P}$.
-By \ref{pprop:sound}, $A$ need be a tautology and, therefore, for an interpretation $i$, we will have $v_i(A) = 1$.
+By \ref{pprop:sound}, $A$ need be a tautology and, therefore, for any interpretation $i$, we will have $v_i(A) = 1$.
 According to the semantic rules, this means that, under any interpretation $i$, $v_i(\lnot A) = 0$.
 Consequently, $\lnot A$ is not a tautology and since, by \ref{pprop:sound}, being a tautology is a necessary condition for any formula to be a theorem in $\mathsf{P}$, $\lnot A$ cannot be a theorem.
 
@@ -224,8 +224,9 @@ It is very easy to see that the following formulas are tautologies for any propo
 \begin{statements}
 \item $(A\liff B) \liff (B\liff A)$,
 \item $(A\land B) \liff (B\land A)$,
+\item $(A\lor B) \liff (B\lor A)$,
 \item $((A\land B) \land C) \liff (A\land (B \land C))$,
-\item $((A\lor B) \lor C) \liff (A\lor (B \lor C))$,
+\item $((A\lor B) \lor C) \liff (A\lor (B \lor C))$.
 \end{statements}
 This, together with \ref{replacetautology}, should be enough to convince you that the conventions we introduced in \ref[prel]{hierarchy} can be safely used when working with $L_P$ in $\mathsf{P}$.
 In particular, this shows that there is no harm in swapping formulas around the $\lor$, $\land$ and $\liff$ connectives.
@@ -238,7 +239,7 @@ Let $A$, $B$, $A_1$, $A_2$, $B_1$ and $B_2$ be propositional forms and $\Gamma$ 
 \begin{statements}
 \item One can deduce $\Gamma \vdash_\mathsf{P} (A \limplies (B_1\land B_2))$ if and only if one can deduce both $\Gamma \vdash_\mathsf{P} (A\limplies B_1)$ and $\Gamma \vdash_\mathsf{P} (A\limplies B_2)$. In particular, if $\Gamma = \emptyset$, $A\limplies (B_1\land B_2)$ is a theorem of $\mathsf{P}$ if and only if so are $A\limplies B_1$ and $A \limplies B_2$.
 
-\item One can deduce $\Gamma \vdash_\mathsf{P} ( (A_1\land A_2) \limplies B_1 )$ if and only if one can deduce $\Gamma \vdash_\mathsf{P} (A_1 \limplies (A_2 \limplies B))$ or $\Gamma \vdash_\mathsf{P} (A_2 \limplies (A_1 \limplies B)$. In particular, if $\Gamma = \emptyset$, $(A_1\land A_2) \limplies B$ is a theorem if and only if so are $A_1\limplies (A_2\limplies B)$ or $A_2 \limplies (A_1 \limplies B)$.
+\item One can deduce $\Gamma \vdash_\mathsf{P} ( (A_1\land A_2) \limplies B )$ if and only if one can deduce $\Gamma \vdash_\mathsf{P} (A_1 \limplies (A_2 \limplies B))$ or $\Gamma \vdash_\mathsf{P} (A_2 \limplies (A_1 \limplies B))$. In particular, if $\Gamma = \emptyset$, $(A_1\land A_2) \limplies B$ is a theorem if and only if so are $A_1\limplies (A_2\limplies B)$ or $A_2 \limplies (A_1 \limplies B)$.
 \end{statements}
 \label{implesmani}
 \end{proposition}

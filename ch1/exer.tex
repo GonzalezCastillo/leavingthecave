@@ -4,7 +4,7 @@
 
 \begin{exercises}
 
-\item The inverse image of functions has some truly nice and lovely properties: when working with functions and set operations, the inverse image is the mathematical equivalent of the love of your life. To see what I mean, let $f:X\longrightarrow Y$ and let $A,B\subseteq X$. Prove that
+\item The inverse image of functions has some truly nice and lovely properties: when working with functions and set operations, the inverse image is the mathematical equivalent of the love of your life. To see what I mean, let $f:X\longrightarrow Y$ and let $A,B\subseteq Y$. Prove that
 \begin{gather*}
 f^{-1}[A\cup B] = f^{-1}[A] \cup f^{-1}[B],\\
 f^{-1}[A\cap B] = f^{-1}[A] \cap f^{-1}[B],\\
@@ -25,10 +25,10 @@ Analogously, show that the relation induced by $\implies $ is transitive and ref
 Prove that, if $(\exists x) P$ is true in an interpretation, there exists an assignment of values $\alpha$ in that interpretation such that $v_\alpha(P) = 1$.
 
 \item Let $A_1,\ldots,A_m$ and $B_1,\ldots,B_n$ be propositional forms for $m,n\in\mathbb{N}$. Prove that
-\[ \vdash (A_1\land \cdots \land A_m) \limplies (B_1\land \ldots \land B_m)\]
+\[ \vdash (A_1\land \cdots \land A_m) \limplies (B_1\land \cdots \land B_n)\]
 if and only if, for every $i\in \{1,\ldots,n\}$, $A_1,\ldots,A_m\vdash B_i$.
 
-\item The following statement is an alternative formulation of the axiom of choice: for every collection of sets $X$, there exists a \emph{choice function}
+\item The following statement is an alternative formulation of the axiom of choice: for every collection $X$ of non-empty sets, there exists a \emph{choice function}
 \[f: X\longrightarrow \bigcup X\]
 assigning, to every $x\in X$, an element $a\in x$. Prove that this formulation is equivalent to the one we have used.
 

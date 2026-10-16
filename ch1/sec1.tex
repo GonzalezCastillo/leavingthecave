@@ -26,9 +26,9 @@ If you are interested in the events that followed and preceded Russell's paradox
 Mathematics is all about proofs. When you are doing mathematics, you are working with certain abstract objects and your job is to deduce (that is, prove) some properties about them.
 From an informal perspective, a proof could be defined as an argument that would convince any intelligent being that something is true; from a formal perspective, as we will soon see, things are a little bit more subtle.
 
-If mathematics is all about proofs and proofs are all about deduction, we need an starting point.
-Thus, when we are working with a mathematical object, we need to understand its defining properties: the properties that are so essential and intrinsic to that object, that not only are unquestionable, but can also be used to define the object itself.
-Some of these defining properties properties are chosen to be \emph{axioms}, and they are the starting point for any proof concerning the mathematical entities they define.
+If mathematics is all about proofs and proofs are all about deduction, we need a starting point.
+Thus, when we are working with a mathematical object, we need to understand its defining properties: the properties that are so essential and intrinsic to that object, that not only are they unquestionable, but they can also be used to define the object itself.
+Some of these defining properties are chosen to be \emph{axioms}, and they are the starting point for any proof concerning the mathematical entities they define.
 That is what the axiomatic method is all about.
 
 For example, let us consider the natural numbers. The statement
@@ -63,7 +63,7 @@ For instance, the English language has a collection of symbols (the letters of t
 
 In the context of formal languages, we can take this classification one step further.
 Among the allowed constructions with symbols, we can make a distinction between terms and formulas: a term would be a construction representing an object, whereas a formula would be a construction representing a well-formed statement about terms.
-For example, if we were to define the language or arithmetic, we should define it in such a way that $x+1$ were a term and $x+1 = 0$ were a formula.
+For example, if we were to define the language of arithmetic, we should define it in such a way that $x+1$ were a term and $x+1 = 0$ were a formula.
 
 In an attempt to further connect these notions with human languages, we could identify terms with nominal phrases and formulas with sentences.
 \end{para}
@@ -77,7 +77,7 @@ The set $\Sigma$ is said to be the \emph{alphabet} of the language, and $T$, $F$
 Such a formal language is represented by the tuple $(\Sigma, T, F, \Lambda)$.
 
 
-For must practical purposes, the set of sentences is irrelevant.
+For most practical purposes, the set of sentences is irrelevant.
 Thus, we might sometimes refer to a language $(\Sigma, T, F, \Lambda)$ simply as $(\Sigma, T, F)$ if there is no need to know what its sentences are. 
 \end{definition}
 
@@ -90,7 +90,7 @@ It is just a fancy way of representing things, do not try to find in it any sort
 As unnecessary as this may seem, it is done for a good reason.
 Imagine that we are defining a formal language and we have already constructed the alphabet $A$, the set of terms $B$, the set of formulas $C$ and the set of sentences $D$.
 Instead of writing ``the language having $A$ as alphabet, $B$ as set of terms, $C$ as set of formulas and $D$ as set of sentences'', we can just say ``the language $(A,B,C,D)$''.
-It is more clean and convenient.
+It is cleaner and convenient.
 \end{para}
 
 \begin{example}
@@ -105,7 +105,7 @@ In our work as mathematicians, we can, of course, add as many connectives as we 
 
 Thus, the alphabet of the language of propositional logic will be
 \[\Sigma_P = \{(,),\limplies,\lnot,p_1,p_2,\ldots,p_n,\ldots\}.\]
-The set of terms $T_P$ of will simply be the set of words representing propositional variables: $T_P = \{p_1,p_2,\ldots\}\subseteq \Sigma_P^*$.
+The set of terms $T_P$ will simply be the set of words representing propositional variables: $T_P = \{p_1,p_2,\ldots\}\subseteq \Sigma_P^*$.
 The terms of $L_P$ will be known as \emph{propositional symbols}.
 Finally, the set of formulas $F_P$ is defined following what is known as an \emph{inductive procedure}:
 \begin{enumerate}
@@ -123,14 +123,14 @@ It is easy to see that the formulas of this language are, precisely, the proposi
 That is why we will refer to the formulas in $F_P$ as \emph{propositional forms} too.
 
 
-Informally, for any formulas $A,B\in F_P$, we will define the formula $(A\land B)$ as an abbreviation of $(\lnot(A\limplies (\lnot B)))$, the formula $A\lor B$ as an abbreviation of $((\lnot A )\limplies B)$, and the formula $(A\liff B)$ as an abbreviation of $((A\limplies B) \land (B\limplies A))$.
+Informally, for any formulas $A,B\in F_P$, we will define the formula $(A\land B)$ as an abbreviation of $(\lnot(A\limplies (\lnot B)))$, the formula $(A\lor B)$ as an abbreviation of $((\lnot A )\limplies B)$, and the formula $(A\liff B)$ as an abbreviation of $((A\limplies B) \land (B\limplies A))$.
 \end{example}
 
 \begin{definition}
 Let $S$ be a collection of symbols together with a \emph{signature} function $\sigma : S \longrightarrow \mathbb{Z}$. For any $s\in S$, we say that $s$ is an \emph{$n$-ary function symbol} if $\sigma(s) = n > 0$; we say that $s$ is an \emph{$n$-ary predicate symbol} if $\sigma(s) = -n < 0$, and we say that $s$ is a \emph{constant symbol} if $\sigma(s) = 0$.
 Let $\{x_1,\ldots,x_n,\ldots\}$ be an arbitrary collection of symbols such that, for any $i\in\mathbb{N}$, $x_i\not\in S$.
 The alphabet $\Sigma_{(S,\sigma)}$ associated to $(S,\sigma)$ is 
-\[\Sigma = S\cup \{\lnot,\limplies,\forall,(,)\} \cup \{,\} \cup \{x_1,x_2,\ldots,x_n,\ldots\}.\]
+\[\Sigma_{(S,\sigma)} = S\cup \{\lnot,\limplies,\forall,(,)\} \cup \{,\} \cup \{x_1,x_2,\ldots,x_n,\ldots\}.\]
 The set of terms $T_{(S,\sigma)}$ is defined inductively according to the following rules.
 \begin{enumerate}
 \item All the elements of the set $\{x_1,x_2,\ldots,x_n,\ldots\}$ of \emph{variables} are terms.
@@ -149,9 +149,9 @@ If an appearance of a variable is not bound, we say that it is \emph{free}.
 
 The set of sentences $\Lambda_{(S,\sigma)}$ is the set of all the \emph{closed formulas}: the collection of all formulas having no free occurrences of variables.
 
-The language $L_{(S,\Sigma)} = (\Sigma_{(S,\sigma)}, T_{(S,\sigma)}, F_{(S,\sigma)}, \Lambda_{(S,\sigma)})$ is said to be the \emph{first-order language} associated to $(S,\sigma)$. 
+The language $L_{(S,\sigma)} = (\Sigma_{(S,\sigma)}, T_{(S,\sigma)}, F_{(S,\sigma)}, \Lambda_{(S,\sigma)})$ is said to be the \emph{first-order language} associated to $(S,\sigma)$. 
 
-Just as we did in the language of propositional logic, given any formulas $A$ and $B$ in any first order language, we can define the formula $(A\land B)$ as an abbreviation of $(\lnot(A\limplies (\lnot B)))$, the formula $A\lor B$ as an abbreviation of $((\lnot A )\limplies B)$, and the formula $(A\liff B)$ as an abbreviation of $((A\limplies B) \land (B\limplies A)$.
+Just as we did in the language of propositional logic, given any formulas $A$ and $B$ in any first-order language, we can define the formula $(A\land B)$ as an abbreviation of $(\lnot(A\limplies (\lnot B)))$, the formula $(A\lor B)$ as an abbreviation of $((\lnot A )\limplies B)$, and the formula $(A\liff B)$ as an abbreviation of $((A\limplies B) \land (B\limplies A))$.
 In addition, for any variable $x_i$, we will define $(\exists x_i) A$ to be an alias for $(\lnot(\forall x_i)(\lnot A))$.
 \end{definition}
 
@@ -180,7 +180,7 @@ So, instead of having three sets and two arity functions (one for the set of pre
 with $i,j\in\mathbb{N}$, and to the signature function $\sigma$ defined, for every $i,j\in\mathbb{N}$ as
 \[\sigma\left(P_i^j\right) = -j,\qquad\sigma\left(f_i^j\right) = j,\qquad\sigma\left(c_i\right) = 0.\]
 
-\item \label{lpa} The language of first-order arithmetic is the first-order language associated to the set $S = \{=,1,s,+,\cdot\}$ and the signature $\sigma(=)=-2$, $\sigma(1) = 0$, $\sigma(s) = 1$, $\sigma(+) = 2$ and $\sigma(\cdot) = 2$. Instead of witting $=\!(x,y)$, $+(x,y)$ and $\cdot(x,y)$, we will use \emph{infix notation} and write $x=y$, $x+y$ and $x\cdot y$ respectively.
+\item \label{lpa} The language of first-order arithmetic is the first-order language associated to the set $S = \{=,1,s,+,\cdot\}$ and the signature $\sigma(=)=-2$, $\sigma(1) = 0$, $\sigma(s) = 1$, $\sigma(+) = 2$ and $\sigma(\cdot) = 2$. Instead of writing $=\!(x,y)$, $+(x,y)$ and $\cdot(x,y)$, we will use \emph{infix notation} and write $x=y$, $x+y$ and $x\cdot y$ respectively.
 Furthermore, $x\cdot y$ will often be abbreviated as $xy$.
 
 The symbol $=$ is meant to represent equality, $+$ is meant for addition, $\cdot$ for multiplication, $1$ is meant for the number one, and $s$ for the successor function.
@@ -211,7 +211,7 @@ We write $\mathsf{S} = (L,\Xi,R)$.
 
 We say that a formula $P \in F_L$ can be \emph{deduced} from a set of formulas $\Gamma\subseteq F_L$ in the formal system $\mathsf{S}$ if there exists a sequence of formulas $P_1,\ldots,P_n$ with $P_n = P$ such that, for every $i\in \{1,\ldots,n\}$, $P_i$ belongs to $\Xi$ or $\Gamma$, or has been obtained by applying a rule of inference on previous formulas of the sequence. If $\Gamma = \emptyset$, $P$ is said to be a \emph{theorem} of $\mathsf{S}$ and the sequence $P_1,\ldots,P_n$ is said to be a \emph{proof} of $P$ in $\mathsf{S}$.
 
-If $P$ can be deduced from $\Gamma$, we write $\Gamma \vdash_{\mathsf{S}} P$. Furthermore, if $\Gamma = \{H_1,\ldots,H_m\}$, we can also write $H_1,\ldots,H_m\vdash_{\mathsf{S}} P$. We can denote the fact that $P$ is a theorem of $S$ by $\vdash_{\mathsf{S}} P$ or by $\mathsf{S}\vdash P$. In addition, if the context makes it clear that the deduction or proof is taking place in $\mathsf{S}$, the symbol $\vdash_{\mathsf{S}}$ can be safely replaced by $\vdash$.
+If $P$ can be deduced from $\Gamma$, we write $\Gamma \vdash_{\mathsf{S}} P$. Furthermore, if $\Gamma = \{H_1,\ldots,H_m\}$, we can also write $H_1,\ldots,H_m\vdash_{\mathsf{S}} P$. We can denote the fact that $P$ is a theorem of $\mathsf{S}$ by $\vdash_{\mathsf{S}} P$ or by $\mathsf{S}\vdash P$. In addition, if the context makes it clear that the deduction or proof is taking place in $\mathsf{S}$, the symbol $\vdash_{\mathsf{S}}$ can be safely replaced by $\vdash$.
 \end{definition}
 
 \begin{para}
@@ -244,7 +244,7 @@ Under a certain interpretation, however, those symbols are given an abstract ref
 For example, in the formal language of arithmetic, the symbol $1$ is nothing more than a meaningless character, but we can construct an interpretation in which $1$ represents ``the number one''.
 The way in which these interpretations can be constructed is different for each of the two ``flavours'' of logic that we have studied and will be described, with full precision, later.
 
-An interpretation of $L$ will define two subsets of $F$: a subset of \emph{true} formulas, and a subset of \emph{false} formulas; we denote that a formula $A\in F$ is true in an interpretation $I$ by $I\vDash A$. Bear in mind, though, that there might be formulas that are neither true or false.
+An interpretation of $L$ will define two subsets of $F$: a subset of \emph{true} formulas, and a subset of \emph{false} formulas; we denote that a formula $A\in F$ is true in an interpretation $I$ by $I\vDash A$. Bear in mind, though, that there might be formulas that are neither true nor false.
 
 A formula $A\in F$ is said to be \emph{valid} in $L$ if it is true in any interpretation. That is denoted by $\vDash A$.
 
@@ -257,7 +257,7 @@ Notice how $\emptyset \vDash B$ is the same as $\vDash B$.
 
 \begin{para}[Why bother?]
 At this point, one question might be popping up in your mind. You should by now have a fully developed understanding of propositional and predicate logic --- an understanding that we have labelled as ``semantic''.
-why isn't that everything you need? Why bother with the axiomatic method and with syntax altogether?
+Why isn't that everything you need? Why bother with the axiomatic method and with syntax altogether?
 
 While what you already know is, probably, everything you will ever need to know about logic in your future career as a mathematician, syntactical approaches in general and the axiomatic method in particular have a purpose.
 

@@ -46,15 +46,15 @@ With HS in our toolbox, we can perform the following proof in the formal system 
 \end{deduction}
 
 \item For this proof, we need some background results.
-Firstly,we should notice that, for any formulas $A$ and $B$, we have $\lnot\lnot A, (A\limplies B) \vdash \lnot\lnot B$.
+Firstly, we should notice that, for any formulas $A$ and $B$, we have $\lnot\lnot A, (A\limplies B) \vdash \lnot\lnot B$.
 This follows from some simple applications of modus ponens taking into consideration that, as we showed in the previous deduction, $\lnot\lnot A \limplies A$ and $B \limplies \lnot\lnot B$ are both theorems of $\mathsf{P}$.
 In addition, the application of the deduction theorem on this result yields the existence of a proof for
 \begin{equation}
-(A\limplies B) \limplies (\lnot\lnot A \limplies B).
+(A\limplies B) \limplies (\lnot\lnot A \limplies \lnot\lnot B).
 \tag{$1*$}
 \label{prelp31}
 \end{equation}
-Furthermore, some other applications of the deduction of theorem and the modus ponens rule on $A,(A\limplies B) \vdash B$ reveal that
+Furthermore, some other applications of the deduction theorem and the modus ponens rule on $A,(A\limplies B) \vdash B$ reveal that
 \begin{equation}
 A \limplies ( (A \limplies B) \limplies B)
 \tag{$2*$}
@@ -66,7 +66,7 @@ With these preliminaries out of the way, we can now safely proceed to our proof.
 \begin{deduction}{compleximplication}
 \dstep[1]{\eqref{prelp31}}{(A \limplies B) \limplies (\lnot\lnot A \limplies \lnot\lnot B),}
 \dstep[2]{\ref[fund]{axp3}}{(\lnot\lnot A \limplies \lnot\lnot B) \limplies (\lnot B \limplies \lnot A),}
-\dstep[3]{MP on \dref{1}, \dref{2}}{(A\limplies B) \limplies (\lnot B \limplies \lnot A),}
+\dstep[3]{HS on \dref{1}, \dref{2}}{(A\limplies B) \limplies (\lnot B \limplies \lnot A),}
 \dstep[4]{Instance of \dref{3}}{( (A\limplies B) \limplies B) \limplies (\lnot B \limplies \lnot(A\limplies B)),}
 \dstep[5]{\eqref{prelp32}}{A \limplies ( (A\limplies B) \limplies B),}
 \dstep{HS on \dref{4}, \dref{5}}{A \limplies (\lnot B \limplies\lnot(A\limplies B)).} 
@@ -79,13 +79,13 @@ By the way, observe that we have also shown
 \end{equation}
 to be a theorem of $\mathsf{P}$.
 
-\item As an auxiliary result, we need to prove that, given any formula $A\in L_P$,  the propositional form
+\item As an auxiliary result, we need to prove that, given any formula $A\in F_P$,  the propositional form
 \begin{equation}
 (\lnot A \limplies A) \limplies A
 \tag{$1\star$}
 \label{prelp41}
 \end{equation}
-is a theorem in the formal system $\mathsf{P}$. If we consider an arbitrary $B \in L_P$, this can be through from the following deduction.
+is a theorem in the formal system $\mathsf{P}$. If we consider an arbitrary $B \in L_P$, this can be seen from the following deduction.
 \begin{deduction}{auxresult3}
 \dstep[1]{\ref{pcl1}}{\lnot A \limplies (A \limplies \lnot B),}
 \dstep[2]{\ref[fund]{axp2}}{(\lnot A \limplies (A \limplies \lnot B)) \limplies ( (\lnot A \limplies A) \limplies (\lnot A \limplies \lnot B)),}
@@ -101,7 +101,7 @@ is a theorem in the formal system $\mathsf{P}$. If we consider an arbitrary $B \
 
 In addition, it is immediate that $\lnot B, (\lnot B \limplies \lnot A), (\lnot A \limplies B) \vdash B$, which, after some applications of the deduction theorem, shows that
 \begin{equation}
-(\lnot B \limplies \lnot A) \limplies ( (\lnot A \limplies B) \limplies (\lnot B \limplies B)).
+(\lnot B \limplies \lnot A) \limplies ( (\lnot A \limplies B) \limplies (\lnot B \limplies B))
 \tag{$2\star$}
 \label{prelp42}
 \end{equation}
@@ -112,7 +112,7 @@ We will now proceed to deduce $B$ from $(A\limplies B)$ and $(\lnot A \limplies 
 \dstep[1]{Hypothesis}{A \limplies B,}
 \dstep[2]{\ref{pcl3}\eqref{axp3vv}}{(A\limplies B)\limplies (\lnot B \limplies \lnot A),}
 \dstep[3]{MP on \dref{1}, \dref{2}}{\lnot B \limplies \lnot A,}
-\dstep[4]{\eqref{prelp42}}{(\lnot B \limplies \lnot A) \limplies ( (\lnot A \limplies B) \limplies (\lnot B \limplies B),}
+\dstep[4]{\eqref{prelp42}}{(\lnot B \limplies \lnot A) \limplies ( (\lnot A \limplies B) \limplies (\lnot B \limplies B)),}
 \dstep[5]{MP on \dref{3}, \dref{4}}{(\lnot A \limplies B) \limplies (\lnot B \limplies B),}
 \dstep[6]{Hypothesis}{\lnot A \limplies B,}
 \dstep[7]{MP on \dref{5}, \dref{6}}{ \lnot B \limplies B,}
@@ -124,7 +124,7 @@ Having shown that $(A \limplies B), (\lnot A \limplies B) \vdash B$, the deducti
 \end{proof}
 
 \begin{lemma}
-Let $A\in L_P$ be any propositional and let $i$ be any interpretation of propositional logic together with its induced valuation function $v_i$.
+Let $A\in L_P$ be any propositional form and let $i$ be any interpretation of propositional logic together with its induced valuation function $v_i$.
 Without loss of generality, let $x_1,\ldots,x_k$ be the only distinct propositional variables appearing in $A$.
 
 For every propositional form $\phi \in L_{P}$, we define $\phi^i$ as $\phi$ if $v_i(\phi) = 1$ and $\phi^i$ as $\lnot \phi$ if, otherwise, $v_i(\phi) = 0$.
@@ -170,7 +170,7 @@ Let $A$ be any tautology. We aim to prove that it is a theorem in $\mathsf{P}$.
 
 According to our previous lemma, letting $x_1,\ldots,x_k$ be the only distinct propositional variables appearing in $A$, if we fix any interpretation $i$, we will have $x_1^i,\ldots,x_k^i \vdash A^i$. Nonetheless, as $A$ is a tautology, it will be true under any interpretation $i$ and, therefore, $A^i$ will be $A$.
 
-We can pick any two interpretations $i$ and $j$ that make $x_k$ true and false respectively and that are equal in all the remaining variables, this is, that satisfy $v_i(x_k) = 1$, $v_j(x_j) = 0$ and $v_i(x_l) = v_j(x_l)$ if $k \neq l$.
+We can pick any two interpretations $i$ and $j$ that make $x_k$ true and false respectively and that are equal in all the remaining variables, that is, that satisfy $v_i(x_k) = 1$, $v_j(x_k) = 0$ and $v_i(x_l) = v_j(x_l)$ if $k \neq l$.
 According to our previous lemma, we will have
 \[ x_1^i,\ldots,x_{k-1}^i,x_k \vdash A,\qquad
 x_1^i,\ldots,x_{k-1}^i, \lnot x_k \vdash A,\]
@@ -191,12 +191,12 @@ There exists a consistent extension of the set of non-logical axioms of $\mathsf
 \end{lemma}
 
 \begin{proof}
-Let us consider an infinite enumeration $A_1,\ldots,A_n,\ldots$ of all the formulas in the first-order language under consideration.
+Let us consider an infinite enumeration $A_1,\ldots,A_n,\ldots$ of all the closed formulas in the first-order language under consideration.
 Such an enumeration can indeed be constructed and I will leave the details for you.
 We define a sequence of extensions of $\mathsf{H}$ as follows. Firstly, the formal system $\mathsf{H}_0$ will be $\mathsf{H}$ itself. Then, for every natural $n$, we will define $\mathsf{H}_n$ to be the extension of $\mathsf{H}_{n-1}$ including $\lnot A_n$ as an axiom if $A_{n}$ is not a theorem in $\mathsf{H}_{n-1}$. If it is a theorem, we define $\mathsf{H}_n$ to be $\mathsf{H}_{n-1}$.
 
-By \ref[fund]{notacons}, we know that each of this extensions will be consistent. Thus, if we consider the extension $\mathsf{H}_{\infty}$ including as axioms all the axioms of all the $\mathsf{H}_n$ for every $n\in\mathbb{N}$, it is immediate that it will be consistent too.
-In addition, it can be easily seen that $\mathsf{H}_\infty$ will be a syntactically complete extension. Just assume that there is a sentence $A$ such that neither $A$ or $\lnot A$ are theorems in $\mathsf{H}_\infty$. Shouldn't one of them have been added as an axiom in a certain  $\mathsf{H}_n$?
+By \ref[fund]{notacons}, we know that each of these extensions will be consistent. Thus, if we consider the extension $\mathsf{H}_{\infty}$ including as axioms all the axioms of all the $\mathsf{H}_n$ for every $n\in\mathbb{N}$, it is immediate that it will be consistent too.
+In addition, it can be easily seen that $\mathsf{H}_\infty$ will be a syntactically complete extension. Just assume that there is a sentence $A$ such that neither $A$ nor $\lnot A$ are theorems in $\mathsf{H}_\infty$. Shouldn't one of them have been added as an axiom in a certain  $\mathsf{H}_n$?
 \end{proof}
 
 \begin{theorem}
@@ -205,7 +205,7 @@ Any consistent first-order formal system $\mathsf{H}$ has a (countable!) model.
 \end{theorem}
 
 \begin{proof}
-Let us consider the formal system $\mathsf{H}_0$ obtained by adding an infinite sequence of symbols $b_0,\ldots,b_n,\ldots$ to the particular language it uses.
+Let us consider the formal system $\mathsf{H}_0$ obtained by adding an infinite sequence of constant symbols $b_1,\ldots,b_n,\ldots$ to the particular language it uses.
 
 It is easy to see that the addition of these symbols has no effect in the consistency of the system.
 It suffices to show how a proof in the new formal system of any statement $A$ can be transformed into one, in the old system, of the formula $A'$ obtained by replacing every constant $b_1,\ldots,b_n,\ldots$ in $A$ by a new variable not occurring in $A$.
@@ -216,26 +216,26 @@ From this point, we define a sequence of extensions of $\mathsf{H}_0$ as follows
 The first element of this sequence will obviously be $\mathsf{H}_0$.
 Then, for every natural $n$, we will take $\mathsf{H}_n$ to be the extension of $\mathsf{H}_{n-1}$ incorporating the additional axiom $S_n$ given by
 \[ A_n(y_n\Vert c_n) \limplies (\forall y_n) A_n,\]
-where $c_n$ is the first element in $b_1,\ldots,b_n,\ldots$ that does not appear in $A$ and that does not belong to $\{c_1,\ldots,c_{n-1}\}$. 
+where $c_n$ is the first element in $b_1,\ldots,b_n,\ldots$ that does not appear in $A_n$ and that does not belong to $\{c_1,\ldots,c_{n-1}\}$. 
 
 Let us show that all these extensions will be consistent. Given any natural $n$, we will assume that $\mathsf{H}_n$ is not consistent and, therefore, that it can prove, for a certain formula $A$, both $A$ and $\lnot A$.
 According to the principle of explosion, this means that we will be able to prove $\vdash_{\mathsf{H}_n} \lnot S_n$. Proofs in $\mathsf{H}_n$ are deductions from $S_n$ in $\mathsf{H}_{n-1}$. Considering this fact together with the deduction theorem yields
 \[ \vdash_{\mathsf{H}_{n-1}} S_n \limplies \lnot S_n.\]
 Since $(A \limplies \lnot A) \limplies \lnot A$ is a tautology, we can then deduce that $\lnot S_n$ will be a theorem in $\mathsf{H}_{n-1}$, so we will have
-\[ \vdash_{\mathsf{H}_{n-1}} \lnot \left( A_n(y_n\Vert c_n) \limplies (\forall y_n) A \right).\]
+\[ \vdash_{\mathsf{H}_{n-1}} \lnot \left( A_n(y_n\Vert c_n) \limplies (\forall y_n) A_n \right).\]
 As both $\lnot(A\limplies B) \limplies A$ and $\lnot(A \limplies B) \limplies \lnot B$ are tautologies, this means that
 \[ \vdash_{\mathsf{H}_{n-1}} A_n(y_n\Vert c_n),\qquad
 \vdash_{\mathsf{H}_{n-1}} \lnot (\forall y_n) A_n.\]
 As $c_n$ does not appear in the axioms of $\mathsf{H}_{n-1}$, we can safely replace each occurrence of $c_n$ in the proof of $A_n(y_n\Vert c_n)$ by a variable not appearing in the proof.
 Then, an application of the generalisation rule reveals that $\vdash_{\mathsf{H}_{n-1}} (\forall y_n) A_n$, which would mean that $\mathsf{H}_{n-1}$ would not be consistent, thus contradicting our hypothesis and showing the consistency of all the extensions in the sequence.
 
-As all these extensions are consistent, the formal system $\mathsf{H}_\infty$ defined as the extension of $\mathsf{H}_0$ containing all the axioms $A_n$ will be consistent too.
+As all these extensions are consistent, the formal system $\mathsf{H}_\infty$ defined as the extension of $\mathsf{H}_0$ containing all the axioms $S_n$ will be consistent too.
 We can now consider the (consistent) extension $\mathsf{H}^*$ of $\mathsf{H}_\infty$ obtained from a direct application of lemma \ref{fol-scext}.
 
 We will now show that every element in the domain of any model of $\mathsf{H}^*$ can be referenced directly from the language.
-Formally, this means showing that, given any formula $A_n$ with a single free variable $y_n$, if --- for every \emph{closed term} $t$ (term with no free variables) --- $A(y_n\Vert t)$ is a theorem, then so is $(\forall y_n) A$.
+Formally, this means showing that, given any formula $A_n$ with a single free variable $y_n$, if --- for every \emph{closed term} $t$ (term with no free variables) --- $A_n(y_n\Vert t)$ is a theorem, then so is $(\forall y_n) A_n$.
 
-This is fairly easy to do. If we assume $A_n(y_n\Vert t)$ to be a theorem for every closed term $t$, then, in particular, $A(y_n\Vert c_n)$ will be a theorem. Thus, applying modus ponens on $S_n$, one can prove $\vdash_{\mathsf{H}_\infty} (\forall y_n) A$.
+This is fairly easy to do. If we assume $A_n(y_n\Vert t)$ to be a theorem for every closed term $t$, then, in particular, $A_n(y_n\Vert c_n)$ will be a theorem. Thus, applying modus ponens on $S_n$, one can prove $\vdash_{\mathsf{H}^*} (\forall y_n) A_n$.
 
 We will now define an interpretation of $\mathsf{H}^*$ that will be a model for it and, therefore, will also define a model for $\mathsf{H}$. This interpretation will have as domain of discourse the set of closed terms of the language of $\mathsf{H}^*$ (recall that it is the extension of the language of $\mathsf{H}$ with the additional constants $b_i$).
 The interpretation of each constant $b_i$ will be itself and the functions will behave in the obvious way.

@@ -19,7 +19,7 @@ Moreover, if, for any propositions $P$, $Q$ and $R$, the truth value of $P * (Q 
 \begin{para}[Propositional variables and forms]
 Our attention should not be focused on particular propositions, but on the way connectives act on them in an abstract way.
 For that purpose, we shall use \emph{propositional variables}, which are nothing more than symbols representing arbitrary propositions.
-Keep in mind, however, that propositional variables are not propositions by themselves: they only ``become'' propositions when they have been assigned a particular proposition, this is, a particular truth value.
+Keep in mind, however, that propositional variables are not propositions by themselves: they only ``become'' propositions when they have been assigned a particular proposition, that is, a particular truth value.
 A statement involving only propositional variables and connectives (such as $(\lnot p)$) is said to be a \emph{propositional form}.
 Notice that propositional variables may well be used to represent arbitrary propositional forms.
 
@@ -68,8 +68,8 @@ When combining a group of propositions or propositional forms with connectives, 
 For instance, given three propositional variables $p_1$, $p_2$ and $p_3$, we can construct the propositional form $(p_1 \land (p_2 \lor p_3))$. Notice how failing to use parentheses would lead to an ambiguous expression, for $p_1 \land (p_2\lor p_3)$ is not the same as $(p_1 \land p_2) \lor p_3$.
 
 There are, nevertheless, a few exceptions where parentheses are unnecessary.
-The first of them is result of convention (such as the order of operations that we all learn in elementary school):  whenever a unitary connective is acting on a propositional variable, there is no need to write a parentheses.
-In this way, $\lnot p \land q$ is the same as $(\lnot p)\land q$ and should not be mistaken with $\lnot(p\land q)$.
+The first of them is the result of convention (such as the order of operations that we all learn in elementary school):  whenever a unary connective is acting on a propositional variable, there is no need to write parentheses.
+In this way, $\lnot p \land q$ is the same as $(\lnot p)\land q$ and should not be mistaken for $\lnot(p\land q)$.
 The second exception is more natural: whenever we have a sequence of propositional variables joined by an associative binary connective, parentheses are not necessary within that sequence because, regardless of how we wrote them, the resulting proposition would always yield the same truth values.
 Thus, for example, we can safely write $p_1\land p_2 \land p_3$ instead of $p_1\land (p_2 \land p_3)$ or $(p_1\land p_2) \land p_3$.
 Lastly, there is an obvious exception: the parentheses that surround a full symbolic expression are completely dispensable in propositional logic, so $(p\land q)$ can perfectly be written as $p\land q$.
@@ -100,8 +100,8 @@ But if the condition is true, we need the consequence to be true in order for $p
 
 
 \begin{example}
-In a attempt to make things a little bit clearer, let us consider a simple example.
-Both of us, at some point in our lives, have heard the phrase ``if you study hard, you will pass the exam''. According to the way in which we have defined the conditional operator, the truth table corresponding to all the possible scenarios is the following:
+In an attempt to make things a little bit clearer, let us consider a simple example.
+Both of us, at some point in our lives, have heard the phrase ``if you study hard, you will pass the exam''. According to the way in which we have defined the conditional connective, the truth table corresponding to all the possible scenarios is the following:
 \begin{center}
 \begin{tabular}[]{|c|c||c|}
 \hline Study hard & Pass the exam & Study hard $\limplies$ Pass the exam \\
@@ -138,20 +138,20 @@ Notice, by the way, how logic did not allow us to do anything suspicious: if we 
 \end{remark}
 
 \begin{para}
-Some people like to extend the conventions in \ref{hierarchy} to give the disjunction connective precedence over the conjunction connective, and the conjunction connective precedence over the conditional one.
+Some people like to extend the conventions in \ref{hierarchy} to give the conjunction connective precedence over the disjunction connective, and the disjunction connective precedence over the conditional one.
 In this way, $p\limplies q \land r \lor s$ would be interpreted as $p\limplies ((q \land r) \lor s)$.
-Although this conventions are widespread, we shall not use them in this book.
+Although these conventions are widespread, we shall not use them in this book.
 \end{para}
 
 \begin{para}[Biconditional connective]
-By this point, you should have noticed a crucial fact: the conditional connective, unlike the other ones we have studied, is not symmetric, which is to say that he truth value of $p\limplies q$ says nothing about that of its \emph{converse} $q\limplies p$.
+By this point, you should have noticed a crucial fact: the conditional connective, unlike the other ones we have studied, is not symmetric, which is to say that the truth value of $p\limplies q$ says nothing about that of its \emph{converse} $q\limplies p$.
 Trust me, this is a crucial bit.
 
 This very asymmetry leads to the definition of the symmetric \emph{biconditional} connective, which, when applied on some variables $p$ and $q$, yields a propositional form $p\liff q$ that is defined to take the same truth value as $(p\limplies q)\land(q\limplies p)$ for the same assignments on the propositional variables $p$ and $q$.
 \end{para}
 
 \begin{para}[Implication and equivalence]
-If, for any propositional forms $p$ and $q$, $p\limplies q$ is a tautology, it is said that $p$ \emph{implies} $q$; if, in addition, so is $q\limplies p$ (and, therefore, $p\liff q$), then $p$ and $q$ are said \emph{equivalent}.
+If, for any propositional forms $p$ and $q$, $p\limplies q$ is a tautology, it is said that $p$ \emph{implies} $q$; if, in addition, so is $q\limplies p$ (and, therefore, $p\liff q$), then $p$ and $q$ are said to be \emph{equivalent}.
 The important thing here is that, if $p$ implies $q$, $q$ is true whenever $p$ is. Consequently, if $p$ and $q$ are equivalent, $p$ is true if $q$ is true and $q$ is true if $p$ is true.
 It is then needless to say that, when two propositional forms are equivalent, their truth tables are identical.
 
@@ -160,14 +160,14 @@ Just to have some examples, the propositional form $p\land (p\limplies q)$ impli
 
 \begin{para}
 At this point, our language has gotten a little bit confusing, so let us introduce some new expressions to make it simpler. We already know that ``if $p$ then $q$'' stands for $p\limplies q$. Nevertheless, based on what we know, $p\limplies q$ could also be read ``$p$ only if $q$''. Take some time to think about this.
-Then, if we want to say ``if $p$ then $q$ \und{and} if $q$ then $p$'', we could say ``only if $q$ then $p$ \und{and} if $q$ then $p$'' or, in other words, ``$p$ if and only if $q$''. There you have it! Saying that $p\liff q$ is the same as saying ``$p$ if and only if $q$''.
+Then, if we want to say ``if $p$ then $q$ \und{and} if $q$ then $p$'', we could say ``$p$ only if $q$ \und{and} if $q$ then $p$'' or, in other words, ``$p$ if and only if $q$''. There you have it! Saying that $p\liff q$ is the same as saying ``$p$ if and only if $q$''.
 
 Just to finish with all this language overload, let me give you one more definition. If $p\limplies q$ is true, then $q$ is said to be a necessary condition for $p$ because, according to what we know, for $p\limplies q$ to hold, $p$ cannot be true if $q$ is false. Analogously, $p$ is said to be a sufficient condition for $q$ because if $p$ is true, taking into account that $p\limplies q$ is true, we know, for sure, that $q$ is true too.
 Thus, another fancy way of saying that $p\liff q$ is stating that ``$p$ is a necessary and sufficient condition for $q$'' or vice-versa. 
 \end{para}
 
 \begin{para}
-Truth tables are not only used to describe the behaviour of logical connectives in propositional logic; they can also be used to define them. So much so that --- as you probably had concluded on your own by now --- there exists a perfect correspondence between truth tables and connectives.
+Truth tables are not only used to describe the behaviour of logical connectives in propositional logic; they can also be used to define them. So much so that --- as you have probably concluded on your own by now --- there exists a perfect correspondence between truth tables and connectives.
 The reasons for this are obvious: every connective has its own truth table, every truth table can be used to define a connective, and any two connectives with the same truth table are equivalent.
 
 Another way of introducing new connectives is defining them to be equivalent to some combination of known connectives.
@@ -191,12 +191,12 @@ If, on the other hand, there exists at least a particular assignment of truth va
 \item \label{stepcontinuepropalg} Find one marked assignment of truth values. Let $p_{i_1},\ldots,p_{i_r}$ with $\{i_1,\ldots,i_r\}\subseteq \{1,\ldots,n\}$ be all the elements that should be set to $1$ in this particular assignment and, analogously, let $p_{j_1},\ldots,p_{j_s}$ with $\{j_1,\ldots,j_s\}\subseteq \{1,\ldots,n\}$ be all the elements that, in this assignment, need to be set to $0$.
 \item If $q$ is not the empty propositional form, set it to
 \[(q) \lor (p_{i_1} \land \cdots \land  p_{i_r} \land \lnot p_{j_1} \land \cdots \land \lnot p_{j_s}).\]
-Otherwise, if $q$ is empty, set it to\
+Otherwise, if $q$ is empty, set it to
 \[p_{i_1} \land \cdots \land  p_{i_r} \land \lnot p_{j_1} \land \cdots \land \lnot p_{j_s}.\]
 \item Unmark the assignment we have been considering. If there are no marked assignments left, $p$ is already equivalent to $q$, so we have finished. Otherwise, go back to step \ref{stepcontinuepropalg}.
 \end{enumerate}
 
-The reasoning we have followed is by all means valid and, with some thought on your part, should have already convinced you that what the result is true. Nevertheless, as we dive deeper into the world of mathematics, you will see that this same argument can be written in a much more elegant and clear manner. 
+The reasoning we have followed is by all means valid and, with some thought on your part, should have already convinced you that the result is true. Nevertheless, as we dive deeper into the world of mathematics, you will see that this same argument can be written in a much more elegant and clear manner. 
 \end{proof}
 
 \begin{definition}
@@ -214,6 +214,6 @@ The set $\{\lnot,\limplies\}$ is an adequate set of connectives.
 \begin{proof}
 Since, according to \ref{ads1}, $\{\land,\lor,\lnot\}$ is an adequate set of connectives, it suffices to show that, given any propositional variables $p$ and $q$, each of $p\land q$ and $p\lor q$ is equivalent to a propositional form that only uses the negation and implication connectives.
 
-It is easy to see that $p\land q$ is equivalent to $\lnot(A\limplies(\lnot B))$ and that $p\lor q$ is equivalent to $(\lnot A)\limplies B$.
+It is easy to see that $p\land q$ is equivalent to $\lnot(p\limplies(\lnot q))$ and that $p\lor q$ is equivalent to $(\lnot p)\limplies q$.
 \end{proof}
 

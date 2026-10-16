@@ -32,7 +32,7 @@ Of course, there also exists a set $\{1,2,3,\ldots\}$ of natural numbers and one
 The set of natural numbers is often represented by the symbol $\mathbb{N}$ and that of integers by $\mathbb{Z}$; nonetheless, some people use the notation $\mathbf{N}$ and $\mathbf{Z}$.
 Originally, only the boldface symbols were used in print.
 This posed a problem when, for instance, writing on a blackboard, because there is no way to effectively write bold letters.
-Thus, people came up with ``blackboard bold'' letters $\mathbb{N},\mathbb{Z},\ldots$ and, eventually, these new symbols made its way to print and ended up substituting the boldface letters that they were once meant to represent.
+Thus, people came up with ``blackboard bold'' letters $\mathbb{N},\mathbb{Z},\ldots$ and, eventually, these new symbols made their way to print and ended up substituting the boldface letters that they were once meant to represent.
 \end{para}
 
 \begin{para}[Set relations]
@@ -74,7 +74,7 @@ For example, $\{1,3\} \cup \{1,2\} = \{1,2,3\}$.
 \item The \emph{intersection} of $A$ and $B$ is a set $A\cap B$ containing exclusively the elements that belong to both $A$ and $B$.
 For instance, $\{1,3\} \cap \{1,2\} = \{1\}$.
 \item The \emph{power set} of $A$ is the set $\mathcal{P}(A)$ containing exclusively all the subsets of $A$. Thus, $\{1,2\}\in\mathcal{P}(\{1,2,3\})$. Notice how $A \in \mathcal{P}(A)$ and $\emptyset \in \mathcal{P}(A)$.
-\item The \emph{subtraction} of a $A$ by $B$ is the set $A\setminus B$ containing exclusively all the elements of $A$ that do not belong to $B$.
+\item The \emph{subtraction} of $A$ by $B$ is the set $A\setminus B$ containing exclusively all the elements of $A$ that do not belong to $B$.
 \end{itemize}
 
 The last set-construction tool that we will study is slightly more complex. Given $n$ sets $A_1,\ldots,A_n$, their \emph{cartesian product} is a set $A_1\times\cdots\times A_n$ consisting exclusively of all the possible ordered sequences of elements $(a_1,\ldots,a_n)$ with $a_i \in A_i$ for every $i$ between $1$ and $n$. The elements $(a_1,\ldots,a_n)$ are referred to as $n$-\emph{tuples} or, in the particular case $n=2$, as \emph{ordered pairs}. 
@@ -97,12 +97,12 @@ f: \{1,2\} &\longrightarrow \{3,4\} \\
 \end{align*}
 
 If we are given a function $f:A\longrightarrow B$, the set $A$ is said to be the \emph{domain} of $f$ and the set $B$ its \emph{codomain}.
-All of this arrows and symbols look very fancy, but there is one thing I want you to keep in mind: notation is meant to be a tool, not a prison.
+All of these arrows and symbols look very fancy, but there is one thing I want you to keep in mind: notation is meant to be a tool, not a prison.
 There is no need to use this particular notation each time you define a function. As long as you (and your reader) know what the domain and the codomain of a function are and how it maps the elements of the domain to those of the codomain, everything is fine. 
 
 Let $f:A\longrightarrow B$ be a function. The subset of $B$ containing the elements $b\in B$ for which there exists an $a\in A$ such that $f(a) = b$ is known as the \emph{image} of $f$ and is represented by $\op{im} f$. The function $f$ is said to be \emph{injective} if, for every $b\in \op{im} f$, there exists a unique $a\in A$ such that $f(a) = b$. If $B = \op{im} f$, the function is said to be \emph{surjective}. A \emph{bijective} function is a function that is both injective and surjective.
 For example, the function $f:\mathbb{N}\longrightarrow\mathbb{N}$ that takes $f:n\longmapsto n+1$ for every $n\in\mathbb{N}$ is injective but not surjective.
-If a function $f:A\longrightarrow B$ is injective, we define its \emph{inverse} as the function $f^{-1} : \op{im} f \longrightarrow A$ that maps every $b\in A$ to the only $a\in A$ such that $f(a) = b$.
+If a function $f:A\longrightarrow B$ is injective, we define its \emph{inverse} as the function $f^{-1} : \op{im} f \longrightarrow A$ that maps every $b\in \op{im} f$ to the only $a\in A$ such that $f(a) = b$.
 
 If the domain of a function is the cartesian product of a set $A$ with itself $n$ times ($A\times \overset{n}{\cdots} \times A$), the function is said to be an $n$-ary function taking values in $A$.
 \end{para}

@@ -3,7 +3,7 @@
 \section{Predicates}
 
 \begin{para}
-Until now, we have been concerned with propositions --- statements that were either true or false --- and how we could manipulate them with using logical connectives.
+Until now, we have been concerned with propositions --- statements that were either true or false --- and how we could manipulate them using logical connectives.
 We will now take one step further and take into consideration the particular objects which we make statements about.
 Welcome to the world of predicate logic.
 \end{para}
@@ -32,7 +32,7 @@ On the other hand, we use the existential quantifier to state that a certain pro
 The predicate $P$ over which we are quantifying is said to be the \emph{scope} of the quantifier.
 
 A variable $x$ appearing in the scope of a quantifier $(\forall x)$ or $(\exists x)$ is said to be a \emph{bound} variable. Variables that are not bound are called \emph{free} variables. For example, if we let $P(x)$ and $Q(x)$ be predicates, in the predicate $P(x) \land (\forall x)Q(x)$, the first occurrence of $x$ is free but the second is bound.
-Nevertheless, it should be taken into account that it is a pretty poor notational choice to use the same symbol to represent a free and a bound variable in the same predicate. This last predicate could have been better written as $Q(y) \land (\forall x)Q(x)$, but, from a purely formal point of view, there is nothing wrong with the original formulation.
+Nevertheless, it should be taken into account that it is a pretty poor notational choice to use the same symbol to represent a free and a bound variable in the same predicate. This last predicate could have been better written as $P(y) \land (\forall x)Q(x)$, but, from a purely formal point of view, there is nothing wrong with the original formulation.
 \end{para}
 
 \begin{para}[Order matters]
@@ -45,8 +45,8 @@ Just when I was going to click the ``don't show me posts like this in the future
 It should be clear that, if we take the set of all human beings as our domain and let $\heartsuit(x,y)$ denote the predicate ``$y$ loves $x$'', the statement ``no matter who you are, love has already found someone for you'' can be written as $(\forall x)(\exists y) \heartsuit(x,y)$.
 Now, I have a simple question: what would happen if you changed the order of the quantifiers and wrote $(\exists y)(\forall x)\heartsuit(x,y)$?
 What does this sentence mean?
-It means that there exists an individual who we all happen to be in love with!
-The first sentence read ``for every person $x$, there exists a person $y$ who will love them'', but now it reads ``there exists a person $x$ who is loved by every person $y$''.
+It means that there exists an individual who happens to be in love with all of us!
+The first sentence read ``for every person $x$, there exists a person $y$ who will love them'', but now it reads ``there exists a person $y$ who loves every person $x$''.
 Do you have the slightest idea of the mess you have made by swapping two quantifiers? You have taken a cheesy sentence and transformed its meaning to postulate the existence of a love monster!
 
 The moral of the story is simple: do not swap quantifiers.
@@ -79,7 +79,7 @@ In the former case, the scope of the quantifier is $P(x)$, whereas in the latter
 
 In order to save ourselves some parentheses and make everything a little bit cleaner, we will use the following convention.
 If a sequence of quantifiers is followed by a dot, it will mean that its scope is the remainder of the predicate unless an opening parenthesis is present before the quantifiers; if this happens, the scope will end at the point where the matching closing parenthesis is located.
-Thus, in $(\forall x)(\exists y)\qsep P(x)\land Q(y)$, the scope of the first quantifier is $(\exists y)(P(x) \land Q(y)$ and that of the second is $P(x) \land Q(y)$.
+Thus, in $(\forall x)(\exists y)\qsep P(x)\land Q(y)$, the scope of the first quantifier is $(\exists y)(P(x) \land Q(y))$ and that of the second is $P(x) \land Q(y)$.
 On the other hand, in $( (\forall x)\qsep P(x) ) \land Q(x)$, the scope of the quantifier is $P(x)$.
 \end{para}
 
@@ -92,7 +92,7 @@ In other words, $\lnot (\forall x) P(x)$ is the same as $(\exists x)(\lnot P(x))
 
 Now, let us just say that I postulate the existence of a person who has the superpower of flying.
 If you wanted to show that my statement is false, you would have to prove that no person has the superpower of flying or, equivalently, that ``for every person $x$, $x$ cannot fly''.
-What is the moral of the story? That $\lnot(\exists x)P(x)$ equivalent to $(\forall x)(\lnot P(x))$.
+What is the moral of the story? That $\lnot(\exists x)P(x)$ is equivalent to $(\forall x)(\lnot P(x))$.
 
 Putting together all that we have learnt: how would you write the predicate $\lnot(\forall x)(\exists y)P(x,y)$ without having a negation connective before any quantifier?
 Take a sheet of paper and write down the result.
@@ -102,7 +102,7 @@ If you have understood this part, you should have reasoned as follows: $\lnot(\f
 If you did not, do not worry: make yourself a good cup of tea, go through this material again and give it some thinking.
 
 As you can see, when negating an expression involving the existential and universal quantifiers, the only thing we need to do is ``swap them and negate what is inside them''.
-That is a pretty easy rule, but, as always happens with this kind of shortcuts, you should only apply it if you really know what is going on underneath the hood.
+That is a pretty easy rule, but, as always happens with this kind of shortcut, you should only apply it if you really know what is going on underneath the hood.
 \end{para}
 
 
@@ -110,12 +110,12 @@ That is a pretty easy rule, but, as always happens with this kind of shortcuts, 
 There is something kind of significant in our analysis of the negation of predicates. What we have shown --- probably without your noticing --- is that one of our quantifiers is redundant. The predicate $(\exists x) P(x)$ is equivalent to $\lnot (\forall x)(\lnot P(x))$, so, in a way, there was no need to introduce the existential quantifier once we had the universal one. Conversely, $(\forall x) P(x)$ is equivalent to $\lnot(\exists x)(\lnot P(x))$, hence the existential quantifier could also serve us as our only quantifier.
 
 Despite the redundancy, we introduced both of them for an obvious reason:
-for us humans, it is more natural to think ``every $x$ verifies $P(x)$'' than ``there does not exits an $x$ not verifying $P(x)$''.
+for us humans, it is more natural to think ``every $x$ verifies $P(x)$'' than ``there does not exist an $x$ not verifying $P(x)$''.
 \end{para}
 
 \begin{para}[Pseudo-quantifiers]
 \label{pseudoquan}
-We will now introduce some ``pseudo quantifiers''.
+We will now introduce some ``pseudo-quantifiers''.
 I have given them this name --- which is, by the way, not standard whatsoever --- because they are just constructions that help us quantify over things without being proper quantifiers.
 Instead, they are mere logical artefacts that are limited to a certain kind of theories.
 
@@ -129,7 +129,7 @@ This is very easy to do. If we wanted to restrict the quantification of $(\foral
 respectively.
 You see, saying ``for all $x$ verifying $P(x)$, $Q(x)$ is true'' is the same as saying ``for all $x$, if $x$ verifies $P(x)$, then $Q(x)$ is true'', and analogously for the existential quantifier.
 
-Many theories include binary predicates $P(x,y)$ that can be written as $xPy$ --- for instance, the inclusion predicate $\in$ that we studied in our elementary treatment of set theory, --- and, given a fixed $y$, one may wish to quantify over all the elements $x$ verifying $xPy$.
+Many theories include binary predicates $P(x,y)$ that can be written as $xPy$ --- for instance, the membership predicate $\in$ that we studied in our elementary treatment of set theory, --- and, given a fixed $y$, one may wish to quantify over all the elements $x$ verifying $xPy$.
 Of course, one could write $(\forall x)(xPy\limplies Q(x))$ or $(\exists x)(xPy\land Q(x))$, but, instead of wasting time and ink with such lengthy expressions, it is common to simply use $(\forall x P y)Q(x)$ and $(\exists x P y) Q(x)$.
 Thus, if we wanted to postulate the existence of an element $X$ inside a set $Y$ verifying a property $P(x)$, we would simply have to write $(\exists X \in Y)P(X)$. 
 It is important to keep in mind that this is just shorthand notation, and we should always understand what is really going on.
@@ -153,7 +153,7 @@ What this principle states is the following: if a subset $A$ of the natural numb
 This is kind of trivial when you think about it.
 We already know that $A \subseteq \mathbb{N}$ by hypothesis, so, in order to prove that $A = \mathbb{N}$, we just need to show that $\mathbb{N} \subseteq A$.
 Thus, let $n\in\mathbb{N}$ and let us prove that $n\in A$.
-We know, by hypothesis that $1 \in A$ and --- since, for every $n\in A$, $n+1\in A$, --- then $1 + 1 \in A$ and, therefore, $1 + 1 + 1 \in A$. If we apply this reasoning $n$ times, we are led to
+We know, by hypothesis, that $1 \in A$ and --- since, for every $n\in A$, $n+1\in A$, --- then $1 + 1 \in A$ and, therefore, $1 + 1 + 1 \in A$. If we apply this reasoning $n$ times, we are led to
 \[ n = 1 + \overset{n}{\cdots} + 1 \in A.\]
 
 And how does this relate to predicates?
@@ -163,7 +163,7 @@ If we show that $1 \in A$ and that, given any $m\in A$, $m+1 \in A$, we will hav
 In other words, if we show that $P(1)$ is true and that, assuming $P(n)$ to be true, $P(n+1)$ is true, then we will know that the predicate is true for all natural numbers.
 
 This principle can be extended to what is known as \emph{strong induction} (we will refer to it as induction too).
-If, given a subset $A\subseteq \mathbb{N}$, we know that $1\in A$ and that, assuming every natural number $i$ such that $0\leq i \leq n$ to belong to $A$, we have $n+1 \in A$, then $A = \mathbb{N}$.
+If, given a subset $A\subseteq \mathbb{N}$, we know that $1\in A$ and that, assuming every natural number $i$ such that $1\leq i \leq n$ to belong to $A$, we have $n+1 \in A$, then $A = \mathbb{N}$.
 The reasoning that justifies this is essentially the same as that for normal induction.
 Of course, strong induction can also be applied to show that a certain property holds for every natural number.
 \end{para}
